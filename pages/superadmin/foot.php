@@ -30,19 +30,14 @@
                         <div class="copyright text-center my-auto">
                             <span>copyright &copy; <script>
                                 document.write(new Date().getFullYear());
-                                </script> - developed by
-                                <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
+                                </script> - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKSTRAKURIKULER
                             </span>
                         </div>
                     </div>
 
                     <div class="container my-auto py-2">
                         <div class="copyright text-center my-auto">
-                            <span>copyright &copy; <script>
-                                document.write(new Date().getFullYear());
-                                </script> - distributed by
-                                <b><a href="https://themewagon.com/" target="_blank">themewagon</a></b>
-                            </span>
+                            <h6>SMA NEGERI 1 MEJAYAN</h6>
                         </div>
                     </div>
                 </footer>
@@ -122,6 +117,7 @@ Swal.fire({
     icon: 'success',
     title: 'HALAMAN REGISTRASI DIAKTIFKAN',
     text: 'Penerimaan Calon Anggota Ekstrakurikuler Dimulai',
+    timer: 5000,
 }).then((result) => {
     window.location.href = "?";
 });
@@ -132,14 +128,25 @@ Swal.fire({
     icon: 'success',
     title: 'HALAMAN REGISTRASI DINONAKTIFKAN',
     text: 'Penerimaan Calon Anggota Ekstrakurikuler Ditutup',
+    timer: 5000,
 }).then((result) => {
     window.location.href = "?";
 });
                 </script>
-                <?php } ?>
-                <?php
-                }
-                ?>
+                <?php } else if ($_GET['mes'] == 'berhasil_app') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Aplikasi Berhasil Diubah',
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } ?> <?php
+                            }
+                                ?>
 
                 <script>
 $(document).ready(function() {

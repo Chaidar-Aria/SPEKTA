@@ -26,54 +26,56 @@ while ($row = $result->fetch_assoc()) {
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Data Aplikasi</h5>
-                <div class="row">
-                    <form class="row g-3 ml-3 mr-3">
+                <h4 class="card-title">Data Tentang Aplikasi</h4>
+                <form class="form-sample needs-validation text-start" novalidate onSubmit="return validasi(this);"
+                    action="<?php echo $url_config . 'settings.php' ?>" method="POST">
+                    <div class="row">
                         <div class="col-md-6">
-                            <label for="inputEmail4" class="form-label">Nama Aplikasi</label>
-                            <input type="email" class="form-control" id="inputEmail4">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword4" class="form-label">Versi Aplikasi</label>
-                            <input type="password" class="form-control" id="inputPassword4">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                        </div>
-                        <div class="col-12">
-                            <label for="inputAddress2" class="form-label">Address 2</label>
-                            <input type="text" class="form-control" id="inputAddress2"
-                                placeholder="Apartment, studio, or floor">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputCity" class="form-label">City</label>
-                            <input type="text" class="form-control" id="inputCity">
-                        </div>
-                        <div class="col-md-4">
-                            <label for="inputState" class="form-label">State</label>
-                            <select id="inputState" class="form-select">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="col-md-2">
-                            <label for="inputZip" class="form-label">Zip</label>
-                            <input type="text" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-12">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="gridCheck">
-                                <label class="form-check-label" for="gridCheck">
-                                    Check me out
-                                </label>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Versi Aplikasi</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="verapp" id="verapp" step="any"
+                                        required value="<?php echo $row3['app_version'] ?>" />
+                                </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Sign in</button>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Tanggal Rilis Aplikasi</label>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control" name="releasedate" id="releasedate"
+                                        min="<?php echo $row3['release_date'] ?>"
+                                        value="<?php echo $row3['release_date'] ?>" required />
+                                </div>
+                            </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Tentang Aplikasi</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" name="aboutapp" id="aboutapp" rows="10"
+                                        required><?php echo $row2['about_spekta']; ?></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="card-description">
+                        Aksi
+                    </p>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="submit" name="appsettings" id="appsettings"
+                                        class="btn btn-success btn-lg btn-block">
+                                        SIMPAN DATA</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -489,6 +491,11 @@ while ($row = $result->fetch_assoc()) {
         </div>
     </div>
     <!--Row-->
+    <script>
+    CKEDITOR.replace('aboutapp');
+    </script>
+
+
     <?php
             require_once 'foot.php';
         }

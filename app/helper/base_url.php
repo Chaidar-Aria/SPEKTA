@@ -31,6 +31,9 @@ $url_forgot = $url_page . "auth/forgot";
 $url_css = $actual_link . "/css/";
 // URL VENDORS
 $url_vendors = $actual_link . "/vendor/";
+// URL NODE MODULES
+$url_nodemodules = $actual_link . "/node_modules/";
+
 //URL JS
 $url_js = $actual_link . "/js/";
 // URL IMAGES

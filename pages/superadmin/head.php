@@ -35,6 +35,7 @@ if ($_SESSION['level'] == "") {
     <link href="<?php echo $url_css ?>ruang-admin.min.css" rel="stylesheet">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 
 </head>
 
@@ -137,7 +138,6 @@ if ($_SESSION['level'] == "") {
                 </a>
             </li>
             <hr class="sidebar-divider">
-            <div class="version" id="version-ruangadmin"></div>
         </ul>
         <!-- Sidebar -->
         <div id="content-wrapper" class="d-flex flex-column">
