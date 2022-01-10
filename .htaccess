@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.php -f
+    RewriteRule ^(.*)$ $1.php
+
+    ErrorDocument 403 http://localhost/ui_spekta/error/403
+    ErrorDocument 404 http://localhost/ui_spekta/error/404
+    ErrorDocument 408 http://localhost/ui_spekta/error/408
+    ErrorDocument 500 http://localhost/ui_spekta/error/500
+</IfModule>
