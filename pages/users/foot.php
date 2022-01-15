@@ -91,12 +91,36 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'ekstra_cbt_null') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'ANDA TIDAK DIPERBOLEHKAN MENGAKSES HALAMAN INI!',
+    text: 'Silahkan memilih Ekstrakurikuler serta Jadwal CBT untuk mencetak kartu ujian',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } else if ($_GET['mes'] == 'error') { ?>
                 <script>
 Swal.fire({
     icon: 'error',
     title: 'SISTEM SEDANG SIBUK',
     text: 'Silahkan ulangi dalam 5 menit',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_cbt') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'ANDA TELAH MEMILIH JADWAL CBT',
+    text: 'Jangan lupa untuk mengikuti ujian sesuai dengan jadwal \n silahkan mencetak kartu ujian',
     showConfirmButton: false,
     timer: 5000,
 }).then((result) => {

@@ -144,9 +144,93 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
-                <?php } ?> <?php
-                            }
-                                ?>
+                <?php } else if ($_GET['mes'] == 'gagal_fileukuran') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'UKURAN BERKAS YANG DIUNGGAH TERLALU BESAR',
+    text: 'Silahkan unggah foto dengan ukuran kurang dari 100 MB',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'gagal_fileekstensi') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'EKSTENSI BERKAS TIDAK DIPERBOLEHKAN',
+    text: 'Silahkan unggah berkas dengan ekstensi PDF, DOCX, DOC, XLSX, XLS',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'file_hapus') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERKAS BERHASIL DIHAPUS',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'verval') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data telah terverifikasi',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'tolak') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'VERVAL DITOLAK',
+    text: 'Data verval ditolak',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'fileedit_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data berkas sudah berhasil diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'fileadd_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data berkas sudah berhasil ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } ?>
+                <?php
+                }
+                ?>
 
                 <script>
 $(document).ready(function() {

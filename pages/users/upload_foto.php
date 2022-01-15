@@ -24,7 +24,7 @@ $email = $_SESSION['email'];
     $r = mysqli_query($conn, $sql) or die(mysqli_error($conn));
     while ($d = mysqli_fetch_array($r)) {
         $id_users = $d['id_users'];
-        if ($d['is_verval'] != '1' || $d['isi_foto'] == '1') {
+        if ($d['is_verval'] != '0' | $d['isi_foto'] == '1') {
     ?>
     <script>
     window.location.href = "verval"

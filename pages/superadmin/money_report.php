@@ -1,6 +1,9 @@
 <?php
+date_default_timezone_set('Asia/Jakarta');
 session_start();
-
+require_once '../../app/helper/base_url.php';
+require_once '../../app/helper/tgl_indo.php';
+require_once '../../config/koneksi.php';
 // cek apakah yang mengakses halaman ini sudah login
 if ($_SESSION['level'] == "") {
     header("location:../auth/login.php?pesan=belum_login");
@@ -9,7 +12,6 @@ if ($_SESSION['level'] == "") {
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -77,7 +79,7 @@ if ($_SESSION['level'] == "") {
 
     .invoice main .thanks {
         margin-top: -100px;
-        font-size: 2em;
+        font-size: 1em;
         margin-bottom: 50px
     }
 
@@ -208,7 +210,7 @@ if ($_SESSION['level'] == "") {
     }
 
     #blah {
-        width: 50%;
+        width: 10rem;
 
     }
     </style>
@@ -217,8 +219,6 @@ if ($_SESSION['level'] == "") {
     <?php
     // STATUS ERROR
     error_reporting(0);
-    // KONEKSI DATABASE
-    require_once '../../config/koneksi.php';
     // PEMASUKAN SEBELUMNYA //
     $bulan = date('m') - 2; //BULAN SEBELUMNYA
     // DANA SEKOLAH SEBELUMNYA
@@ -479,6 +479,7 @@ if ($_SESSION['level'] == "") {
     // $totalhutang = "Rp " . number_format($hitung_total_hutang, 2, ',', '.');
 
     ?>
+
 </head>
 
 <body>
@@ -486,11 +487,10 @@ if ($_SESSION['level'] == "") {
 
     <!--Author      : @arboshiki-->
     <div id="invoice">
-
         <div class="toolbar hidden-print">
             <div class="text-right">
                 <button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-                <a href="keuangan.php"><button class="btn btn-info"><i class="fa fa-print"></i> Kembali</button></a>
+                <a href="keuangan"><button class="btn btn-info"><i class="fa fa-print"></i> Kembali</button></a>
             </div>
             <hr>
         </div>
@@ -499,7 +499,8 @@ if ($_SESSION['level'] == "") {
                 <header>
                     <div class="row">
                         <div class="col">
-                            <img src="../../assets/img/logo_ambalan.jpg" data-holder-rendered="true" id="blah" />
+                            <img src="<?php echo $url_assets ?>img/logo_smansa.png" data-holder-rendered="true"
+                                id="blah" />
                         </div>
                         <div class="col company-details">
                             <h2 class="name">
@@ -512,15 +513,15 @@ if ($_SESSION['level'] == "") {
                             <br>
                             <div class="date">
                                 <?php
-                                // KODE LAPORAN
-                                $kode_awal = "LAPKEU";
-                                $kode_akhir = substr(str_shuffle("1234567890"), 0, 6);
-
-                                $kode_laporan = $kode_awal . -$kode_akhir;
-
                                 // TANGGAL LAPORAN
                                 $date = new DateTime();
                                 $date->modify("last day of previous month");
+                                // KODE LAPORAN
+                                $kode_awal = "LAPKEU";
+                                $kode_akhir = $date->format("Ymd");
+
+                                $kode_laporan = $kode_awal . -$kode_akhir;
+
                                 ?>
                                 Kode Laporan: <?php echo $kode_laporan ?></div>
                             <div class="date">Tanggal Laporan: <?php echo $date->format("Y-m-d"); ?></div>
@@ -955,18 +956,16 @@ if ($_SESSION['level'] == "") {
             <div></div>
         </div>
     </div>
+    <script>
+    $('#printInvoice').click(function() {
+        Popup($('.invoice')[0].outerHTML);
 
+        function Popup(data) {
+            window.print();
+            return true;
+        }
+    });
+    </script>
 </body>
-
-<script>
-$('#printInvoice').click(function() {
-    Popup($('.invoice')[0].outerHTML);
-
-    function Popup(data) {
-        window.print();
-        return true;
-    }
-});
-</script>
 
 </html>

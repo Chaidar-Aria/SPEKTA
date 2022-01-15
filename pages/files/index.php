@@ -27,8 +27,8 @@ while ($row = $result->fetch_assoc()) {
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?php echo $url_assets ?>img/Logo SP.png " rel="icon">
-    <link href="<?php echo $url_assets ?>img/Logo SP.png " rel="apple-touch-icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -44,7 +44,7 @@ while ($row = $result->fetch_assoc()) {
     <link href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css" />
     <!-- Template Main CSS File -->
     <link href="<?php echo $url_assets ?>css/style.css" rel="stylesheet">
 </head>
@@ -85,57 +85,42 @@ while ($row = $result->fetch_assoc()) {
             <header class="section-header">
                 <p>Berkas Pengumuman</p>
             </header>
-            <table class="table projects table-responsive">
-                <thead class="text-center">
-                    <tr>
-                        <th style="width: 1%">
-                            #
-                        </th>
-                        <th style="width: 5%">
-                            Nomor
-                        </th>
-                        <th style="width: 20%">
-                            Judul
-                        </th>
-                        <th style="width: 8%">
-                            Tanggal
-                        </th>
-                        <th style="width: 5%">
-                            Ketersediaan Berkas
-                        </th>
-                        <th style="width: 5%">
-                            #
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                                $no_data = 1;
-                                $query = mysqli_query($conn, "select * from tb_files");
-                                while ($data = mysqli_fetch_assoc($query)) {
-                                ?>
-                    <tr>
-                        <td><?php echo $no_data++ ?></td>
-                        <td><?php echo $data['no_file']; ?></td>
-                        <td><?php echo $data['name_file']; ?></td>
-                        <td><?php echo date("d-m-Y", strtotime($data['date_file'])); ?></td>
-                        <td>
-                            <?php if ($data['is_download'] == '1') { ?>
-                            <span class="badge bg-success">Tersedia</span>
-                            <?php } else { ?>
-                            <span class="badge bg-danger">Tidak Tersedia</span>
-                            <?php } ?> </a>
-                        </td>
-                        <td>
-                            <?php if ($data['is_download'] == '1') { ?>
-                            <a href="<?php echo $url_assets . 'file/pengumuman/' . $data['file_berkas']; ?>"
-                                download><span class="badge bg-success">Unduh</span></a>
+            <div class="table-responsive p-3">
+                <table class="table align-items-center table-flush table-hover" id="tablefiles">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Nomor</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Nomor</th>
+                            <th>Judul</th>
+                            <th>Tanggal</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <?php
+                                    $query = mysqli_query($conn, "select * from tb_files");
+                                    while ($data = mysqli_fetch_assoc($query)) {
+                                    ?>
+                        <tr>
+                            <td><?php echo $data['no_file']; ?></td>
+                            <td><?php echo $data['name_file']; ?></td>
+                            <td><?php echo date("d-m-Y", strtotime($data['date_file'])); ?></td>
+                            <td>
+                                <a href="<?php echo $url_assets . 'file/pengumuman/' . $data['file_berkas']; ?>"
+                                    download><span class="badge bg-success">Unduh</span></a>
+                            </td>
                             <?php } ?>
-                        </td>
-                        <?php } ?>
-                    </tr>
-                </tbody>
-            </table>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section><!-- End About Section -->
 
@@ -172,7 +157,14 @@ while ($row = $result->fetch_assoc()) {
     <script src="<?php echo $url_assets ?>vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="<?php echo $url_assets ?>vendor/glightbox/js/glightbox.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
+    </script>
+    <script>
+    $(document).ready(function() {
+        $('#tablefiles').DataTable();
+    });
+    </script>
     <!-- Template Main JS File -->
     <script src="<?php echo $url_assets ?>js/main.js"></script>
 </body>

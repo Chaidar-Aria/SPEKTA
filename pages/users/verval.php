@@ -205,99 +205,79 @@ $email = $_SESSION['email'];
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Jalan</label>
                                 <div class="col-sm-9">
-                                    <textarea rows="4" class="form-control" name="street" id="street" autocomplete="off"
-                                        required> <?php echo strtoupper($d['street']) ?> </textarea>
+                                    <textarea rows="4" class="form-control" name="street" id="street" required
+                                        autocomplete="off"><?php echo strtoupper($d['street']); ?> </textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">RT</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="rt" id="rt" autocomplete="off"
-                                        required value="<?php echo $d['rt'] ?>" />
+                                    <input type="number" class="form-control" name="rt" id="rt" required
+                                        autocomplete="off" value="<?php echo $d['rt']; ?>" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">RW</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="rw" id="rw" autocomplete="off"
-                                        required value="<?php echo $d['rw'] ?>" />
+                                    <input type="number" class="form-control" name="rw" id="rw" required
+                                        autocomplete="off" value="<?php echo $d['rw']; ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kode Pos</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" name="poscode" id="poscode" required
+                                        autocomplete="off" value="<?php echo $d['poscode']; ?>" />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Provinsi</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="province" id="province"
-                                        value="<?php echo strtoupper($d['province']) ?>" />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Kabupaten/Kota</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="regency" id="regency"
-                                        value="<?php echo strtoupper($d['regency']) ?>" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Kecamatan/Distrik</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="district" id="district"
-                                        value="<?php echo strtoupper($d['district']) ?>" />
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Desa/Kelurahan</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" name="village" id="village"
-                                        value="<?php echo strtoupper($d['village']) ?>" />
+                                        value="<?php echo strtoupper($d['village']); ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kecamatan/Distrik</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="district" id="district"
+                                        value="<?php echo strtoupper($d['district']); ?>" />
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- <p class="card-description">
-                        Berkas
-                    </p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Foto Calon Anggota</label>
+                                <label class="col-sm-3 col-form-label">Kabupaten/Kota</label>
                                 <div class="col-sm-9">
-                                    <img src="../images/faces/face1.jpg" alt="foto users" width=250>
+                                    <input type="text" class="form-control" name="regency" id="regency"
+                                        value="<?php echo strtoupper($d['regency']); ?>" />
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Ekstrakurikuler</label>
+                                <label class="col-sm-3 col-form-label">Provinsi</label>
                                 <div class="col-sm-9">
-                                    <select class="form-control" name="ekstrakurikuler" id="ekstrakurikuler"
-                                        autocomplete="off" required>
-                                        <?php
-                                        $data = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler");
-                                        while ($d = mysqli_fetch_array($data)) {
-                                            echo '<option value="' . $d['id_ekstra'] . '">' . $d["ekstrakurikuler"] . '</option>';
-                                        }
-                                        ?>
-                                    </select>
+                                    <input type="text" class="form-control" name="province" id="province"
+                                        value="<?php echo strtoupper($d['province']); ?>" />
                                 </div>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="col-sm-12">
                         <button type="submit" name="addbiodata" id="addbiodata"
                             class="btn btn-success btn-lg btn-block">

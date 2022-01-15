@@ -27,6 +27,7 @@ require_once '../../config/koneksi.php';
                             <th>Tanggal Ujian</th>
                             <th>Waktu Ujian</th>
                             <th>Durasi Ujian</th>
+                            <th>Status Ujian</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -36,6 +37,7 @@ require_once '../../config/koneksi.php';
                             <th>Tanggal Ujian</th>
                             <th>Waktu Ujian</th>
                             <th>Durasi Ujian</th>
+                            <th>Status Ujian</th>
                             <th>Aksi</th>
                         </tr>
                     </tfoot>
@@ -51,14 +53,19 @@ require_once '../../config/koneksi.php';
                             </td>
                             <td><?php echo $row2['cbt_timer'] . ' menit'; ?></td>
                             <td>
-                                <?php if ($row2['cbt_status'] == "1") { ?>
-                                <a onclick="sudahMulai()" id="sudahMulai" class="badge badge-primary"><i
-                                        class="fas fa-search"></i></a>
-                                <?php } else {
-                                    ?>
+                                <?php if (date("Y-m-d") < $row2['cbt_date_start']) { ?>
+                                <div class="badge badge-danger">BELUM DIMULAI</div>
+                                <?php } else if (date("Y-m-d") > $row2['cbt_date_start'] && date("Y-m-d") < $row2['cbt_date_end']) { ?>
+                                <marquee direction="down">
+                                    <div class="badge badge-success">BERLANGSUNG</div>
+                                </marquee>
+                                <?php } else { ?>
+                                <div class="badge badge-success">SELESAI</div>
+                                <?php } ?>
+                            </td>
+                            <td>
                                 <a href="<?php echo $url_superadmin . 'detailexam?test_id=' . $row2['test_id']; ?>"
                                     class="badge badge-primary"><i class="fas fa-search"></i></a>
-                                <?php } ?>
                             </td>
                         </tr>
                         <?php } ?>

@@ -118,16 +118,16 @@ if ($_SESSION['level'] == "") {
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage"
                     aria-expanded="true" aria-controls="collapsePage">
-                    <i class="fas fa-fw fa-cloud-upload-alt"></i>
-                    <span>Unggah Data</span>
+                    <i class="fas fa-fw fa-file-archive"></i>
+                    <span>Berkas</span>
                 </a>
                 <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Example Pages</h6>
-                        <a class="collapse-item" href="login.html">Login</a>
-                        <a class="collapse-item" href="register.html">Register</a>
-                        <a class="collapse-item" href="404.html">404 Page</a>
-                        <a class="collapse-item" href="blank.html">Blank Page</a>
+                        <h6 class="collapse-header">Pengaturan Berkas</h6>
+                        <a class="collapse-item" href="berkas_pengumuman">Berkas Pengumuman</a>
+                        <a class="collapse-item" href="register.html">Berkas Siswa</a>
+                        <a class="collapse-item" href="404.html">Berkas Guru</a>
+                        <a class="collapse-item" href="blank.html">Export Berkas</a>
                     </div>
                 </div>
             </li>

@@ -27,6 +27,12 @@ $sql = "SELECT * FROM tb_users
         ";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 while ($d = mysqli_fetch_array($result)) {
+    if ($d['pilih_jadwal_cbt'] == "0" | $d['pilih_ekstra'] == "0") { ?>
+<script>
+window.location.href = "exam?mes=ekstra_cbt_null";
+</script>
+<?php
+    }
     ?>
 
 <!doctype html>
@@ -85,6 +91,12 @@ while ($d = mysqli_fetch_array($result)) {
     .table-bordered th,
     .table thead th {
         border: 1px solid #000000 !important;
+    }
+
+    @page {
+        size: auto;
+        margin: 5px 0px 0px 0px;
+
     }
     </style>
 

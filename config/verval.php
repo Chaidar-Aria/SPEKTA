@@ -49,9 +49,9 @@ if (isset($_POST['setujuverval'])) {
 
     if ($conn->query($sql) === TRUE) {
 
-        header('location:../pages/superadmin/verval?pesan=verval');
+        header('location:../pages/superadmin/verval?mes=verval');
     } else {
-        header('location:../pages/superadmin/verval?pesan=gagal');
+        header('location:../pages/superadmin/verval?mes=error');
     }
 } else if (isset($_POST['tolakverval'])) {
     $id_users = $_GET['id_users'];
@@ -64,13 +64,14 @@ if (isset($_POST['setujuverval'])) {
             SET 
             is_tolak = '1',
             is_verval = '0',
+            isi_foto = '0',
             alasan_tolak = '$alasantolak'
             WHERE tb_users.id_users = '$id_users'";
     if ($conn->query($sql) === TRUE) {
-        header('location:../pages/superadmin/verval?pesan=tolak');
+        header('location:../pages/superadmin/verval?mes=tolak');
     } else {
         // echo $conn->connect_error;
-        header('location:../pages/superadmin/verval?pesan=gagal');
+        header('location:../pages/superadmin/verval?mes=error');
     }
 } else if (isset($_POST['addbiodata'])) {
     $id_users = $_GET['id_users'];

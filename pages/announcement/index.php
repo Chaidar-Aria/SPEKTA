@@ -28,8 +28,8 @@ while ($row = $result->fetch_assoc()) {
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?php echo $url_assets ?>img/Logo SP.png " rel="icon">
-    <link href="<?php echo $url_assets ?>img/Logo SP.png " rel="apple-touch-icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -98,7 +98,7 @@ while ($row = $result->fetch_assoc()) {
                         <form action="" method="POST" class="needs-validation text-start" novalidate>
                             <div class="form-group">
                                 <label for="noPreserta">Nomor Peserta</label>
-                                <input type="number" class="form-control mt-2" name="noPeserta" id="noPeserta"
+                                <input type="text" class="form-control mt-2" name="noPeserta" id="noPeserta"
                                     placeholder="Nomor Peserta" data-msg="Masukkan Nomor Peserta" required
                                     autocomplete="off" />
                                 <div class="invalid-feedback">
@@ -134,8 +134,8 @@ while ($row = $result->fetch_assoc()) {
                     $ttl = $_POST['tanggalLahir'];
 
                     $sql = "SELECT * FROM tb_users 
-                INNER JOIN tb_users_cbt
-                INNER JOIN tb_test
+                INNER JOIN tb_users_cbt ON tb_users_cbt.id_users = tb_users.id_users
+                INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt.test_id
                 WHERE tb_users_cbt.username = '$nopes' AND tb_users.birth_date = '$ttl'
                 ";
                     $result = mysqli_query($conn, $sql);

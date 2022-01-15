@@ -150,6 +150,10 @@ window.location.href = "exam?mes=ujian_berlangsung";
                         </tbody>
                     </table>
                 </div>
+                <div class="d-block text-center card-footer">
+                    <a href="export_hasil_ujian?tes_id=<?php echo $tes_id ?>" class="btn-wide btn btn-primary">EXPORT
+                        DATA</a>
+                </div>
             </div>
         </div>
         <?php
