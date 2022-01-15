@@ -5,7 +5,7 @@ $tes_id = $_GET['test_id'];
 $query2 = "SELECT * FROM tb_test INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id WHERE tb_test.test_id = $tes_id";
 $result2 = $conn->query($query2);
 while ($row2 = $result2->fetch_assoc()) {
-    if ($row2['cbt_status'] == "1") { ?>
+    if (date("Y-m-d") > $row2['cbt_date_start'] && date("Y-m-d") < $row2['cbt_date_end']) { ?>
 <script>
 window.location.href = "exam?mes=ujian_berlangsung";
 </script>

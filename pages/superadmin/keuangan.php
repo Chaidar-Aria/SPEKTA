@@ -251,7 +251,6 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 <th>Tanggal Uang Keluar</th>
                                 <th>Jumlah Uang Keluar</th>
                                 <th>Sumber Uang Keluar</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -260,7 +259,6 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 <th>Tanggal Uang Keluar</th>
                                 <th>Jumlah Uang Keluar</th>
                                 <th>Sumber Uang Keluar</th>
-                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                         <tbody>

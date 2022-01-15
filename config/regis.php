@@ -35,8 +35,8 @@ if ($r_check > 0) {
             $mail->isSMTP();
             $mail->Host         = 'smtp.mailtrap.io';
             $mail->SMTPAuth     = true;
-            $mail->Username     = 'ae3eabfd3fe9d7';
-            $mail->Password     = 'd199b90283ffca';
+            $mail->Username     = '2aa79927c9f834';
+            $mail->Password     = 'ea69ba662e15ba';
             $mail->SMTPSecure   = "TLS";
             $mail->Port = 2525;
 

@@ -32,16 +32,18 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
     $arraykeluartahun[] = $hasilkeluartahunan['jumlah'];
 }
 
-//HITUNG ADMIN
-$hitungadmin = mysqli_query($conn, "SELECT * FROM tb_account WHERE level = 'ADMIN'");
-$totaladmin = mysqli_num_rows($hitungadmin);
-
 //HITUNG TEACHER
-$hitungteacher = mysqli_query($conn, "SELECT * FROM tb_account WHERE level = 'TEACHER'");
+$hitungteacher = mysqli_query($conn, "SELECT * FROM tb_account
+        INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+        INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
+        WHERE tb_level_name.level_name = 'TEACHER'");
 $totalteacher = mysqli_num_rows($hitungteacher);
 
 //HITUNG USER
-$hitungusers = mysqli_query($conn, "SELECT * FROM tb_account WHERE level = 'USER'");
+$hitungusers = mysqli_query($conn, "SELECT * FROM tb_account
+        INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+        INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
+        WHERE tb_level_name.level_name = 'USER'");
 $totalusers = mysqli_num_rows($hitungusers);
 ?>
 
@@ -68,30 +70,8 @@ $totalusers = mysqli_num_rows($hitungusers);
     </div>
 
     <div class="row mb-3">
-        <!-- Earnings (Monthly) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="row align-items-center">
-                        <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Admin
-                            </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totaladmin ?></div>
-                            <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>
-                                    3.48%</span>
-                                <span>Since last month</span>
-                            </div>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-calendar fa-2x text-primary"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- Earnings (Annual) Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -112,7 +92,7 @@ $totalusers = mysqli_num_rows($hitungusers);
             </div>
         </div>
         <!-- New User Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -133,7 +113,7 @@ $totalusers = mysqli_num_rows($hitungusers);
             </div>
         </div>
         <!-- Pending Requests Card Example -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-4 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">

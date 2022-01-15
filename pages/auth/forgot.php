@@ -66,7 +66,7 @@ include 'head.php';
                         <img src="<?php echo $url_assets ?>img/logo_spekta.png" style="width: 50%;" alt="">
                     </div>
 
-                    <form action="<?php echo $url_config ?>lupa_password.php" method="POST"
+                    <form action="<?php echo $url_config ?>forgotpass.php" method="POST"
                         class="needs-validation text-start" novalidate>
                         <div class="form-group">
                             <label for="Email">Email</label>

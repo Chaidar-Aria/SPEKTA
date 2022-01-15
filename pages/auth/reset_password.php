@@ -14,14 +14,14 @@ if ($_SESSION) {
         header("Location: ../users/");
     }
 }
-include '../../../app/config/koneksi.php';
-include '../../../app/helper/base_url.php';
+include '../../config/koneksi.php';
+include '../../app/helper/base_url.php';
 
-$code = $_GET['reset_pass'];
+$code = $_GET['code'];
 
-$query = $conn->query("SELECT email FROM reset_account WHERE code = '$code' ");
+$query = $conn->query("SELECT email FROM tb_account WHERE code = '$code' ");
 if ($query->num_rows === 0) {
-    // header("location: forgot.php?pesan=not_found");
+    header("location: forgot.php?pesan=not_found");
 }
 $row = $query->fetch_array();
 include 'head.php';
@@ -49,13 +49,15 @@ include 'head.php';
                 <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
                     <div class="login-wrap p-3 p-md-5">
                         <div class="text-center">
-                            <img src="<?php echo $url_assets ?>img/logo_spekta.png" style="width: 50%;" alt="">
+                            <img src="<?php echo $url_assets ?>img/logo_spekta_baru.png" style="width: 50%;" alt="">
                         </div>
-                        <form action="<?php echo $url_config ?>reset.php" method="POST"
+                        <form action="<?php echo $url_config ?>forgotpass.php" method="POST"
                             class="needs-validation text-start" novalidate>
                             <div class="form-group">
-                                <input type="email" class="form-control " name="email" id="email" placeholder="Email"
-                                    data-msg="Masukkan Email" value="<?php echo $row["email"] ?>" hidden />
+                                <input type="email" class="form-control " name="email" id="email"
+                                    value="<?php echo $row["email"] ?>" hidden />
+                                <input type="text" class="form-control " name="code" id="code"
+                                    value="<?php echo $code ?>" hidden />
                             </div>
                             <div class="form-group">
                                 <label for="Password">Password</label>
@@ -95,7 +97,7 @@ include 'head.php';
     <!-- End Hero -->
     <?php
     include 'foot.php';
-    include '../template/script.php'; ?>
+    include '../../template/script.php'; ?>
     <script>
     function validasi(form) {
 

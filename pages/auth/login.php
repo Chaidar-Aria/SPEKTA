@@ -209,6 +209,18 @@ Swal.fire({
 });
 </script>
 <?php
+    } elseif ($_GET['pesan'] == "not_found") {
+    ?>
+<script>
+Swal.fire({
+    icon: 'error',
+    title: 'Gagal !',
+    text: "data tidak ditemukan di database",
+    showConfirmButton: false,
+    timer: 2000
+})
+</script>
+<?php
     } elseif ($_GET['pesan'] == "gagal") {
     ?>
 <script>

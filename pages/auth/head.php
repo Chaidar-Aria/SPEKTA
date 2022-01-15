@@ -14,8 +14,8 @@ include_once '../../app/helper/base_url.php';
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?php echo $url_assets . 'img/Logo SP.png' ?>" rel="icon">
-    <link href="<?php echo $url_assets . 'img/Logo SP.png' ?>" rel="apple-touch-icon">
+    <link href="<?php echo $url_assets . 'img/Logo SS.png' ?>" rel="icon">
+    <link href="<?php echo $url_assets . 'img/Logo SS.png' ?>" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link

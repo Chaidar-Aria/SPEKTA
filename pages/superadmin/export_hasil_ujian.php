@@ -39,7 +39,7 @@ $query = "SELECT * FROM tb_test
                             WHERE tb_users_cbt.test_id = $tes_id";
 $result = $conn->query($query);
 while ($row = $result->fetch_assoc()) {
-    if ($row['cbt_status'] == "1") { ?>
+    if (date("Y-m-d") > $row['cbt_date_start'] && date("Y-m-d") < $row['cbt_date_end']) { ?>
 <script>
 window.location.href = "exam?mes=ujian_berlangsung";
 </script>
