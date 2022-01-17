@@ -111,23 +111,12 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
-                <?php } else if ($_GET['mes'] == 'regis_aktif') { ?>
+                <?php } else if ($_GET['mes'] == 'reg_open') { ?>
                 <script>
 Swal.fire({
     icon: 'success',
-    title: 'HALAMAN REGISTRASI DIAKTIFKAN',
-    text: 'Penerimaan Calon Anggota Ekstrakurikuler Dimulai',
-    timer: 5000,
-}).then((result) => {
-    window.location.href = "?";
-});
-                </script>
-                <?php } else if ($_GET['mes'] == 'regis_nonaktif') { ?>
-                <script>
-Swal.fire({
-    icon: 'success',
-    title: 'HALAMAN REGISTRASI DINONAKTIFKAN',
-    text: 'Penerimaan Calon Anggota Ekstrakurikuler Ditutup',
+    title: 'PERUBAHAN BERHASIL',
+    text: 'Penerimaan Calon Anggota Ekstrakurikuler Akan Dimulai Pada Waktu Yang Telah Ditentukan',
     timer: 5000,
 }).then((result) => {
     window.location.href = "?";

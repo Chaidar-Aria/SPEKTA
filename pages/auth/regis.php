@@ -23,7 +23,7 @@ while ($row = $result->fetch_assoc()) {
 
 <body>
     <?php
-        if ($row['is_regis'] == '1') {
+        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
         ?>
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="hero d-flex align-items-center">
@@ -454,6 +454,25 @@ while ($row = $result->fetch_assoc()) {
 
     </section>
     <!-- End Hero -->
+    <?php } else if (date("Y-m-d", strtotime($row['date_open_reg'] . "-2 month"))) { ?>
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero d-flex align-items-center">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 d-flex flex-column justify-content-center text-center">
+                    <h1 data-aos="fade-up">PENDAFTARAN ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN
+                        <?php echo date("Y") ?></h1>
+                    <h2 data-aos="fade-up" data-aos-delay="400">DIBUKA DALAM
+                    </h2><br>
+                    <h3 data-aos="fade-up" data-aos-delay="600" id="timer">
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- End Hero -->
     <?php } else { ?>
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="hero d-flex align-items-center">
@@ -486,9 +505,40 @@ while ($row = $result->fetch_assoc()) {
     <!-- End Hero -->
 
     <?php }
-    }
-    require 'foot.php';
-    require_once '../../template/script.php'; ?>
+        $date = $row['date_open_reg'];
+        require 'foot.php';
+        require_once '../../template/script.php'; ?>
+    <script>
+    var countDownDate = <?php
+                                $h = 00;
+                                $m = 00;
+                                $s = 00;
+                                echo strtotime("$date $h:$m:$s") ?> * 1000;
+    var now = <?php echo time() ?> * 1000;
+
+    // Update the count down every 1 second
+    var x = setInterval(function() {
+        now = now + 1000;
+        // Find the distance between now an the count down date
+        var distance = countDownDate - now;
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Output the result in an element with id="demo"
+        document.getElementById("timer").innerHTML = days + " Hari " + hours + " Jam " +
+            minutes + " Menit " + seconds + " Detik ";
+        // If the count down is over, write some text 
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("timer").innerHTML = "WAKTU HABIS";
+            window.location.reload(true);
+
+        }
+
+    }, 1000);
+    </script>
     <script>
     var check = function() {
         if (
@@ -572,9 +622,9 @@ while ($row = $result->fetch_assoc()) {
     </script>
 
     <?php
-    if (isset($_GET['pesan'])) {
-        if ($_GET['pesan'] == 'gagal') {
-    ?>
+        if (isset($_GET['pesan'])) {
+            if ($_GET['pesan'] == 'gagal') {
+        ?>
     <script>
     Swal.fire({
         icon: 'error',
@@ -585,8 +635,8 @@ while ($row = $result->fetch_assoc()) {
     })
     </script>
     <?php
-        } elseif ($_GET['pesan'] == "akun_ganda") {
-        ?>
+            } elseif ($_GET['pesan'] == "akun_ganda") {
+            ?>
     <script>
     Swal.fire({
         icon: 'warning',
@@ -597,8 +647,8 @@ while ($row = $result->fetch_assoc()) {
     })
     </script>
     <?php
-        } elseif ($_GET['pesan'] == "berhasil") {
-        ?>
+            } elseif ($_GET['pesan'] == "berhasil") {
+            ?>
     <script>
     Swal.fire({
         icon: 'success',
@@ -609,6 +659,7 @@ while ($row = $result->fetch_assoc()) {
     })
     </script>
     <?php
+            }
         }
     }
     ?>

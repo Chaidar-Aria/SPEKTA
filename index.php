@@ -183,7 +183,7 @@ while ($row = $result->fetch_assoc()) {
                 </header>
                 <!-- Feature Tabs -->
                 <div class="row feture-tabs" data-aos="fade-up">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <h3>Semua informasi berada disini</h3>
                         <!-- Tab Content -->
                         <div class="tab-content">
@@ -212,17 +212,14 @@ while ($row = $result->fetch_assoc()) {
                             </div><!-- End Tab 1 Content -->
                         </div>
                     </div>
-                    <div class="col-lg-6">
-                        <img src="<?php echo $url_assets ?>img/announcement.svg" class="img-fluid" alt="" width="550">
-                        </style>
-                    </div>
+
                 </div><!-- End Feature Tabs -->
             </div>
         </section><!-- End Features Section -->
 
         <!-- ======= Timeline Section ======= -->
         <?php
-                    if ($row['is_regis'] == '1') {
+                    if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
                     ?>
         <section id="timeline" class="services">
             <div class="container">

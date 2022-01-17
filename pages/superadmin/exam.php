@@ -55,7 +55,7 @@ require_once '../../config/koneksi.php';
                             <td>
                                 <?php if (date("Y-m-d") < $row2['cbt_date_start']) { ?>
                                 <div class="badge badge-danger">BELUM DIMULAI</div>
-                                <?php } else if (date("Y-m-d") > $row2['cbt_date_start'] && date("Y-m-d") < $row2['cbt_date_end']) { ?>
+                                <?php } else if (date("Y-m-d") >= $row2['cbt_date_start'] && date("Y-m-d") <= $row2['cbt_date_end']) { ?>
                                 <marquee direction="down">
                                     <div class="badge badge-success">BERLANGSUNG</div>
                                 </marquee>

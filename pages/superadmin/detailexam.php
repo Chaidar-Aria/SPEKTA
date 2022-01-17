@@ -2,10 +2,10 @@
 require_once 'head.php';
 require_once '../../config/koneksi.php';
 $tes_id = $_GET['test_id'];
-$query2 = "SELECT * FROM tb_test INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id WHERE tb_test.test_id = $tes_id";
+$query2 = "SELECT * FROM tb_test WHERE test_id = $tes_id";
 $result2 = $conn->query($query2);
 while ($row2 = $result2->fetch_assoc()) {
-    if (date("Y-m-d") > $row2['cbt_date_start'] && date("Y-m-d") < $row2['cbt_date_end']) { ?>
+    if (date("Y-m-d") >= $row2['cbt_date_start'] && date("Y-m-d") <= $row2['cbt_date_end']) { ?>
 <script>
 window.location.href = "exam?mes=ujian_berlangsung";
 </script>
@@ -50,7 +50,8 @@ window.location.href = "exam?mes=ujian_berlangsung";
                                 INNER JOIN tb_level ON tb_level.id_users_cbt = tb_users_cbt.id_users_cbt
                                 INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
                                 INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt.test_id
-                                WHERE tb_level_name.level_name = 'USER' AND tb_users_status.work_status = '1' AND tb_test.test_id='$tes_id'");
+                                INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
+                                WHERE tb_level_name.level_name = 'USER' AND tb_users_cbt_status.work_status = '1' AND tb_test.test_id='$tes_id'");
                         $totalEnd = mysqli_num_rows($cbtEnd);
 
                         $query2 = "SELECT * FROM tb_test INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id WHERE tb_test.test_id = $tes_id";
@@ -109,12 +110,14 @@ window.location.href = "exam?mes=ujian_berlangsung";
                             INNER JOIN tb_users_cbt ON tb_test.test_id = tb_users_cbt.test_id
                             INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
                             INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
+                            INNER JOIN tb_users_cbt_grade ON tb_users_cbt.id_users_cbt = tb_users_cbt_grade.id_users_cbt
+                            INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
                             WHERE tb_users_cbt.test_id = $tes_id
                                 ";
                             $result = $conn->query($query);
+                            $jumlahdata = mysqli_num_rows($result);
                             while ($row = $result->fetch_assoc()) {
                                 $no = 1;
-
                             ?>
                             <tr>
                                 <td class="text-center text-muted"><?php echo $no++ ?></td>
@@ -131,15 +134,11 @@ window.location.href = "exam?mes=ujian_berlangsung";
                                     <?php
                                         if ($row['exam_status'] == 'TERDAFTAR') {
                                             echo "--";
-                                        } elseif ($row['grade'] <= 50) { ?>
+                                        } elseif ($row['grade'] <= $row['test_min_grade']) { ?>
                                     <h4 class="mt-2 tx-medium text-danger ">
                                         <?php echo $row['grade'] ?>
                                     </h4>
-                                    <?php } else if ($row['grade'] > 50 && $row['grade'] <= 80) { ?>
-                                    <h4 class="mt-2 tx-medium text-warning">
-                                        <?php echo $row['grade'] ?>
-                                    </h4>
-                                    <?php } else if ($row['grade'] > 80) { ?>
+                                    <?php } else if ($row['grade'] > $row['test_min_grade']) { ?>
                                     <h4 class="mt-2 tx-medium text-success">
                                         <?php echo $row['grade'] ?>
                                     </h4>
@@ -150,10 +149,14 @@ window.location.href = "exam?mes=ujian_berlangsung";
                         </tbody>
                     </table>
                 </div>
+                <?php
+                if ($jumlahdata > 0) { ?>
                 <div class="d-block text-center card-footer">
                     <a href="export_hasil_ujian?tes_id=<?php echo $tes_id ?>" class="btn-wide btn btn-primary">EXPORT
                         DATA</a>
                 </div>
+                <?php } else { ?>
+                <?php } ?>
             </div>
         </div>
         <?php

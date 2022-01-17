@@ -40,6 +40,19 @@ if ($_SESSION['level'] == "") {
 </head>
 
 <body id="page-top">
+    <?php
+    require_once '../../config/koneksi.php';
+    $query = "SELECT * FROM tb_auth_settings";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
+    ?>
+    <marquee class="mt-2" behavior="scroll" direction="left">PENDAFTARAN ANGGOTA BARU EKSTRAKURIKULER MELALUI SPEKTA
+        SMANSA TAHUN <?php echo date("Y") ?>
+        DIMULAI</marquee>
+    <?php } else { ?>
+    <?php }
+    } ?>
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">

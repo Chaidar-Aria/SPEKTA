@@ -2,17 +2,19 @@
 
 require_once "koneksi.php";
 
-if (isset($_POST['regison'])) {
-    $sql = "UPDATE tb_auth_settings SET is_regis = '1', updated_at = current_timestamp()";
+if (isset($_POST['authsettings'])) {
+    $dateoprec = $_POST['dateoprec'];
+    $datecloserec = $_POST['datecloserec'];
+    $annc = $_POST['annc'];
+
+    $sql = "UPDATE tb_auth_settings SET date_open_reg = '$dateoprec', date_close_reg = '$datecloserec', updated_at = current_timestamp()";
     if ($conn->query($sql) === TRUE) {
-        header("location:../pages/superadmin/settings?mes=regis_aktif");
-    } else {
-        header("location:../pages/superadmin/settings?mes=error");
-    }
-} else if (isset($_POST['regisoff'])) {
-    $sql = "UPDATE tb_auth_settings SET is_regis = '0', updated_at = current_timestamp()";
-    if ($conn->query($sql) === TRUE) {
-        header("location:../pages/superadmin/settings?mes=regis_nonaktif");
+        $sql2 = "UPDATE tb_app_settings SET about_app = '$annc', updated_at = current_timestamp()";
+        if ($conn->query($sql2) === TRUE) {
+            header("location:../pages/superadmin/settings?mes=reg_open");
+        } else {
+            header("location:../pages/superadmin/settings?mes=error");
+        }
     } else {
         header("location:../pages/superadmin/settings?mes=error");
     }
@@ -20,8 +22,6 @@ if (isset($_POST['regison'])) {
     $verapp = $_POST['verapp'];
     $reldate = $_POST['releasedate'];
     $aboutapp = $_POST['aboutapp'];
-
-    echo $verapp . $reldate . $aboutapp;
 
     $sql = "UPDATE tb_app_settings SET app_version = '$verapp', release_date = '$reldate', updated_at = current_timestamp()";
     if ($conn->query($sql) === TRUE) {

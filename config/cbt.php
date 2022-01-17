@@ -48,6 +48,8 @@ if (isset($_POST['addcbt'])) {
         SET 
         test_id = '$test_id',
         users_cbt_date = '$cbtdate',
+        exam_status = 'TERDAFTAR',
+        work_status ='0',
         pilih_jadwal_cbt = '1',
         username = '$username',
         password = '$password'

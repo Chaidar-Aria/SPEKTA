@@ -86,7 +86,7 @@ while ($row = $result->fetch_assoc()) {
                 <p>Berkas Pengumuman</p>
             </header>
             <div class="table-responsive p-3">
-                <table class="table align-items-center table-flush table-hover" id="tablefiles">
+                <table class="table align-items-center table-flush table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th>Nomor</th>
@@ -95,17 +95,9 @@ while ($row = $result->fetch_assoc()) {
                             <th>Aksi</th>
                         </tr>
                     </thead>
-                    <tfoot>
-                        <tr>
-                            <th>Nomor</th>
-                            <th>Judul</th>
-                            <th>Tanggal</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </tfoot>
                     <tbody>
                         <?php
-                                    $query = mysqli_query($conn, "select * from tb_files");
+                                    $query = mysqli_query($conn, "SELECT * FROM tb_files ORDER BY updated_at DESC");
                                     while ($data = mysqli_fetch_assoc($query)) {
                                     ?>
                         <tr>
@@ -159,11 +151,6 @@ while ($row = $result->fetch_assoc()) {
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
-    </script>
-    <script>
-    $(document).ready(function() {
-        $('#tablefiles').DataTable();
-    });
     </script>
     <!-- Template Main JS File -->
     <script src="<?php echo $url_assets ?>js/main.js"></script>
