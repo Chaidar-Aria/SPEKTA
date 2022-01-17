@@ -139,7 +139,7 @@ window.location.href = "exam?mes=ujian_berlangsung";
                             <th>Nama Peserta</th>
                             <th>Nomor Peserta Ujian</th>
                             <th>Tanggal Ujian</th>
-                            <th>Nilai Ujian</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>

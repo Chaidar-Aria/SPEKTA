@@ -218,7 +218,7 @@ if ($_SESSION['level'] == "") {
 
     <?php
     // STATUS ERROR
-    error_reporting(0);
+    // error_reporting(0);
     // PEMASUKAN SEBELUMNYA //
     $bulan = date('m') - 2; //BULAN SEBELUMNYA
     // DANA SEKOLAH SEBELUMNYA
@@ -467,16 +467,6 @@ if ($_SESSION['level'] == "") {
 
     $hitung_total_keluar_now = array_sum($array_total_keluar_now);
     $totalkeluarsekarang = "Rp " . number_format($hitung_total_keluar_now, 2, ',', '.');
-
-    // // TOTAL HUTANG SELURUH
-    // $bulan = date('m') - 1;
-    // $totalhutang = mysqli_query($conn, "SELECT * FROM users_money_hutang");
-    // while ($d = mysqli_fetch_array($totalhutang)) {
-    //     $array_total_hutang[] = $d['jumlah'];
-    // }
-
-    // $hitung_total_hutang = array_sum($array_total_hutang);
-    // $totalhutang = "Rp " . number_format($hitung_total_hutang, 2, ',', '.');
 
     ?>
 

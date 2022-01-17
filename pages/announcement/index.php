@@ -46,6 +46,7 @@ while ($row = $result->fetch_assoc()) {
     <link href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
 
+
     <!-- Template Main CSS File -->
     <link href="<?php echo $url_assets ?>css/style.css" rel="stylesheet">
 </head>
@@ -136,11 +137,12 @@ while ($row = $result->fetch_assoc()) {
                     $sql = "SELECT * FROM tb_users 
                 INNER JOIN tb_users_cbt ON tb_users_cbt.id_users = tb_users.id_users
                 INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt.test_id
+                INNER JOIN tb_users_cbt_grade ON tb_users_cbt.id_users_cbt = tb_users_cbt_grade.id_users_cbt
                 WHERE tb_users_cbt.username = '$nopes' AND tb_users.birth_date = '$ttl'
                 ";
                     $result = mysqli_query($conn, $sql);
                     while ($d = mysqli_fetch_array($result)) {
-                        if ($d['grade'] > 75) {
+                        if ($d['grade'] > $d['test_min_grade']) {
                 ?>
     <section id="about" class="about">
 
@@ -239,6 +241,7 @@ while ($row = $result->fetch_assoc()) {
     <script src="<?php echo $url_assets ?>vendor/purecounter/purecounter.js"></script>
     <script src="<?php echo $url_assets ?>vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="<?php echo $url_assets ?>vendor/glightbox/js/glightbox.min.js"></script>
+
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Main JS File -->
