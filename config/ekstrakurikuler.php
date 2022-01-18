@@ -5,26 +5,73 @@ require_once 'koneksi.php';
 if (isset($_POST['addpembina'])) {
     $name = $_POST['name'];
     $nip = $_POST['nip'];
-
-    $sql = "INSERT INTO tb_pembina (nip, name) VALUES ('$nip','$name')";
-    if ($conn->query($sql) === TRUE) {
-        header('location: ../pages/superadmin/pembina?pesan=berhasil');
+    $acc = $_POST['acc'];
+    $cek = "SELECT * FROM tb_pembina WHERE id_acc = '$acc' OR name='$name' OR nip = '$nip'";
+    $r = mysqli_query($conn, $cek);
+    if (mysqli_num_rows($r) > 0) {
+        header('location: ../pages/superadmin/pembina?mes=dataganda');
     } else {
-        header('location: ../pages/superadmin/pembina?pesan=gagal');
+        $sql = "INSERT INTO tb_pembina (id_acc, nip, name) VALUES ('$acc','$nip','$name')";
+        if ($conn->query($sql) === TRUE) {
+            header('location: ../pages/superadmin/pembina?mes=berhasil_addpembina');
+        } else {
+            header('location: ../pages/superadmin/pembina?mes=error');
+        }
     }
-} else if (isset($_POST['editesktra'])) {
-    $id_ekstra = $_GET['id_ekstra'];
+} else if (isset($_POST['editpembina'])) {
+    $idpembina = $_GET['idpembina'];
+    $name = $_POST['name'];
+    $nip = $_POST['nip'];
+    $acc = $_POST['acc'];
+    $cek = "SELECT * FROM tb_pembina WHERE id_acc = '$acc' OR name='$name' OR nip = '$nip'";
+    $r = mysqli_query($conn, $cek);
+    if (mysqli_num_rows($r) > 0) {
+        header('location: ../pages/superadmin/pembina?mes=dataganda');
+    } else {
+        $sql = "UPDATE tb_pembina SET name='$name', nip='$nip', id_acc='$acc' WHERE id_pembina = '$idpembina'";
+        if ($conn->query($sql) === TRUE) {
+            header('location: ../pages/superadmin/pembina?mes=berhasil_editpembina');
+        } else {
+            header('location: ../pages/superadmin/pembina?mes=error');
+        }
+    }
+} else if (isset($_POST['addbinaekstra'])) {
+    $idpembina = $_POST['acc'];
+    $ekstra = $_POST['ekstra'];
+    if (empty($ekstra)) {
+        header('location: ../pages/superadmin/bina_ekstra?id=' . $idpembina . '&mes=kosong');
+    } else {
+        $sql = "INSERT INTO tb_bina_ekstra (id_pembina, id_ekstra) VALUES ('$idpembina','$ekstra')";
+        if ($conn->query($sql) == TRUE) {
+            header('location: ../pages/superadmin/pembina?mes=berhasil_addbina');
+        } else {
+            header('location: ../pages/superadmin/pembina?mes=error');
+        }
+    }
+} else if (isset($_POST['editbinaekstra'])) {
+    $idpembina = $_GET['acc'];
+    $ekstra = $_POST['ekstra'];
+    if (empty($ekstra)) {
+        header('location: ../pages/superadmin/bina_ekstra?id=' . $idpembina . '&mes=kosong');
+    } else {
+        $sql = "UPDATE tb_bina_ekstra SET id_ekstra = '$ekstra' WHERE id_pembina = '$idpembina'";
+        if ($conn->query($sql) == TRUE) {
+            header('location: ../pages/superadmin/pembina?mes=berhasil_editbina');
+        } else {
+            header('location: ../pages/superadmin/pembina?mes=error');
+        }
+    }
+} else if (isset($_POST['editekstra'])) {
+    $id_ekstra = $_POST['idekskul'];
     $ekstrakurikuler = $_POST['ekstrakurikuler'];
-    $teacher = $_POST['pembina'];
-
-    $query = "UPDATE tb_ekstrakurikuler INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra
-                        INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users
-                        SET ekstrakurikuler = '$ekstrakurikuler', id_ekstra = '$teacher' WHERE tb_ekstrakurikuler.id_ekstra = '$id_ekstra'";
+    $query = "UPDATE tb_ekstrakurikuler SET ekstrakurikuler = '$ekstrakurikuler' WHERE id_ekstra = '$id_ekstra'";
 
     if ($conn->query($query) === TRUE) {
-        header('location: ../pages/superadmin/ekstrakurikuler?pesan=berhasil');
+        // echo $conn->connect_error;
+        header('location: ../pages/superadmin/ekstrakurikuler?mes=berhasil_edekstra');
     } else {
-        header('location: ../pages/superadmin/ekstrakurikuler?pesan=gagal');
+        // echo $conn->connect_error;
+        header('location: ../pages/superadmin/ekstrakurikuler?mes=error');
     }
 } else if (isset($_POST['addekstra'])) {
     $sql = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler ORDER BY id_ekskul DESC LIMIT 1");
@@ -34,9 +81,9 @@ if (isset($_POST['addpembina'])) {
 
         $sql = "INSERT INTO tb_ekstrakurikuler (id_ekskul, ekstrakurikuler) VALUES ('$idekskul','$ekstrakurikuler')";
         if ($conn->query($sql) === TRUE) {
-            header('location: ../pages/superadmin/ekstrakurikuler?pesan=berhasil');
+            header('location: ../pages/superadmin/ekstrakurikuler?mes=berhasil_addekstra');
         } else {
-            header('location: ../pages/superadmin/ekstrakurikuler?pesan=gagal');
+            header('location: ../pages/superadmin/ekstrakurikuler?mes=error');
         }
     }
 } else if (isset($_POST['addekstrausers'])) {
@@ -62,7 +109,4 @@ if (isset($_POST['addpembina'])) {
             header('location: ../pages/users/exam?pesan=gagal');
         }
     }
-} else {
-    // echo $conn->connect_error;
-    header('location: ../pages/users/exam?pesan=gagal');
 }

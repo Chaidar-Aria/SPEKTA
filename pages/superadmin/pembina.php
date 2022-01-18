@@ -26,19 +26,22 @@ require_once '../../config/koneksi.php';
                         <tr>
                             <th>NIP</th>
                             <th>Nama Pembina</th>
-                            <th>Aksi</th>
+                            <th>Edit Data Pembina</th>
+                            <th>Edit Data Bina Ekstra</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
                             <th>NIP</th>
                             <th>Nama Pembina</th>
-                            <th>Aksi</th>
+                            <th>Edit Data Pembina</th>
+                            <th>Edit Data Bina Ekstra</th>
                         </tr>
                     </tfoot>
                     <tbody>
                         <?php
-                        $data = mysqli_query($conn, "SELECT * FROM tb_pembina");
+                        $data = mysqli_query($conn, "SELECT * FROM tb_pembina
+                        ");
                         while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td>
@@ -47,9 +50,80 @@ require_once '../../config/koneksi.php';
                             <td>
                                 <?php echo strtoupper($d['name']); ?>
                             </td>
-                            <td><a href="<?php echo $url_superadmin . 'showmember?id_pembina=' . $d['id_pembina']; ?>"
-                                    class="badge badge-primary">Edit</a></td>
+                            <td>
+                                <a href="javascript:void(0);" data-toggle="modal"
+                                    data-target="#modalpembina<?php echo $d['id_pembina'] ?>"
+                                    class="btn btn-primary btn-sm">EDIT DATA PEMBINA
+                                </a>
+                            </td>
+                            <td>
+                                <a href="bina_ekstra?id=<?php echo $d['id_pembina'] ?>"
+                                    class="btn btn-primary btn-sm">EDIT DATA BINA EKSTRA
+                                </a>
+                            </td>
                         </tr>
+                        <div class="modal fade" id="modalpembina<?php echo $d['id_pembina'] ?>" tabindex="-1"
+                            aria-labelledby="modalberkasLabel" aria-hidden="true">
+                            <form
+                                action="<?php echo $url_config . 'ekstrakurikuler.php?idpembina=' . $d['id_pembina'] . '' ?>"
+                                method="POST" class="form-sample needs-validation " novalidate
+                                onSubmit="return validasi(this);">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Edit Data
+                                                <?php echo $d['name'] ?></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="mb-3">
+                                                <label for="nofile" class="form-label">Nomor Induk Pegawai</label>
+                                                <p style="color: red">Jika belum/tidak memiliki NIP silahkan dikosongkan
+                                                </p>
+                                                <input type="number" class="form-control" id="nip" name="nip"
+                                                    value="<?php echo $d['nip'] ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nofile" class="form-label">Nama Pembina *</label>
+                                                <input type="hidden" name="idpembina" id="idpembina"
+                                                    value="<?php echo $d['id_pembina'] ?>">
+                                                <input type="text" class="form-control" id="name" name="name"
+                                                    value="<?php echo $d['name'] ?>">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="nofile" class="form-label">Akun SPEKTA Pembina *</label>
+                                                <select class="form-control" name="acc" id="acc" required>
+                                                    <?php
+                                                        $accpembina = mysqli_query($conn, "SELECT * FROM tb_pembina");
+                                                        while ($d = mysqli_fetch_array($accpembina)) {
+                                                            $akun = mysqli_query($conn, "SELECT * FROM tb_account 
+                                                    INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+                                                    INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
+                                                    WHERE tb_level.id_level_name = '3'");
+                                                            while ($d2 = mysqli_fetch_array($akun)) { ?>
+                                                    <option <?php if ($d['id_acc'] == $d2['id_acc']) echo "selected" ?>
+                                                        value="<?php echo $d2['id_acc'] ?>">
+                                                        <?php echo $d2['email'] ?></option>
+                                                    <?php }
+                                                        }
+                                                        ?>
+                                                </select>
+                                            </div>
+                                            <p style="color: red">* = wajib diisi
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-outline-primary"
+                                                data-dismiss="modal">Cancel</button>
+                                            <button type="submit" name="editpembina"
+                                                class="btn btn-primary">Simpan</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <?php } ?>
                     </tbody>
                 </table>
@@ -84,10 +158,35 @@ require_once '../../config/koneksi.php';
                             </div>
                         </div>
                     </div>
-                    <div class="row justify-content-center">
+                    <div class="row">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary mr-2" name="addpembina">Submit</button>
-                            <button class="btn btn-light">Cancel</button>
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">AKUN Pembina</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="acc" id="acc" required>
+                                        <?php
+                                        $akun = mysqli_query($conn, "SELECT * FROM tb_account 
+                                                    INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+                                                    INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
+                                                    WHERE tb_level.id_level_name = '3'");
+                                        while ($d = mysqli_fetch_array($akun)) {
+                                            echo '<option value="' . $d['id_acc'] . '">' . $d["email"] . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-center">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    <button type="submit" name="addpembina" id="addpembina"
+                                        class="btn btn-primary btn-md btn-block">
+                                        SIMPAN</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>

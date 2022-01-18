@@ -6,7 +6,7 @@ $email = $_GET['email'];
 $kode = $_GET['code'];
 
 $sql_cek = mysqli_query($conn, "SELECT * FROM tb_account WHERE email='$email' AND code='$kode'");
-$r_check = mysqli_num_rows($sql_check);
+$r_check = mysqli_num_rows($sql_cek);
 if ($r_check == 0) {
     header('location: ../pages/auth/login?pesan=not_found');
 } else {
