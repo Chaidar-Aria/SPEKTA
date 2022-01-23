@@ -20,6 +20,7 @@ SPEKTA SMANSA - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKTRAKURIKULER SMA NE
 9. Terintegrasi dengan CBT SPEKTA
 10. Export data PDF
 11. Data ekstrakurikuler + data pembina yang selalu tersinkronasi
+12. Laporan kegiatan + surat tugas kegiatan
 
 
 Aplikasi ini milik SMA Negeri 1 Mejayan
