@@ -28,6 +28,8 @@ while ($d1 = mysqli_fetch_array($sql1)) {
         } else {
             $hitungsurat;
         }
+        $nama_dokumen = "SURAT TUGAS " . $d1['nama_kegiatan'] . " - " . date("r");
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +39,7 @@ while ($d1 = mysqli_fetch_array($sql1)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURAT TUGAS</title>
+    <title>SURAT TUGAS <?php echo $d1['nama_kegiatan'] . " - " . date("r") ?></title>
 </head>
 
 <body>
@@ -108,7 +110,7 @@ while ($d1 = mysqli_fetch_array($sql1)) {
         <br>
         <div style="width: 23%; text-align: left; float: right;">Kepala Sekolah</div><br><br><br><br><br>
         <div style="width: 23%; text-align: left; float: right;"><?php echo $d2['kepala_sekolah'] ?></div> <br>
-        <div style="width: 29%; text-align: left; float: right;">NIP. <?php echo $d2['nip_kepsek'] ?></div>
+        <div style="width: 32%; text-align: left; float: right;">NIP. <?php echo $d2['nip_kepsek'] ?></div>
 
     </div>
 </body>
@@ -121,7 +123,6 @@ $html = ob_get_contents();
 ob_end_clean();
 
 $mpdf->WriteHTML(utf8_encode($html));
-
 $mpdf->Output($nama_dokumen . ".pdf", 'I');
 
 ?>

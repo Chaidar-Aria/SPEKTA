@@ -27,9 +27,13 @@ if ($result->num_rows > 0) {
                 header("location: ../pages/admin/");
             }
         } else if ($row['level_name'] == "TEACHER") {
-            $_SESSION['email'] = $email;
-            $_SESSION['level'] = 'TEACHER';
-            header("location: ../pages/teacher/");
+            $sql = mysqli_query($conn, "SELECT * FROM tb_pembina WHERE id_acc = '" . $row['id_acc'] . "'");
+            while ($row3 = mysqli_fetch_assoc($sql)) {
+                $_SESSION['email'] = $email;
+                $_SESSION['pembina'] = $row3['id_pembina'];
+                $_SESSION['level'] = 'TEACHER';
+                header("location: ../pages/teacher/");
+            }
         } else if ($row['level_name'] == "USER") {
             $_SESSION['email'] = $email;
             $_SESSION['level'] = 'USER';

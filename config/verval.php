@@ -232,4 +232,15 @@ if (isset($_POST['setujuverval'])) {
             }
         }
     }
+} else if (isset($_POST['editpembina'])) {
+    $id = $_GET['id_pembina'];
+    $name = $_POST['name'];
+    $nip = $_POST['nip'];
+
+    $sql = "UPDATE tb_pembina SET name = '$name', nip = '$nip', updated_at = current_timestamp() WHERE id_pembina = '$id'";
+    if ($conn->query($sql) === TRUE) {
+        header('location:../pages/teacher/profile?mes=prof_sukses');
+    } else {
+        header('location:../pages/teacher/profile?mes=error');
+    }
 }

@@ -105,6 +105,56 @@ if (isset($_POST['addkegiatan'])) {
             }
         }
     }
+} else if (isset($_POST['tolakkegiatan'])) {
+    $id = $_GET['id'];
+    $alasan = $_POST['alasantolak'];
+    $sql = "UPDATE tb_kegiatan_ekstra 
+    SET alasan_tolak = '$alasan', setuju_pembina = '0' WHERE id_kegiatan = '$id'";
+    if ($conn->query($sql) === TRUE) {
+        header('location:../pages/teacher/kegiatan?mes=keg_tolak');
+        // echo $conn->connect_error . 'success';
+    } else {
+        // echo $conn->connect_error;
+        header('location:../pages/teacher/kegiatan?mes=error');
+    }
+} else if (isset($_POST['setujukegiatan'])) {
+    $id = $_GET['id'];
+    $sql = "UPDATE tb_kegiatan_ekstra 
+    SET alasan_tolak = NULL , setuju_pembina = '1', status_kegiatan ='0' WHERE id_kegiatan = '$id'";
+    if ($conn->query($sql) === TRUE) {
+        header('location:../pages/teacher/kegiatan?mes=keg_setuju');
+        // echo $conn->connect_error . 'success';
+    } else {
+        // echo $conn->connect_error;
+        header('location:../pages/teacher/kegiatan?mes=error');
+    }
+} else if (isset($_POST['upsurat'])) {
+    $id = $_GET['id'];
+    $limit = 10 * 1024 * 1024;
+    $ukuran    = $_FILES['surattugas']['size'];
+    $files = $_FILES['surattugas']['name'];
+    $eks_dibolehkan = ['pdf']; // ekstensi yang diperbolehkan
+    $x = explode('.', $files); // memisahkan nama file dengan ekstensi
+    $ekstensi = strtolower(end($x));
+    $file_tmp = $_FILES['surattugas']['tmp_name'];
+    if ($ukuran > $limit) {
+        header('location:../pages/admin/kegiatan?mes=gagal_surukuran');
+    } else {
+        if (!in_array($ekstensi, $eks_dibolehkan)) {
+            // echo $ekstensi;
+            header('location:../pages/admin/kegiatan?mes=gagal_surekstensi');
+        } else {
+            move_uploaded_file($file_tmp, '../assets/file/surat_tugas/' . $files);
+            $sql = "UPDATE tb_kegiatan_ekstra SET surat_tugas = '$files' WHERE id_kegiatan = '$id'";
+            if ($conn->query($sql) === TRUE) {
+                header('location:../pages/teacher/kegiatan?mes=surat_upload');
+                // echo $conn->connect_error . 'success';
+            } else {
+                // echo $conn->connect_error;
+                header('location:../pages/teacher/kegiatan?mes=error');
+            }
+        }
+    }
 } else if ($_GET['status'] == "selesai") {
     $idkeg = $_GET['id'];
     $sql = "UPDATE tb_kegiatan_ekstra SET status_kegiatan = '1' WHERE id_kegiatan = '$idkeg'";

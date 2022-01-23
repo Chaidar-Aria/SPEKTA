@@ -7,7 +7,7 @@ if ($_SESSION) {
     if ($_SESSION['level'] == "ADMIN") {
         header("Location: ../admin/");
     }
-    if ($_SESSION['level'] == "GURU") {
+    if ($_SESSION['level'] == "TEACHER") {
         header("Location: ../teacher/");
     }
     if ($_SESSION['level'] == "USER") {
@@ -57,7 +57,7 @@ include 'head.php';
                         <div class="form-group">
                             <label for="Email">Email</label>
                             <input type="email" class="form-control mt-2" name="email" id="email" placeholder="Email"
-                                data-msg="Masukkan Email" required autocomplete="off" />
+                                data-msg="Masukkan Email" required autocomplete="off" autofocus />
                             <div class="invalid-feedback">
                                 Masukkan Email
                             </div>

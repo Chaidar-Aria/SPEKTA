@@ -179,8 +179,9 @@ $a = date("H");
                                         </div>
                                         <div class="modal-footer">
                                             <?php if ($d['setuju_pembina'] == '1' && $d['status_kegiatan'] == '0') { ?>
-                                            <a target="blank" href="surat_tugas?id=<?php echo $d['id_kegiatan'] ?>"
-                                                type="button" class="btn btn-primary text-white">Cetak
+                                            <a target="blank"
+                                                href="<?php echo $url_assets . 'file/surat_tugas/' . $d['surat_tugas'] ?>"
+                                                type="button" class="btn btn-primary text-white">Unduh
                                                 Surat Tugas</a>
                                             <a href="<?php echo $url_config . "kegiatan?id=" . $d['id_kegiatan'] . "&status=selesai" ?>"
                                                 type="button" class="btn btn-success text-white">Kegiatan

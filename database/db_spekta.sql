@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 10 Jan 2022 pada 00.54
+-- Waktu pembuatan: 23 Jan 2022 pada 05.39
 -- Versi server: 5.7.33
 -- Versi PHP: 7.4.19
 
@@ -44,9 +44,35 @@ CREATE TABLE `tb_account` (
 
 INSERT INTO `tb_account` (`id_acc`, `email`, `password`, `is_active`, `code`, `active_at`, `created_at`, `updated_at`) VALUES
 (1, 'admin@spekta.com', 'admin12345', 1, NULL, NULL, '2021-12-26 15:05:20', '2021-12-26 15:05:20'),
-(2, 'user@spekta.com', 'user12345', 1, 'cd693d782f0c27480e09c6b59517e90dd6199412f2ef184cf1e5fc595d7d7f2b', '2021-12-27 12:41:20', '2021-12-27 03:43:26', '2021-12-27 03:43:26'),
-(3, 'pramuka@spekta.com', 'pramuka_12345', 1, NULL, NULL, '2021-12-27 04:05:27', '2021-12-27 04:05:27'),
-(4, 'teacher@spekta.com', 'teacher12345', 1, NULL, NULL, '2021-12-27 04:18:58', '2021-12-27 04:18:58');
+(2, 'user@spekta.com', 'User_12345', 1, NULL, '2021-12-27 12:41:20', '2021-12-27 03:43:26', '2021-12-27 03:43:26'),
+(3, 'pramuka@spekta.com', 'pramuka12345', 1, NULL, NULL, '2021-12-27 04:05:27', '2021-12-27 04:05:27'),
+(4, 'teacher@spekta.com', 'teacher12345', 1, NULL, NULL, '2021-12-27 04:18:58', '2021-12-27 04:18:58'),
+(6, 'chaidar@spekta.com', 'Chaidar_813', 1, '6ad4257dd56fb57b280acc6769f24a94386ce69b3908a8046466b38c64192cbf', '2022-01-15 04:19:48', '2022-01-15 03:37:14', '2022-01-15 03:37:14'),
+(7, 'guru@spekta.com', 'guru12345', 0, NULL, NULL, '2022-01-18 02:29:02', '2022-01-18 02:29:02'),
+(8, 'pmr@spekta.com', 'pmr12345', 1, NULL, NULL, '2022-01-19 14:25:49', '2022-01-19 14:25:49');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
+  `id_admin` int(11) NOT NULL,
+  `id_acc` int(11) DEFAULT NULL,
+  `id_ekstra` int(11) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`id_admin`, `id_acc`, `id_ekstra`, `name`, `created_at`, `updated_at`) VALUES
+(1, 3, 13, 'admin pramuka', '2022-01-19 14:17:46', '2022-01-19 14:17:46'),
+(2, 8, 14, 'admin palang merah remaja', '2022-01-19 14:27:38', '2022-01-19 14:27:38');
 
 -- --------------------------------------------------------
 
@@ -56,8 +82,9 @@ INSERT INTO `tb_account` (`id_acc`, `email`, `password`, `is_active`, `code`, `a
 
 CREATE TABLE `tb_app_settings` (
   `id_app_settings` int(11) NOT NULL,
-  `about_app` varchar(1000) NOT NULL,
+  `about_app` varchar(10000) NOT NULL,
   `app_version` varchar(11) NOT NULL,
+  `release_date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -66,8 +93,8 @@ CREATE TABLE `tb_app_settings` (
 -- Dumping data untuk tabel `tb_app_settings`
 --
 
-INSERT INTO `tb_app_settings` (`id_app_settings`, `about_app`, `app_version`, `created_at`, `updated_at`) VALUES
-(1, 'ini adalah aplikasi testing', '1.1.1', '2021-11-23 15:15:35', '2021-11-23 15:15:35');
+INSERT INTO `tb_app_settings` (`id_app_settings`, `about_app`, `app_version`, `release_date`, `created_at`, `updated_at`) VALUES
+(1, '<p><big>PENDAFTARAN<var> </var>ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN ANGGARAN 2022 AKAN DIBUKA PADA TANGGAL 18 JANUARI 2022 PUKUL 00.00 WIB</big></p>\r\n\r\n<p>PERLU DIINGAT BAHWA SELURUH KEGIATAN DIMULAI DAN DIAKHIRI PADA PUKUL 00.00 WIB</p>\r\n', '1.0.1', '2022-01-10', '2021-11-23 15:15:35', '2022-01-18 01:34:12');
 
 -- --------------------------------------------------------
 
@@ -77,6 +104,8 @@ INSERT INTO `tb_app_settings` (`id_app_settings`, `about_app`, `app_version`, `c
 
 CREATE TABLE `tb_auth_settings` (
   `id_auth_setting` int(11) NOT NULL,
+  `date_open_reg` date DEFAULT NULL,
+  `date_close_reg` date DEFAULT NULL,
   `is_regis` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -86,8 +115,8 @@ CREATE TABLE `tb_auth_settings` (
 -- Dumping data untuk tabel `tb_auth_settings`
 --
 
-INSERT INTO `tb_auth_settings` (`id_auth_setting`, `is_regis`, `created_at`, `updated_at`) VALUES
-(1, 1, '2021-11-23 14:38:54', '2021-11-23 14:38:54');
+INSERT INTO `tb_auth_settings` (`id_auth_setting`, `date_open_reg`, `date_close_reg`, `is_regis`, `created_at`, `updated_at`) VALUES
+(1, '2022-01-18', '2022-01-31', 0, '2021-11-23 14:38:54', '2022-01-17 14:00:17');
 
 -- --------------------------------------------------------
 
@@ -102,6 +131,14 @@ CREATE TABLE `tb_bina_ekstra` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_bina_ekstra`
+--
+
+INSERT INTO `tb_bina_ekstra` (`id_bina_ekstra`, `id_ekstra`, `id_pembina`, `created_at`, `updated_at`) VALUES
+(2, 13, 3, '2022-01-18 13:36:09', '2022-01-18 13:36:09'),
+(3, 14, 4, '2022-01-18 14:08:10', '2022-01-18 14:08:10');
 
 -- --------------------------------------------------------
 
@@ -124,7 +161,7 @@ CREATE TABLE `tb_cbt_time` (
 INSERT INTO `tb_cbt_time` (`id_time`, `test_id`, `cbt_timer`, `created_at`, `updated_at`) VALUES
 (1, 1, 30, '2021-12-27 15:19:29', '2021-12-27 15:19:29'),
 (2, 2, 30, '2022-01-02 06:42:26', '2022-01-02 06:42:26'),
-(4, 6, 10, '2022-01-02 06:43:40', '2022-01-02 06:43:40');
+(5, 7, 100, '2022-01-15 02:22:29', '2022-01-15 02:22:29');
 
 -- --------------------------------------------------------
 
@@ -175,6 +212,31 @@ INSERT INTO `tb_class` (`id_class`, `class`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `tb_data_sekolah`
+--
+
+CREATE TABLE `tb_data_sekolah` (
+  `id_data_sekolah` int(11) NOT NULL,
+  `nama_sekolah` varchar(1000) DEFAULT NULL,
+  `alamat_sekolah` varchar(1000) DEFAULT NULL,
+  `kepala_sekolah` varchar(1000) DEFAULT NULL,
+  `nip_kepsek` varchar(100) DEFAULT NULL,
+  `email_sekolah` varchar(1000) DEFAULT NULL,
+  `no_telp_sekolah` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_data_sekolah`
+--
+
+INSERT INTO `tb_data_sekolah` (`id_data_sekolah`, `nama_sekolah`, `alamat_sekolah`, `kepala_sekolah`, `nip_kepsek`, `email_sekolah`, `no_telp_sekolah`, `created_at`, `updated_at`) VALUES
+(1, 'SMA NEGERI 1 MEJAYAN', 'Jl. P. Sudirman, No. 82, Kec. Mejayan, Kab. Madiun, Kode Pos: 53153', 'KEPSEK1', '20200101 202201 1 001', 'sman1mjy@yahoo.co.id', '+62 0123 4567 890', '2022-01-23 01:36:16', '2022-01-23 01:36:16');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `tb_ekstrakurikuler`
 --
 
@@ -214,11 +276,10 @@ INSERT INTO `tb_ekstrakurikuler` (`id_ekstra`, `id_ekskul`, `ekstrakurikuler`, `
 
 CREATE TABLE `tb_files` (
   `id_files` int(11) NOT NULL,
-  `no_file` varchar(50) NOT NULL,
-  `name_file` varchar(1000) NOT NULL,
-  `date_file` date NOT NULL,
-  `file_berkas` varchar(1000) NOT NULL,
-  `is_download` tinyint(4) NOT NULL DEFAULT '0',
+  `no_file` varchar(50) DEFAULT NULL,
+  `name_file` varchar(1000) DEFAULT NULL,
+  `date_file` date DEFAULT NULL,
+  `file_berkas` varchar(1000) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -227,8 +288,41 @@ CREATE TABLE `tb_files` (
 -- Dumping data untuk tabel `tb_files`
 --
 
-INSERT INTO `tb_files` (`id_files`, `no_file`, `name_file`, `date_file`, `file_berkas`, `is_download`, `created_at`, `updated_at`) VALUES
-(1, '1-221-2', 'Penetapan CASN Kab. Madiun 2021 oleh Menpan', '2021-11-06', '1. Penetapan CASN Kab. Madiun 2021 oleh Menpan.pdf', 1, '2021-11-23 15:40:38', '2021-11-23 15:40:38');
+INSERT INTO `tb_files` (`id_files`, `no_file`, `name_file`, `date_file`, `file_berkas`, `created_at`, `updated_at`) VALUES
+(17, '1-221-2', 'FILE 1', '2021-11-06', 'pdfcoffee.com_aws-exam-pdf-free.pdf', '2022-01-12 13:46:54', '2022-01-12 13:46:54'),
+(23, '1-0-0', '123', '2022-01-14', 'DATA SASARAN TPK.xlsx', '2022-01-12 14:43:34', '2022-01-12 14:43:34');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_kegiatan_ekstra`
+--
+
+CREATE TABLE `tb_kegiatan_ekstra` (
+  `id_kegiatan` int(11) NOT NULL,
+  `id_ekstra` int(11) DEFAULT NULL,
+  `kode_kegiatan` varchar(100) DEFAULT NULL,
+  `nama_kegiatan` varchar(1000) DEFAULT NULL,
+  `tanggal_mulai_kegiatan` date DEFAULT NULL,
+  `tanggal_selesai_kegiatan` date DEFAULT NULL,
+  `penyelenggara_kegiatan` varchar(1000) DEFAULT NULL,
+  `peserta_kegiatan` int(11) DEFAULT NULL,
+  `status_kegiatan` tinyint(4) NOT NULL DEFAULT '0',
+  `setuju_pembina` tinyint(4) NOT NULL DEFAULT '0',
+  `alasan_tolak` varchar(1000) DEFAULT NULL,
+  `surat_tugas` varchar(10000) DEFAULT NULL,
+  `bukti_kegiatan` varchar(10000) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_kegiatan_ekstra`
+--
+
+INSERT INTO `tb_kegiatan_ekstra` (`id_kegiatan`, `id_ekstra`, `kode_kegiatan`, `nama_kegiatan`, `tanggal_mulai_kegiatan`, `tanggal_selesai_kegiatan`, `penyelenggara_kegiatan`, `peserta_kegiatan`, `status_kegiatan`, `setuju_pembina`, `alasan_tolak`, `surat_tugas`, `bukti_kegiatan`, `created_at`, `updated_at`) VALUES
+(1, 14, '111-210122-keg-1', 'kegiatan 1', '2022-01-20', '2022-01-22', NULL, 1, 0, 1, NULL, 'Laju reaksi.pdf', NULL, '2022-01-20 11:49:40', '2022-01-20 11:49:40'),
+(3, 13, '110-230122-keg-3', 'REKAP', '2022-01-23', '2022-01-23', 'SPEKTA', 1, 0, 1, NULL, 'SURAT TUGAS REKAP - Sun, 23 Jan 2022 11_08_32 +0700.pdf', 'Leaflet Unesa 2022 rev.pdf', '2022-01-23 02:40:33', '2022-01-23 02:40:33');
 
 -- --------------------------------------------------------
 
@@ -253,7 +347,10 @@ INSERT INTO `tb_level` (`id_level`, `id_level_name`, `id_acc`, `id_users_cbt`, `
 (1, 1, 1, 3, '2021-12-26 15:06:03', '2021-12-26 15:06:03'),
 (2, 4, 2, 4, '2021-12-27 03:43:38', '2021-12-27 03:43:38'),
 (3, 2, 3, NULL, '2021-12-27 04:05:27', '2021-12-27 04:05:27'),
-(4, 3, 4, NULL, '2021-12-27 04:18:58', '2021-12-27 04:18:58');
+(4, 3, 4, NULL, '2021-12-27 04:18:58', '2021-12-27 04:18:58'),
+(5, 4, 6, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48'),
+(6, 3, 7, NULL, '2022-01-18 02:29:02', '2022-01-18 02:29:02'),
+(7, 2, 8, NULL, '2022-01-19 14:31:31', '2022-01-19 14:31:31');
 
 -- --------------------------------------------------------
 
@@ -298,7 +395,8 @@ CREATE TABLE `tb_pembina` (
 --
 
 INSERT INTO `tb_pembina` (`id_pembina`, `id_acc`, `name`, `nip`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'test', 12345, '2021-12-27 04:49:36', '2021-12-27 04:49:36');
+(3, 4, 'TEST', 12345, '2022-01-18 03:01:22', '2022-01-18 03:01:22'),
+(4, 7, 'TEST1', 54321, '2022-01-18 14:08:05', '2022-01-18 14:08:05');
 
 -- --------------------------------------------------------
 
@@ -401,6 +499,7 @@ CREATE TABLE `tb_test` (
   `test_id` int(5) NOT NULL,
   `sub_id` int(5) DEFAULT NULL,
   `test_name` varchar(500) DEFAULT NULL,
+  `test_min_grade` varchar(100) DEFAULT NULL,
   `cbt_date_start` date DEFAULT NULL,
   `cbt_date_end` date DEFAULT NULL,
   `cbt_time_start` time DEFAULT NULL,
@@ -415,10 +514,10 @@ CREATE TABLE `tb_test` (
 -- Dumping data untuk tabel `tb_test`
 --
 
-INSERT INTO `tb_test` (`test_id`, `sub_id`, `test_name`, `cbt_date_start`, `cbt_date_end`, `cbt_time_start`, `cbt_time_end`, `cbt_token`, `cbt_status`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'UJI COBA CBT', '2021-12-01', '2021-12-31', '07:00:00', '09:00:00', '', 0, '2021-12-26 13:43:36', '2021-12-26 13:43:36'),
-(2, NULL, 'UJI COBA 2', '2022-01-02', '2022-01-02', NULL, NULL, NULL, 0, '2022-01-02 06:40:46', '2022-01-02 06:40:46'),
-(6, NULL, 'UJI 3', '2022-01-03', '2022-01-04', NULL, NULL, NULL, 0, '2022-01-02 06:43:40', '2022-01-02 06:43:40');
+INSERT INTO `tb_test` (`test_id`, `sub_id`, `test_name`, `test_min_grade`, `cbt_date_start`, `cbt_date_end`, `cbt_time_start`, `cbt_time_end`, `cbt_token`, `cbt_status`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'UJI COBA CBT', NULL, '2021-12-01', '2021-12-31', '07:00:00', '09:00:00', NULL, 0, '2021-12-26 13:43:36', '2021-12-26 13:43:36'),
+(2, NULL, 'UJI COBA 2', '50', '2022-01-02', '2022-01-15', NULL, NULL, NULL, 1, '2022-01-02 06:40:46', '2022-01-02 06:40:46'),
+(7, NULL, 'UJI CBT 1', NULL, '2022-01-16', '2022-01-22', NULL, NULL, NULL, 0, '2022-01-15 02:22:28', '2022-01-15 02:22:28');
 
 -- --------------------------------------------------------
 
@@ -432,6 +531,7 @@ CREATE TABLE `tb_uang_keluar` (
   `tgl_pengeluaran` date NOT NULL,
   `jumlah` int(11) NOT NULL,
   `id_sumber` int(11) NOT NULL,
+  `id_ekstra` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -440,11 +540,16 @@ CREATE TABLE `tb_uang_keluar` (
 -- Dumping data untuk tabel `tb_uang_keluar`
 --
 
-INSERT INTO `tb_uang_keluar` (`id_pengeluaran`, `kode_uang_keluar`, `tgl_pengeluaran`, `jumlah`, `id_sumber`, `created_at`, `updated_at`) VALUES
-(7, 'uang-keluar-02122117', '2021-12-02', 650000, 9, '2021-12-02 04:28:21', '2021-12-02 04:28:21'),
-(8, 'uang-keluar-02122138', '2021-11-05', 45000, 11, '2021-12-02 04:28:33', '2021-12-02 04:28:33'),
-(9, 'uang-keluar-02122114', '2021-11-28', 25000, 10, '2021-12-02 15:12:53', '2021-12-02 15:12:53'),
-(10, 'uang-keluar-02122177', '2021-10-26', 50000, 13, '2021-12-02 15:31:21', '2021-12-02 15:31:21');
+INSERT INTO `tb_uang_keluar` (`id_pengeluaran`, `kode_uang_keluar`, `tgl_pengeluaran`, `jumlah`, `id_sumber`, `id_ekstra`, `created_at`, `updated_at`) VALUES
+(7, 'uang-keluar-02122117', '2021-12-02', 650000, 9, NULL, '2021-12-02 04:28:21', '2021-12-02 04:28:21'),
+(8, 'uang-keluar-02122138', '2021-11-05', 45000, 11, NULL, '2021-12-02 04:28:33', '2021-12-02 04:28:33'),
+(9, 'uang-keluar-02122114', '2021-11-28', 25000, 10, NULL, '2021-12-02 15:12:53', '2021-12-02 15:12:53'),
+(10, 'uang-keluar-02122177', '2021-10-26', 50000, 13, NULL, '2021-12-02 15:31:21', '2021-12-02 15:31:21'),
+(11, 'uang-keluar-15012223', '2022-01-16', 250000, 8, NULL, '2022-01-15 02:54:21', '2022-01-15 02:54:21'),
+(12, '110-keluar-220120', '2021-11-09', 500, 8, 13, '2022-01-19 22:37:40', '2022-01-19 22:37:40'),
+(14, '111-keluar-220120', '2021-12-20', 500000, 12, 13, '2022-01-20 08:07:11', '2022-01-20 08:07:11'),
+(15, '111-keluar-220120', '2022-01-19', 50000, 8, 14, '2022-01-20 08:07:22', '2022-01-20 08:07:22'),
+(16, '111-keluar-220120-1642666415', '2021-12-31', 95000, 8, 14, '2022-01-20 08:13:35', '2022-01-20 08:13:35');
 
 -- --------------------------------------------------------
 
@@ -458,6 +563,7 @@ CREATE TABLE `tb_uang_masuk` (
   `tgl_pemasukan` date NOT NULL,
   `jumlah` int(11) NOT NULL,
   `id_sumber` int(11) NOT NULL,
+  `id_ekstra` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -466,17 +572,23 @@ CREATE TABLE `tb_uang_masuk` (
 -- Dumping data untuk tabel `tb_uang_masuk`
 --
 
-INSERT INTO `tb_uang_masuk` (`id_pemasukan`, `kode_uang_masuk`, `tgl_pemasukan`, `jumlah`, `id_sumber`, `created_at`, `updated_at`) VALUES
-(16, 'uang-masuk-02122123', '2021-11-26', 171500, 5, '2021-12-02 04:27:31', '2021-12-02 04:27:31'),
-(18, 'uang-masuk-02122118', '2020-12-31', 1000000, 1, '2021-12-02 04:49:19', '2021-12-02 04:49:19'),
-(19, 'uang-masuk-02122117', '2020-12-31', 550000, 1, '2021-12-02 05:06:06', '2021-12-02 05:06:06'),
-(20, 'uang-masuk-02122128', '2020-11-02', 60000, 7, '2021-12-02 05:06:29', '2021-12-02 05:06:29'),
-(21, 'uang-masuk-02122120', '2021-11-18', 750000, 1, '2021-12-02 14:28:27', '2021-12-02 14:28:27'),
-(22, 'uang-masuk-02122170', '2021-10-31', 550000, 3, '2021-12-02 14:50:21', '2021-12-02 14:50:21'),
-(23, 'uang-masuk-02122111', '2021-10-27', 50000, 2, '2021-12-02 15:09:43', '2021-12-02 15:09:43'),
-(24, 'uang-masuk-02122125', '2021-10-12', 75000, 6, '2021-12-02 15:20:50', '2021-12-02 15:20:50'),
-(25, 'uang-masuk-02122129', '2021-10-21', 50000, 1, '2021-12-02 15:21:05', '2021-12-02 15:21:05'),
-(26, 'uang-masuk-02122119', '2021-10-30', 250000, 4, '2021-12-02 15:21:51', '2021-12-02 15:21:51');
+INSERT INTO `tb_uang_masuk` (`id_pemasukan`, `kode_uang_masuk`, `tgl_pemasukan`, `jumlah`, `id_sumber`, `id_ekstra`, `created_at`, `updated_at`) VALUES
+(16, 'uang-masuk-02122123', '2021-11-26', 171500, 5, NULL, '2021-12-02 04:27:31', '2021-12-02 04:27:31'),
+(18, 'uang-masuk-02122118', '2020-12-31', 1000000, 1, NULL, '2021-12-02 04:49:19', '2021-12-02 04:49:19'),
+(19, 'uang-masuk-02122117', '2020-12-31', 550000, 1, NULL, '2021-12-02 05:06:06', '2021-12-02 05:06:06'),
+(20, 'uang-masuk-02122128', '2020-11-02', 60000, 7, NULL, '2021-12-02 05:06:29', '2021-12-02 05:06:29'),
+(21, 'uang-masuk-02122120', '2021-11-18', 750000, 1, NULL, '2021-12-02 14:28:27', '2021-12-02 14:28:27'),
+(22, 'uang-masuk-02122170', '2021-10-31', 550000, 3, NULL, '2021-12-02 14:50:21', '2021-12-02 14:50:21'),
+(23, 'uang-masuk-02122111', '2021-10-27', 50000, 2, NULL, '2021-12-02 15:09:43', '2021-12-02 15:09:43'),
+(24, 'uang-masuk-02122125', '2021-10-12', 75000, 6, NULL, '2021-12-02 15:20:50', '2021-12-02 15:20:50'),
+(25, 'uang-masuk-02122129', '2021-10-21', 50000, 1, NULL, '2021-12-02 15:21:05', '2021-12-02 15:21:05'),
+(26, 'uang-masuk-02122119', '2021-10-30', 250000, 4, NULL, '2021-12-02 15:21:51', '2021-12-02 15:21:51'),
+(27, 'uang-masuk-15012213', '2022-01-15', 1000000, 1, NULL, '2022-01-15 02:53:43', '2022-01-15 02:53:43'),
+(28, 'uang-masuk-17012212', '2021-12-31', 900000, 1, NULL, '2022-01-17 14:01:54', '2022-01-17 14:01:54'),
+(29, 'uang-masuk-17012243', '2021-11-17', 85000, 2, NULL, '2022-01-17 14:02:38', '2022-01-17 14:02:38'),
+(30, '110-masuk-220120', '2021-11-02', 500, 1, 13, '2022-01-19 22:38:02', '2022-01-19 22:38:02'),
+(35, '111-masuk-220120-13141330832', '2022-01-20', 50000, 4, 14, '2022-01-20 08:12:34', '2022-01-20 08:12:34'),
+(36, '111-masuk-220120-11498664744', '2021-11-20', 200000, 7, 14, '2022-01-20 08:13:12', '2022-01-20 08:13:12');
 
 -- --------------------------------------------------------
 
@@ -533,7 +645,8 @@ CREATE TABLE `tb_users` (
 --
 
 INSERT INTO `tb_users` (`id_users`, `id_acc`, `id_ekstra_1`, `id_ekstra_2`, `nisn`, `nis`, `name`, `gender`, `birth_place`, `birth_date`, `id_class`, `id_religion`, `created_at`, `updated_at`) VALUES
-(1, 2, 13, 14, 1234567890, 12345, 'USER', 'L', 'A', '2000-01-01', 18, 1, '2021-12-27 12:41:20', '2021-12-27 12:41:20');
+(1, 2, 13, 14, 1234567890, 12345, 'USER', 'L', 'A', '2000-01-01', 18, 1, '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
+(2, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
 
 -- --------------------------------------------------------
 
@@ -561,7 +674,8 @@ CREATE TABLE `tb_users_address` (
 --
 
 INSERT INTO `tb_users_address` (`id_address`, `id_users`, `street`, `rt`, `rw`, `village`, `district`, `regency`, `province`, `poscode`, `created_at`, `updated_at`) VALUES
-(1, 1, 'A   ', '1', '1', 'A', 'A', 'A', 'A', 123456, '2021-12-27 12:41:20', '2021-12-27 12:41:20');
+(1, 1, 'A          ', '1', '1', 'KENONGOREJO', 'PILANGKENCENG', 'MADIUN', 'JAWA TIMUR', 123456, '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
+(2, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
 
 -- --------------------------------------------------------
 
@@ -577,7 +691,6 @@ CREATE TABLE `tb_users_cbt` (
   `users_cbt_date` date DEFAULT NULL,
   `username` varchar(250) DEFAULT NULL,
   `password` varchar(250) DEFAULT NULL,
-  `grade` varchar(100) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -586,9 +699,69 @@ CREATE TABLE `tb_users_cbt` (
 -- Dumping data untuk tabel `tb_users_cbt`
 --
 
-INSERT INTO `tb_users_cbt` (`id_users_cbt`, `id_users`, `test_id`, `no_regis_admin`, `users_cbt_date`, `username`, `password`, `grade`, `created_at`, `updated_at`) VALUES
-(3, NULL, NULL, 'ADMIN-011-010101', NULL, 'admin', 'admin12345', NULL, '2021-12-26 15:07:39', '2021-12-26 15:07:39'),
-(4, 1, 1, NULL, '2021-12-31', '6750142839', '3BWoHe52', '100', '2021-12-27 12:41:20', '2021-12-27 12:41:20');
+INSERT INTO `tb_users_cbt` (`id_users_cbt`, `id_users`, `test_id`, `no_regis_admin`, `users_cbt_date`, `username`, `password`, `created_at`, `updated_at`) VALUES
+(3, NULL, NULL, 'ADMIN-011-010101', NULL, 'admin', 'admin12345', '2021-12-26 15:07:39', '2021-12-26 15:07:39'),
+(4, 1, 2, NULL, '2022-01-02', '1-22-110-111', 'lyWcripX', '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
+(5, 2, NULL, NULL, NULL, NULL, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_users_cbt_choice`
+--
+
+CREATE TABLE `tb_users_cbt_choice` (
+  `id_cbt_choice` int(11) NOT NULL,
+  `id_users_cbt` int(11) DEFAULT NULL,
+  `test_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_users_cbt_grade`
+--
+
+CREATE TABLE `tb_users_cbt_grade` (
+  `id_grade` int(11) NOT NULL,
+  `id_users_cbt` int(11) DEFAULT NULL,
+  `test_id` int(11) DEFAULT NULL,
+  `grade` varchar(100) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_users_cbt_grade`
+--
+
+INSERT INTO `tb_users_cbt_grade` (`id_grade`, `id_users_cbt`, `test_id`, `grade`, `created_at`, `updated_at`) VALUES
+(1, 4, 2, '100.00', '2022-01-16 02:48:59', '2022-01-16 02:48:59');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tb_users_cbt_status`
+--
+
+CREATE TABLE `tb_users_cbt_status` (
+  `id_status_cbt` int(11) NOT NULL,
+  `id_users_cbt` int(11) DEFAULT NULL,
+  `test_id` int(11) DEFAULT NULL,
+  `exam_status` varchar(50) NOT NULL DEFAULT 'TERDAFTAR',
+  `work_status` tinyint(4) NOT NULL DEFAULT '0',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tb_users_cbt_status`
+--
+
+INSERT INTO `tb_users_cbt_status` (`id_status_cbt`, `id_users_cbt`, `test_id`, `exam_status`, `work_status`, `created_at`, `updated_at`) VALUES
+(1, 4, 2, 'SELESAI', 1, '2022-01-16 03:01:56', '2022-01-16 03:01:56');
 
 -- --------------------------------------------------------
 
@@ -603,8 +776,6 @@ CREATE TABLE `tb_users_status` (
   `isi_foto` tinyint(4) NOT NULL DEFAULT '0',
   `is_permanent` tinyint(4) NOT NULL DEFAULT '0',
   `is_verval` tinyint(4) NOT NULL DEFAULT '0',
-  `is_member_ekstra1` tinyint(4) NOT NULL DEFAULT '0',
-  `is_member_ekstra2` tinyint(4) NOT NULL DEFAULT '0',
   `is_reset` tinyint(4) NOT NULL DEFAULT '0',
   `pilih_ekstra` tinyint(4) NOT NULL DEFAULT '0',
   `pilih_jadwal_cbt` tinyint(4) NOT NULL DEFAULT '0',
@@ -612,8 +783,6 @@ CREATE TABLE `tb_users_status` (
   `permanent_at` timestamp NULL DEFAULT NULL,
   `verval_at` timestamp NULL DEFAULT NULL,
   `alasan_tolak` varchar(500) DEFAULT NULL,
-  `exam_status` varchar(50) NOT NULL DEFAULT 'TERDAFTAR',
-  `work_status` tinyint(4) NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -622,8 +791,9 @@ CREATE TABLE `tb_users_status` (
 -- Dumping data untuk tabel `tb_users_status`
 --
 
-INSERT INTO `tb_users_status` (`id_status`, `id_users`, `isi_verval`, `isi_foto`, `is_permanent`, `is_verval`, `is_member_ekstra1`, `is_member_ekstra2`, `is_reset`, `pilih_ekstra`, `pilih_jadwal_cbt`, `is_tolak`, `permanent_at`, `verval_at`, `alasan_tolak`, `exam_status`, `work_status`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, '2022-01-08 13:33:00', '2022-01-09 14:04:18', '', 'FINISH', 1, '2021-12-27 12:41:20', '2021-12-27 12:41:20');
+INSERT INTO `tb_users_status` (`id_status`, `id_users`, `isi_verval`, `isi_foto`, `is_permanent`, `is_verval`, `is_reset`, `pilih_ekstra`, `pilih_jadwal_cbt`, `is_tolak`, `permanent_at`, `verval_at`, `alasan_tolak`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 0, 1, 1, 0, 1, 1, 0, '2022-01-12 13:37:33', '2022-01-20 03:07:59', '', '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
+(2, 2, 0, 0, 0, 0, 0, 0, 0, 0, NULL, NULL, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
 
 -- --------------------------------------------------------
 
@@ -645,7 +815,8 @@ CREATE TABLE `tb_users_utility` (
 --
 
 INSERT INTO `tb_users_utility` (`id_utility`, `id_users`, `id_spekta`, `foto_users`, `created_at`, `updated_at`) VALUES
-(1, 1, '110-111-00-01', '09-01-2022-daniel-mirlea-ELUsgVzRXl4-unsplash.jpg', '2021-12-27 12:41:20', '2021-12-27 12:41:20');
+(1, 1, '110-111-00-01', '12-01-2022-128221176_1317352301949132_1053601950648797114_n.jpg', '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
+(2, 2, NULL, NULL, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
 
 -- --------------------------------------------------------
 
@@ -665,7 +836,7 @@ CREATE TABLE `tb_web_settings` (
 --
 
 INSERT INTO `tb_web_settings` (`id_web_settings`, `about_spekta`, `created_at`, `updated_at`) VALUES
-(1, 'Sistem Pencatatan Keuangan dan Keanggotaan Ekstrakurikuler SMA Negeri 1 Mejayan merupakan sebuah wadah\nbagi ekstrakurikuler untuk melaporkan segala macam laporan baik dari sisi keuangan maupun keadministrasian.\nSPEKTA SMANSA ini dibuat pada tahun 2021 dan diluncurkan pada tahun 2022. Dengan diluncurkannya SPEKTA SMANSA ini\ndiharapkan bisa memberikan wadah bagi ekstrakurikuler untuk memudahkan koordinasi dengan pihah sekolah dan juga \nguna mempercepat pelaporan ekstrakurikuler.', '2021-11-23 14:48:26', '2021-11-23 14:48:26');
+(1, '<p><strong>SPEKTA SMANSA&nbsp;</strong>atau<strong> Sistem Pencatatan Keuangan dan Keanggotaan Ekstrakurikuler SMA Negeri 1 Mejayan</strong> merupakan sebuah wadah bagi ekstrakurikuler untuk melaporkan segala macam laporan baik dari sisi keuangan maupun keadministrasian.&nbsp;Dengan diluncurkannya <strong>SPEKTA SMANSA</strong> ini diharapkan bisa memberikan wadah bagi ekstrakurikuler untuk memudahkan koordinasi dengan pihah sekolah dan juga guna mempercepat pelaporan ekstrakurikuler.</p>\r\n', '2021-11-23 14:48:26', '2022-01-18 01:34:12');
 
 --
 -- Indexes for dumped tables
@@ -676,6 +847,14 @@ INSERT INTO `tb_web_settings` (`id_web_settings`, `about_spekta`, `created_at`, 
 --
 ALTER TABLE `tb_account`
   ADD PRIMARY KEY (`id_acc`);
+
+--
+-- Indeks untuk tabel `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`id_admin`),
+  ADD KEY `id_acc` (`id_acc`),
+  ADD KEY `id_ekstra` (`id_ekstra`);
 
 --
 -- Indeks untuk tabel `tb_app_settings`
@@ -695,7 +874,9 @@ ALTER TABLE `tb_auth_settings`
 ALTER TABLE `tb_bina_ekstra`
   ADD PRIMARY KEY (`id_bina_ekstra`),
   ADD KEY `id_ekstra` (`id_ekstra`),
-  ADD KEY `id_pembina` (`id_pembina`);
+  ADD KEY `id_pembina` (`id_pembina`),
+  ADD KEY `id_pembina1` (`id_pembina`),
+  ADD KEY `id_pembina_2` (`id_pembina`);
 
 --
 -- Indeks untuk tabel `tb_cbt_time`
@@ -711,6 +892,12 @@ ALTER TABLE `tb_class`
   ADD PRIMARY KEY (`id_class`);
 
 --
+-- Indeks untuk tabel `tb_data_sekolah`
+--
+ALTER TABLE `tb_data_sekolah`
+  ADD PRIMARY KEY (`id_data_sekolah`);
+
+--
 -- Indeks untuk tabel `tb_ekstrakurikuler`
 --
 ALTER TABLE `tb_ekstrakurikuler`
@@ -721,6 +908,14 @@ ALTER TABLE `tb_ekstrakurikuler`
 --
 ALTER TABLE `tb_files`
   ADD PRIMARY KEY (`id_files`);
+
+--
+-- Indeks untuk tabel `tb_kegiatan_ekstra`
+--
+ALTER TABLE `tb_kegiatan_ekstra`
+  ADD PRIMARY KEY (`id_kegiatan`),
+  ADD KEY `id_ekstra` (`id_ekstra`),
+  ADD KEY `peserta_kegiatan` (`peserta_kegiatan`);
 
 --
 -- Indeks untuk tabel `tb_level`
@@ -774,14 +969,16 @@ ALTER TABLE `tb_test`
 --
 ALTER TABLE `tb_uang_keluar`
   ADD PRIMARY KEY (`id_pengeluaran`),
-  ADD KEY `id_sumber` (`id_sumber`);
+  ADD KEY `id_sumber` (`id_sumber`),
+  ADD KEY `id_ekstra` (`id_ekstra`);
 
 --
 -- Indeks untuk tabel `tb_uang_masuk`
 --
 ALTER TABLE `tb_uang_masuk`
   ADD PRIMARY KEY (`id_pemasukan`),
-  ADD KEY `id_sumber` (`id_sumber`);
+  ADD KEY `id_sumber` (`id_sumber`),
+  ADD KEY `id_ekstra` (`id_ekstra`);
 
 --
 -- Indeks untuk tabel `tb_useranswer`
@@ -821,6 +1018,30 @@ ALTER TABLE `tb_users_cbt`
   ADD KEY `test_id` (`test_id`);
 
 --
+-- Indeks untuk tabel `tb_users_cbt_choice`
+--
+ALTER TABLE `tb_users_cbt_choice`
+  ADD PRIMARY KEY (`id_cbt_choice`),
+  ADD KEY `id_users_cbt` (`id_users_cbt`),
+  ADD KEY `test_id` (`test_id`);
+
+--
+-- Indeks untuk tabel `tb_users_cbt_grade`
+--
+ALTER TABLE `tb_users_cbt_grade`
+  ADD PRIMARY KEY (`id_grade`),
+  ADD KEY `id_users_cbt` (`id_users_cbt`),
+  ADD KEY `test_id` (`test_id`);
+
+--
+-- Indeks untuk tabel `tb_users_cbt_status`
+--
+ALTER TABLE `tb_users_cbt_status`
+  ADD PRIMARY KEY (`id_status_cbt`),
+  ADD KEY `id_users_cbt` (`id_users_cbt`),
+  ADD KEY `test_id` (`test_id`);
+
+--
 -- Indeks untuk tabel `tb_users_status`
 --
 ALTER TABLE `tb_users_status`
@@ -848,7 +1069,13 @@ ALTER TABLE `tb_web_settings`
 -- AUTO_INCREMENT untuk tabel `tb_account`
 --
 ALTER TABLE `tb_account`
-  MODIFY `id_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  MODIFY `id_admin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_app_settings`
@@ -866,19 +1093,25 @@ ALTER TABLE `tb_auth_settings`
 -- AUTO_INCREMENT untuk tabel `tb_bina_ekstra`
 --
 ALTER TABLE `tb_bina_ekstra`
-  MODIFY `id_bina_ekstra` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bina_ekstra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_cbt_time`
 --
 ALTER TABLE `tb_cbt_time`
-  MODIFY `id_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_time` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_class`
 --
 ALTER TABLE `tb_class`
   MODIFY `id_class` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_data_sekolah`
+--
+ALTER TABLE `tb_data_sekolah`
+  MODIFY `id_data_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_ekstrakurikuler`
@@ -890,13 +1123,19 @@ ALTER TABLE `tb_ekstrakurikuler`
 -- AUTO_INCREMENT untuk tabel `tb_files`
 --
 ALTER TABLE `tb_files`
-  MODIFY `id_files` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_files` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_kegiatan_ekstra`
+--
+ALTER TABLE `tb_kegiatan_ekstra`
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_level`
 --
 ALTER TABLE `tb_level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_level_name`
@@ -908,7 +1147,7 @@ ALTER TABLE `tb_level_name`
 -- AUTO_INCREMENT untuk tabel `tb_pembina`
 --
 ALTER TABLE `tb_pembina`
-  MODIFY `id_pembina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pembina` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_question`
@@ -932,19 +1171,19 @@ ALTER TABLE `tb_sumber_uang`
 -- AUTO_INCREMENT untuk tabel `tb_test`
 --
 ALTER TABLE `tb_test`
-  MODIFY `test_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `test_id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_uang_keluar`
 --
 ALTER TABLE `tb_uang_keluar`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_uang_masuk`
 --
 ALTER TABLE `tb_uang_masuk`
-  MODIFY `id_pemasukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_pemasukan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_useranswer`
@@ -956,31 +1195,49 @@ ALTER TABLE `tb_useranswer`
 -- AUTO_INCREMENT untuk tabel `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_address`
 --
 ALTER TABLE `tb_users_address`
-  MODIFY `id_address` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_address` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt`
 --
 ALTER TABLE `tb_users_cbt`
-  MODIFY `id_users_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_users_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_users_cbt_choice`
+--
+ALTER TABLE `tb_users_cbt_choice`
+  MODIFY `id_cbt_choice` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_users_cbt_grade`
+--
+ALTER TABLE `tb_users_cbt_grade`
+  MODIFY `id_grade` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT untuk tabel `tb_users_cbt_status`
+--
+ALTER TABLE `tb_users_cbt_status`
+  MODIFY `id_status_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_status`
 --
 ALTER TABLE `tb_users_status`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_utility`
 --
 ALTER TABLE `tb_users_utility`
-  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_web_settings`
@@ -991,6 +1248,13 @@ ALTER TABLE `tb_web_settings`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`id_acc`) REFERENCES `tb_account` (`id_acc`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_admin_ibfk_2` FOREIGN KEY (`id_ekstra`) REFERENCES `tb_ekstrakurikuler` (`id_ekstra`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_bina_ekstra`
@@ -1004,6 +1268,13 @@ ALTER TABLE `tb_bina_ekstra`
 --
 ALTER TABLE `tb_cbt_time`
   ADD CONSTRAINT `tb_cbt_time_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tb_test` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_kegiatan_ekstra`
+--
+ALTER TABLE `tb_kegiatan_ekstra`
+  ADD CONSTRAINT `tb_kegiatan_ekstra_ibfk_1` FOREIGN KEY (`id_ekstra`) REFERENCES `tb_ekstrakurikuler` (`id_ekstra`) ON DELETE NO ACTION ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_kegiatan_ekstra_ibfk_2` FOREIGN KEY (`peserta_kegiatan`) REFERENCES `tb_users` (`id_users`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_level`
@@ -1029,13 +1300,15 @@ ALTER TABLE `tb_question`
 -- Ketidakleluasaan untuk tabel `tb_uang_keluar`
 --
 ALTER TABLE `tb_uang_keluar`
-  ADD CONSTRAINT `tb_uang_keluar_ibfk_1` FOREIGN KEY (`id_sumber`) REFERENCES `tb_sumber_uang` (`id_sumber`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_uang_keluar_ibfk_1` FOREIGN KEY (`id_sumber`) REFERENCES `tb_sumber_uang` (`id_sumber`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_uang_keluar_ibfk_2` FOREIGN KEY (`id_ekstra`) REFERENCES `tb_ekstrakurikuler` (`id_ekstra`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_uang_masuk`
 --
 ALTER TABLE `tb_uang_masuk`
-  ADD CONSTRAINT `tb_uang_masuk_ibfk_1` FOREIGN KEY (`id_sumber`) REFERENCES `tb_sumber_uang` (`id_sumber`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tb_uang_masuk_ibfk_1` FOREIGN KEY (`id_sumber`) REFERENCES `tb_sumber_uang` (`id_sumber`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_uang_masuk_ibfk_2` FOREIGN KEY (`id_ekstra`) REFERENCES `tb_ekstrakurikuler` (`id_ekstra`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_useranswer`
@@ -1067,6 +1340,27 @@ ALTER TABLE `tb_users_address`
 ALTER TABLE `tb_users_cbt`
   ADD CONSTRAINT `tb_users_cbt_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `tb_test` (`test_id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `tb_users_cbt_ibfk_2` FOREIGN KEY (`id_users`) REFERENCES `tb_users` (`id_users`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_users_cbt_choice`
+--
+ALTER TABLE `tb_users_cbt_choice`
+  ADD CONSTRAINT `tb_users_cbt_choice_ibfk_1` FOREIGN KEY (`id_users_cbt`) REFERENCES `tb_users_cbt` (`id_users_cbt`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_users_cbt_choice_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tb_test` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_users_cbt_grade`
+--
+ALTER TABLE `tb_users_cbt_grade`
+  ADD CONSTRAINT `tb_users_cbt_grade_ibfk_1` FOREIGN KEY (`id_users_cbt`) REFERENCES `tb_users_cbt` (`id_users_cbt`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_users_cbt_grade_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tb_test` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `tb_users_cbt_status`
+--
+ALTER TABLE `tb_users_cbt_status`
+  ADD CONSTRAINT `tb_users_cbt_status_ibfk_1` FOREIGN KEY (`id_users_cbt`) REFERENCES `tb_users_cbt` (`id_users_cbt`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `tb_users_cbt_status_ibfk_2` FOREIGN KEY (`test_id`) REFERENCES `tb_test` (`test_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `tb_users_status`
