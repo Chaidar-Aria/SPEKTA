@@ -14,7 +14,13 @@ require_once '../../config/koneksi.php';
             <li class="breadcrumb-item active" aria-current="page">Verifikasi dan Validasi</li>
         </ol>
     </div>
+    <?php
+    $query = "SELECT * FROM tb_auth_settings";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
 
+    ?>
     <div class="col-lg-12">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -43,11 +49,12 @@ require_once '../../config/koneksi.php';
                     <tbody>
                         <?php
 
-                        $data = mysqli_query($conn, "SELECT * FROM tb_users
-                                         INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-                                         INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users 
-                                         WHERE tb_account.level = 'USER' AND tb_users_status.is_permanent = '1' AND tb_users_status.is_tolak = '0'");
-                        while ($d = mysqli_fetch_array($data)) { ?>
+                                $data = mysqli_query($conn, "SELECT * FROM tb_users
+                                        INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
+                                        INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users 
+                                        INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+                                        WHERE tb_level.id_level_name = '4' AND tb_users_status.is_permanent = '1' AND tb_users_status.is_tolak = '0'");
+                                while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td><?php echo strtoupper($d['name']); ?></td>
                             <td>
@@ -79,7 +86,7 @@ require_once '../../config/koneksi.php';
     <div class="col-lg-12">
         <div class="card mb-4">
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Data Tolak Verfiikasi dan Validasi</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Data Tolak Verfikasi dan Validasi</h6>
             </div>
             <div class="table-responsive p-3">
                 <table class="table align-items-center table-flush table-hover" id="tabeltolak">
@@ -106,11 +113,12 @@ require_once '../../config/koneksi.php';
                     <tbody>
                         <?php
 
-                        $data = mysqli_query($conn, "SELECT * FROM tb_users
-                                         INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-                                         INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users 
-                                         WHERE tb_account.level = 'USER' AND tb_users_status.is_permanent = '1' AND tb_users_status.is_tolak = '1'");
-                        while ($d = mysqli_fetch_array($data)) { ?>
+                                $data = mysqli_query($conn, "SELECT * FROM tb_users
+                                        INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
+                                        INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users 
+                                        INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
+                                        WHERE tb_level.id_level_name = '4' AND tb_users_status.is_permanent = '1' AND tb_users_status.is_tolak = '1'");
+                                while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td><?php echo strtoupper($d['name']); ?></td>
                             <td>
@@ -135,7 +143,23 @@ require_once '../../config/koneksi.php';
             </div>
         </div>
     </div>
-
+    <?php } else { ?>
+    <div class="col-lg-12">
+        <div class="card text-center">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 d-flex flex-column justify-content-center">
+                        <h5 data-aos="fade-up">PENDAFTARAN ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN
+                            <?php echo date("Y") ?> DITUTUP</h5>
+                        <h6 data-aos="fade-up" data-aos-delay="400">HALAMAN VERIFIKASI DAN VALIDASI DITUTUP
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php }
+    } ?>
     <?php
     require_once 'foot.php';
     ?>

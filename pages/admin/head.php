@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../../config/koneksi.php';
 require_once '../../app/helper/base_url.php';
 require_once '../../app/helper/tgl_indo.php';
 // cek apakah yang mengakses halaman ini sudah login
@@ -9,6 +10,7 @@ if ($_SESSION['level'] == "") {
     header("location:../auth/login.php?pesan=forbidden");
 }
 
+$idekstra = $_SESSION['ekstra'];
 ?>
 
 
@@ -21,7 +23,7 @@ if ($_SESSION['level'] == "") {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="<?php echo $url_assets ?>img/Logo SP.png" rel=" icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png" rel=" icon">
     <title>Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler Smansa | SMA Negeri 1 Mejayan</title>
     <link href="<?php echo $url_vendors ?>fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="<?php echo $url_vendors ?>bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -29,15 +31,33 @@ if ($_SESSION['level'] == "") {
         href="https://cdn.datatables.net/v/bs4/dt-1.11.3/date-1.1.1/r-2.2.9/sc-2.0.5/sb-1.3.0/sp-1.4.0/datatables.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
     <link href="<?php echo $url_css ?>ruang-admin.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 </head>
 
 <body id="page-top">
+    <?php
+    require_once '../../config/koneksi.php';
+    $query = "SELECT * FROM tb_auth_settings";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
+    ?>
+    <marquee class="mt-2" behavior="scroll" direction="left">PENDAFTARAN ANGGOTA BARU EKSTRAKURIKULER MELALUI SPEKTA
+        SMANSA TAHUN <?php echo date("Y") ?>
+        DIMULAI | Halaman Verifikasi dan Validasi hanya dapat diakses selama masa pendaftaran</marquee>
+    <?php } else { ?>
+    <?php }
+    } ?>
     <div id="wrapper">
         <!-- Sidebar -->
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?php echo $url_admin ?>">
                 <div class="sidebar-brand-icon">
-                    <img src="<?php echo $url_assets ?>img/Logo SP.png">
+                    <img src="<?php echo $url_assets ?>img/Logo SS.png">
                 </div>
                 <div class="sidebar-brand-text mx-3">SPEKTA SMANSA</div>
             </a>
@@ -76,6 +96,21 @@ if ($_SESSION['level'] == "") {
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Keuangan</h6>
                         <a class="collapse-item" href="keuangan">Data Keuangan</a>
+                        <a class="collapse-item" href="pemasukan">Data Pemasukan</a>
+                        <a class="collapse-item" href="pengeluaran">Data Pengeluaran</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#kegiatanForm"
+                    aria-expanded="true" aria-controls="collapseForm">
+                    <i class="fas fa-fw fa-chart-line"></i>
+                    <span>Kegiatan</span>
+                </a>
+                <div id="kegiatanForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Kegiatan</h6>
+                        <a class="collapse-item" href="kegiatan">Data kegiatan</a>
                         <a class="collapse-item" href="pemasukan">Data Pemasukan</a>
                         <a class="collapse-item" href="pengeluaran">Data Pengeluaran</a>
                     </div>
@@ -282,9 +317,17 @@ if ($_SESSION['level'] == "") {
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="img-profile rounded-circle" src="<?php echo $url_assets ?>img/Logo SP.png"
+                                <img class="img-profile rounded-circle" src="<?php echo $url_assets ?>img/Logo SS.png"
                                     style=" max-width: 60px">
-                                <span class="ml-2 d-none d-lg-inline text-white small">ADMIN</span>
+                                <span class="ml-2 d-none d-lg-inline text-white small">
+                                    <?php // NAMA EKSTRA
+                                    $sqlekstra = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                    INNER JOIN tb_admin ON tb_ekstrakurikuler.id_ekstra = tb_admin.id_ekstra
+                                    WHERE tb_ekstrakurikuler.id_ekstra = '$idekstra'");
+                                    while ($data = mysqli_fetch_array($sqlekstra)) {
+                                        echo "ADMIN-" . $data['id_ekskul'];
+                                    } ?>
+                                </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">

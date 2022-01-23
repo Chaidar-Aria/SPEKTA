@@ -1,5 +1,6 @@
                 <!-- Modal Logout -->
-                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabelLogout" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -12,7 +13,8 @@
                                 <p>Apakah anda ingin logout dari sistem?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-outline-primary"
+                                    data-dismiss="modal">Cancel</button>
                                 <a href="<?php echo $url_config ?>logout" class="btn btn-primary">Logout</a>
                             </div>
                         </div>
@@ -23,24 +25,19 @@
                 <!---Container Fluid-->
                 </div>
                 <!-- Footer -->
-                <footer class="sticky-footer bg-white">
+                <footer class="sticky-footer bg-white mt-3">
                     <div class="container my-auto">
                         <div class="copyright text-center my-auto">
                             <span>copyright &copy; <script>
-                                    document.write(new Date().getFullYear());
-                                </script> - developed by
-                                <b><a href="https://indrijunanda.gitlab.io/" target="_blank">indrijunanda</a></b>
+                                document.write(new Date().getFullYear());
+                                </script> - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKSTRAKURIKULER
                             </span>
                         </div>
                     </div>
 
                     <div class="container my-auto py-2">
                         <div class="copyright text-center my-auto">
-                            <span>copyright &copy; <script>
-                                    document.write(new Date().getFullYear());
-                                </script> - distributed by
-                                <b><a href="https://themewagon.com/" target="_blank">themewagon</a></b>
-                            </span>
+                            <h6>SMA NEGERI 1 MEJAYAN</h6>
                         </div>
                     </div>
                 </footer>
@@ -63,124 +60,236 @@
                 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
                 </script>
                 <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-                <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
                 <!-- Page level custom scripts -->
+                <?php
+                if (isset($_GET['mes'])) {
+                    if ($_GET['mes'] == 'berhasil') {
+                ?>
                 <script>
-                    $(".js-example-basic-multiple").select2({
-                        maximumSelectionLength: 2
-                    });
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data telah berhasil ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
                 </script>
+                <?php
+                    } else if ($_GET['mes'] == 'hapus') { ?>
                 <script>
-                    $(document).ready(function() {
-                        $('#tabeltolak').DataTable();
-                        $('#tabelverval').DataTable();
-                        $('#tabelmember').DataTable();
-                        $('#tabelaccount').DataTable();
-                        $('#tabeluangmasuk').DataTable();
-                        $('#tabeluangkeluar').DataTable();
-                        $('#tabelekskul').DataTable();
-
-                    });
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data telah berhasil dihapus',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
                 </script>
+                <?php } else if ($_GET['mes'] == 'error') { ?>
                 <script>
-                    // Example starter JavaScript for disabling form submissions if there are invalid fields
-                    (function() {
-                        'use strict'
+Swal.fire({
+    icon: 'error',
+    title: 'SISTEM SEDANG SIBUK',
+    text: 'Silahkan ulangi dalam 5 menit',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'reg_open') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'PERUBAHAN BERHASIL',
+    text: 'Penerimaan Calon Anggota Ekstrakurikuler Akan Dimulai Pada Waktu Yang Telah Ditentukan',
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_app') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Aplikasi Berhasil Diubah',
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'gagal_kegeukuran') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'UKURAN BERKAS YANG DIUNGGAH TERLALU BESAR',
+    text: 'Silahkan unggah berkas dengan ukuran kurang dari 10 MB',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'gagal_kegekstensi') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'EKSTENSI BERKAS TIDAK DIPERBOLEHKAN',
+    text: 'Silahkan unggah berkas dengan ekstensi PDF',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'keg_hapus') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'DATA KEGIATAN BERHASIL DIHAPUS',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'verval') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data telah terverifikasi',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'tolak') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'VERVAL DITOLAK',
+    text: 'Data verval ditolak',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'keged_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data kegiatan sudah berhasil diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'kegadd_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data kegiatan sudah berhasil ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_edekstra') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Ekstrakurikuler Berhasil Diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_addpembina') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Pembina Berhasil Ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_editpembina') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Pembina Berhasil Diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'dataganda') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'PERINGATAN',
+    text: 'Ditemukan data ganda',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } ?>
+                <?php
+                }
+                ?>
+                <script>
+$(document).ready(function() {
+    $('#tabeltolak').DataTable();
+    $('#tabelverval').DataTable();
+    $('#tabelmember').DataTable();
+    $('#tabelaccount').DataTable();
+    $('#tabeluangmasuk').DataTable();
+    $('#tabeluangkeluar').DataTable();
+    $('#tabelekskul').DataTable();
+    $('#tabelkegiatan').DataTable();
 
-                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                        var forms = document.querySelectorAll('.needs-validation')
+});
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+    'use strict'
 
-                        // Loop over them and prevent submission
-                        Array.prototype.slice.call(forms)
-                            .forEach(function(form) {
-                                form.addEventListener('submit', function(event) {
-                                    if (!form.checkValidity()) {
-                                        event.preventDefault()
-                                        event.stopPropagation()
-                                    }
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
 
-                                    form.classList.add('was-validated')
-                                }, false)
-                            })
-                    })()
-                    var check = function() {
-                        if (document.getElementById('password').value ==
-                            document.getElementById('confirm_password').value) {
-                            document.getElementById('message').style.color = 'green';
-                            document.getElementById('message').innerHTML = 'SESUAI';
-                        } else {
-                            document.getElementById('message').style.color = 'red';
-                            document.getElementById('message').innerHTML = 'TIDAK SESUAI';
-                        }
-                    }
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function(form) {
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
 
-                    function validasi(form) {
-
-                        if (form.password.value.length < 8) {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: 'PERINGATAN !',
-                                text: "Password harus terdiri dari angka, huruf besar, huruf kecil, dan minimal 8 karakter ",
-                                showConfirmButton: false,
-                                timer: 2000
-                            });
-                            return false;
-                        }
-                    }
-
-                    // timeout before a callback is called
-
-                    let timeout;
-
-                    // traversing the DOM and getting the input and span using their IDs
-
-                    let password = document.getElementById('password')
-                    let strengthBadge = document.getElementById('StrengthDisp')
-
-                    // The strong and weak password Regex pattern checker
-
-                    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
-                    let mediumPassword = new RegExp(
-                        '((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))'
-                    )
-
-                    function StrengthChecker(PasswordParameter) {
-                        // We then change the badge's color and text based on the password strength
-
-                        if (strongPassword.test(PasswordParameter)) {
-                            strengthBadge.style.backgroundColor = "green"
-                            strengthBadge.textContent = 'KUAT'
-                        } else if (mediumPassword.test(PasswordParameter)) {
-                            strengthBadge.style.backgroundColor = 'blue'
-                            strengthBadge.textContent = 'SEDANG'
-                        } else {
-                            strengthBadge.style.backgroundColor = 'red'
-                            strengthBadge.textContent = 'LEMAH'
-                        }
-                    }
-
-                    // Adding an input event listener when a user types to the  password input 
-
-                    password.addEventListener("input", () => {
-
-                        //The badge is hidden by default, so we show it
-
-                        strengthBadge.style.display = 'block'
-                        clearTimeout(timeout);
-
-                        //We then call the StrengChecker function as a callback then pass the typed password to it
-
-                        timeout = setTimeout(() => StrengthChecker(password.value), 500);
-
-                        //Incase a user clears the text, the badge is hidden again
-
-                        if (password.value.length !== 0) {
-                            strengthBadge.style.display != 'block'
-                        } else {
-                            strengthBadge.style.display = 'none'
-                        }
-                    });
+                form.classList.add('was-validated')
+            }, false)
+        })
+})()
                 </script>
                 </body>
 

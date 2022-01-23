@@ -16,15 +16,22 @@ require_once '../../config/koneksi.php';
     </div>
 
     <?php
-    $id_users = $_GET['id_users'];
-    $query = "SELECT * FROM tb_users
+    $query = "SELECT * FROM tb_auth_settings";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
+
+            $id_users = $_GET['id_users'];
+            $query = "SELECT * FROM tb_users
                         INNER JOIN tb_users_address ON tb_users.id_users = tb_users_address.id_users 
                         INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users
                         INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
+                        INNER JOIN tb_religion ON tb_users.id_religion = tb_religion.id_religion
+                        INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
                         WHERE tb_users.id_users = '$id_users'
             ";
-    $r_sql = mysqli_query($conn, $query) or die(mysqli_error($conn));
-    while ($d = mysqli_fetch_array($r_sql)) {
+            $r_sql = mysqli_query($conn, $query) or die(mysqli_error($conn));
+            while ($d = mysqli_fetch_array($r_sql)) {
     ?>
     <div class="col-12 grid-margin">
         <div class="card">
@@ -111,25 +118,14 @@ require_once '../../config/koneksi.php';
                                 <label class="col-sm-3 col-form-label">Kelas</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="class" id="class">
-                                        <option selected><?php echo strtoupper($d['class']); ?></option>
-                                        <option value="XAI">XA1</option>
-                                        <option value="XA2">XA2</option>
-                                        <option value="XA3">XA3</option>
-                                        <option value="XA4">XA4</option>
-                                        <option value="XA5">XA5</option>
-                                        <option value="XA6">XA6</option>
-                                        <option value="XSI">XS1</option>
-                                        <option value="XS2">XS2</option>
-                                        <option value="XS3">XS3</option>
-                                        <option value="XIA1">XIA1</option>
-                                        <option value="XIA2">XIA2</option>
-                                        <option value="XIA3">XIA3</option>
-                                        <option value="XIA4">XIA4</option>
-                                        <option value="XIA5">XIA5</option>
-                                        <option value="XIA6">XIA6</option>
-                                        <option value="XISI">XIS1</option>
-                                        <option value="XIS2">XIS2</option>
-                                        <option value="XIS3">XIS3</option>
+                                        <option selected value="<?php echo strtoupper($d['id_class']) ?>">
+                                            <?php echo $d['class'] ?></option>
+                                        <?php
+                                                    $cl_sql = mysqli_query($conn, "SELECT * FROM tb_class") or die(mysqli_error($conn));
+                                                    while ($class = mysqli_fetch_array($cl_sql)) {
+                                                        echo '<option value="' . $class['id_class'] . '">' . $class["class"] . '</option>';
+                                                    }
+                                                    ?>
                                     </select>
                                 </div>
                             </div>
@@ -139,13 +135,14 @@ require_once '../../config/koneksi.php';
                                 <label class="col-sm-3 col-form-label">Agama</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="religion" id="religion">
-                                        <option selected><?php echo strtoupper($d['religion']); ?></option>
-                                        <option value="ISLAM">ISLAM</option>
-                                        <option value="KRISTEN">KRISTEN</option>
-                                        <option value="KATHOLIK">KATHOLIK</option>
-                                        <option value="HINDU">HINDU</option>
-                                        <option value="BUDDHA">BUDDHA</option>
-                                        <option value="KONGHUCU">KONGHUCU</option>
+                                        <option selected value="<?php echo strtoupper($d['id_religion']) ?>">
+                                            <?php echo $d['religion'] ?></option>
+                                        <?php
+                                                    $rl_sql = mysqli_query($conn, "SELECT * FROM tb_religion") or die(mysqli_error($conn));
+                                                    while ($class = mysqli_fetch_array($rl_sql)) {
+                                                        echo '<option value="' . $class['id_religion'] . '">' . $class["religion"] . '</option>';
+                                                    }
+                                                    ?>
                                     </select>
                                 </div>
                             </div>
@@ -159,26 +156,35 @@ require_once '../../config/koneksi.php';
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Jalan</label>
                                 <div class="col-sm-9">
-                                    <textarea rows="4" class="form-control" name="street"
-                                        id="street"> <?php echo strtoupper($d['street']); ?> </textarea>
+                                    <textarea rows="4" class="form-control" name="street" id="street" required
+                                        autocomplete="off"><?php echo strtoupper($d['street']); ?> </textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">RT</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="rt" id="rt"
-                                        value="<?php echo $d['rt']; ?>" />
+                                    <input type="number" class="form-control" name="rt" id="rt" required
+                                        autocomplete="off" value="<?php echo $d['rt']; ?>" />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">RW</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="rw" id="rw"
-                                        value="<?php echo $d['rw']; ?>" />
+                                    <input type="number" class="form-control" name="rw" id="rw" required
+                                        autocomplete="off" value="<?php echo $d['rw']; ?>" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Kode Pos</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" name="poscode" id="poscode" required
+                                        autocomplete="off" value="<?php echo $d['poscode']; ?>" />
                                 </div>
                             </div>
                         </div>
@@ -224,28 +230,18 @@ require_once '../../config/koneksi.php';
                         </div>
                     </div>
                     <p class="card-description">
-                        Berkas
+                        Foto Calon Anggota
                     </p>
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Foto Calon Anggota</label>
-                                <div class="col-sm-9">
-                                    <img src="../images/faces/face1.jpg" alt="foto users" width=250>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Ekstrakurikuler</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" name="ekstrakurikuler" id="ekstrakurikuler">
-                                        <option selected><?php echo strtoupper($d['ekstrakurikuler']); ?></option>
-                                        <option value="ISLAM">BANTARA</option>
-                                        <option value="KRISTEN">LAKSANA</option>
-                                        <option value="KATHOLIK">GARUDA</option>
-                                    </select>
-                                </div>
+                            <div class="image text-center">
+                                <?php if ($d['foto_users'] == NULL) { ?>
+                                <img src="<?php echo $actual_link . '/assets/img/logo SS.png' ?>" alt="img user"
+                                    width="200">
+                                <?php } else { ?>
+                                <img src="<?php echo $actual_link . '/assets/img/user/' . $d['foto_users']; ?>"
+                                    alt="img user" width="200">
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -256,7 +252,7 @@ require_once '../../config/koneksi.php';
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <div class="col-sm-12">
-                                    <button type="submit" name="setujuverval" id="setujuverval"
+                                    <button type="submit" name="setujuvervaladmin" id="setujuvervaladmin"
                                         class="btn btn-success btn-lg btn-block">
                                         VERIFIKASI</button>
                                 </div>
@@ -306,7 +302,7 @@ require_once '../../config/koneksi.php';
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                        <button type="submit" name="tolakverval" id="tolakverval" class="btn btn-danger">
+                        <button type="submit" name="tolakvervaladmin" id="tolakvervaladmin" class="btn btn-danger">
                             TOLAK</button>
                     </div>
                 </div>
@@ -314,7 +310,13 @@ require_once '../../config/koneksi.php';
         </form>
     </div>
 
-    <?php } ?>
+    <?php }
+        } else { ?>
+    <script>
+    window.location.href = "verval"
+    </script>
+    <?php }
+    } ?>
 
     <?php
     require_once 'foot.php';

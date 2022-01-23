@@ -19,9 +19,13 @@ if ($result->num_rows > 0) {
             $_SESSION['level'] = "SUPERADMIN";
             header("location: ../pages/superadmin/");
         } else if ($row['level_name'] == "ADMIN") {
-            $_SESSION['email'] = $email;
-            $_SESSION['level'] = "ADMIN";
-            header("location: ../pages/admin/");
+            $sql = mysqli_query($conn, "SELECT * FROM tb_admin WHERE id_acc = '" . $row['id_acc'] . "'");
+            while ($row2 = mysqli_fetch_assoc($sql)) {
+                $_SESSION['email'] = $email;
+                $_SESSION['ekstra'] = $row2['id_ekstra'];
+                $_SESSION['level'] = "ADMIN";
+                header("location: ../pages/admin/");
+            }
         } else if ($row['level_name'] == "TEACHER") {
             $_SESSION['email'] = $email;
             $_SESSION['level'] = 'TEACHER';
@@ -31,9 +35,11 @@ if ($result->num_rows > 0) {
             $_SESSION['level'] = 'USER';
             header("location: ../pages/users/");
         } else {
+            // echo "error 1 $conn->error";
             header("location: ../pages/auth/login?pesan=gagal_login");
         }
     }
 } else {
+    // echo "error 2 $conn->error";
     header("location: ../pages/auth/login?pesan=gagal_login");
 }

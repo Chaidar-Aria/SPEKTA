@@ -6,30 +6,28 @@ $tahun = date('Y');
 
 // PEMASUKAN BULANAN
 
-$masukbulanan = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE MONTH(tgl_pemasukan) = '$bulan'");
+$masukbulanan = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE MONTH(tgl_pemasukan) = '$bulan' AND id_ekstra = '$idekstra'");
 while ($hasilmasukbulanan = mysqli_fetch_array($masukbulanan)) {
     $arraymasukbulanan[] = $hasilmasukbulanan['jumlah'];
 }
 
 // PENGELUARAN BULANAN
-$keluarbulanan = mysqli_query($conn, "SELECT * from tb_uang_keluar WHERE MONTH(tgl_pengeluaran) = '$bulan'");
+$keluarbulanan = mysqli_query($conn, "SELECT * from tb_uang_keluar WHERE MONTH(tgl_pengeluaran) = '$bulan' AND id_ekstra = '$idekstra'");
 while ($hasilkeluarbulanan = mysqli_fetch_array($keluarbulanan)) {
     $arraykeluarbulanan[] = $hasilkeluarbulanan['jumlah'];
 }
 
 //PEMASUKAN TAHUNAN
-$masuktahun = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE YEAR(tgl_pemasukan) = '$tahun'");
+$masuktahun = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE YEAR(tgl_pemasukan) = '$tahun' AND id_ekstra = '$idekstra'");
 while ($hasilmasuktahunan = mysqli_fetch_array($masuktahun)) {
     $arraymasuktahun[] = $hasilmasuktahunan['jumlah'];
 }
 
 //PENGELUARAN TAHUNAN
-$keluartahun = mysqli_query($conn, "SELECT jumlah from tb_uang_keluar WHERE YEAR(tgl_pengeluaran) = '$tahun'");
+$keluartahun = mysqli_query($conn, "SELECT jumlah from tb_uang_keluar WHERE YEAR(tgl_pengeluaran) = '$tahun' AND id_ekstra = '$idekstra'");
 while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
     $arraykeluartahun[] = $hasilkeluartahunan['jumlah'];
 }
-
-
 
 ?>
 
@@ -224,7 +222,7 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                             <?php
 
                             $data = mysqli_query($conn, "SELECT * FROM tb_uang_masuk
-                                                    INNER JOIN tb_sumber_uang ON tb_uang_masuk.id_sumber = tb_sumber_uang.id_sumber");
+                                                    INNER JOIN tb_sumber_uang ON tb_uang_masuk.id_sumber = tb_sumber_uang.id_sumber WHERE tb_uang_masuk.id_ekstra = '$idekstra' ");
                             while ($d = mysqli_fetch_array($data)) { ?>
                             <tr>
                                 <td><?php echo $d['kode_uang_masuk']; ?></td>
@@ -251,7 +249,6 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 <th>Tanggal Uang Keluar</th>
                                 <th>Jumlah Uang Keluar</th>
                                 <th>Sumber Uang Keluar</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -260,14 +257,13 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 <th>Tanggal Uang Keluar</th>
                                 <th>Jumlah Uang Keluar</th>
                                 <th>Sumber Uang Keluar</th>
-                                <th>Aksi</th>
                             </tr>
                         </tfoot>
                         <tbody>
                             <?php
 
                             $data = mysqli_query($conn, "SELECT * FROM tb_uang_keluar
-                                                    INNER JOIN tb_sumber_uang ON tb_uang_keluar.id_sumber = tb_sumber_uang.id_sumber");
+                                                    INNER JOIN tb_sumber_uang ON tb_uang_keluar.id_sumber = tb_sumber_uang.id_sumber WHERE tb_uang_keluar.id_ekstra = '$idekstra'");
                             while ($d = mysqli_fetch_array($data)) { ?>
                             <tr>
                                 <td><?php echo $d['kode_uang_keluar']; ?></td>

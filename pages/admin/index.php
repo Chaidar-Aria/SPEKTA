@@ -1,50 +1,61 @@
 <?php
 require_once 'head.php';
-require_once '../../config/koneksi.php';
 $tanggal = mktime(date("m"), date("d"), date("Y"));
 date_default_timezone_set('Asia/Jakarta');
 $a = date("H");
 $bulan = date('m');
 $tahun = date('Y');
 
-// PEMASUKAN BULANAN
 
-$masukbulanan = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE MONTH(tgl_pemasukan) = '$bulan'");
-while ($hasilmasukbulanan = mysqli_fetch_array($masukbulanan)) {
-    $arraymasukbulanan[] = $hasilmasukbulanan['jumlah'];
-}
+// NAMA EKSTRA
+$sqlekstra = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+INNER JOIN tb_admin ON tb_ekstrakurikuler.id_ekstra = tb_admin.id_ekstra
+WHERE tb_ekstrakurikuler.id_ekstra = '$idekstra'");
+while ($data = mysqli_fetch_array($sqlekstra)) {
 
-// PENGELUARAN BULANAN
-$keluarbulanan = mysqli_query($conn, "SELECT * from tb_uang_keluar WHERE MONTH(tgl_pengeluaran) = '$bulan'");
-while ($hasilkeluarbulanan = mysqli_fetch_array($keluarbulanan)) {
-    $arraykeluarbulanan[] = $hasilkeluarbulanan['jumlah'];
-}
+    // PEMASUKAN BULANAN
 
-//PEMASUKAN TAHUNAN
-$masuktahun = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE YEAR(tgl_pemasukan) = '$tahun'");
-while ($hasilmasuktahunan = mysqli_fetch_array($masuktahun)) {
-    $arraymasuktahun[] = $hasilmasuktahunan['jumlah'];
-}
+    $masukbulanan = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE MONTH(tgl_pemasukan) = '$bulan' AND id_ekstra = '$idekstra'");
+    while ($hasilmasukbulanan = mysqli_fetch_array($masukbulanan)) {
+        $arraymasukbulanan[] = $hasilmasukbulanan['jumlah'];
+    }
 
-//PENGELUARAN TAHUNAN
-$keluartahun = mysqli_query($conn, "SELECT jumlah from tb_uang_keluar WHERE YEAR(tgl_pengeluaran) = '$tahun'");
-while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
-    $arraykeluartahun[] = $hasilkeluartahunan['jumlah'];
-}
+    // PENGELUARAN BULANAN
+    $keluarbulanan = mysqli_query($conn, "SELECT * from tb_uang_keluar WHERE MONTH(tgl_pengeluaran) = '$bulan' AND id_ekstra = '$idekstra'");
+    while ($hasilkeluarbulanan = mysqli_fetch_array($keluarbulanan)) {
+        $arraykeluarbulanan[] = $hasilkeluarbulanan['jumlah'];
+    }
 
-//HITUNG TEACHER
-$hitungteacher = mysqli_query($conn, "SELECT * FROM tb_account
+    //PEMASUKAN TAHUNAN
+    $masuktahun = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE YEAR(tgl_pemasukan) = '$tahun' AND id_ekstra = '$idekstra'");
+    while ($hasilmasuktahunan = mysqli_fetch_array($masuktahun)) {
+        $arraymasuktahun[] = $hasilmasuktahunan['jumlah'];
+    }
+
+    //PENGELUARAN TAHUNAN
+    $keluartahun = mysqli_query($conn, "SELECT jumlah from tb_uang_keluar WHERE YEAR(tgl_pengeluaran) = '$tahun' AND id_ekstra = '$idekstra'");
+    while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
+        $arraykeluartahun[] = $hasilkeluartahunan['jumlah'];
+    }
+
+    //HITUNG PEMBINA
+    $hitungteacher = mysqli_query($conn, "SELECT * FROM tb_account
         INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
         INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
-        WHERE tb_level_name.level_name = 'TEACHER'");
-$totalteacher = mysqli_num_rows($hitungteacher);
+        INNER JOIN tb_pembina ON tb_pembina.id_acc = tb_account.id_acc
+        INNER JOIN tb_bina_ekstra ON tb_pembina.id_pembina = tb_bina_ekstra.id_pembina
+        INNER JOIN tb_ekstrakurikuler ON tb_ekstrakurikuler.id_ekstra = tb_bina_ekstra.id_ekstra
+        WHERE tb_level_name.level_name = 'TEACHER' AND tb_ekstrakurikuler.id_ekstra='$idekstra'");
+    $totalteacher = mysqli_num_rows($hitungteacher);
 
-//HITUNG USER
-$hitungusers = mysqli_query($conn, "SELECT * FROM tb_account
+    //HITUNG USER 1 
+    $hitungusers = mysqli_query($conn, "SELECT * FROM tb_account
         INNER JOIN tb_level ON tb_account.id_acc = tb_level.id_acc
         INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
-        WHERE tb_level_name.level_name = 'USER'");
-$totalusers = mysqli_num_rows($hitungusers);
+        INNER JOIN tb_users ON tb_users.id_acc = tb_account.id_acc
+        WHERE tb_level_name.level_name = 'USER' AND tb_users.id_ekstra_1='$idekstra' OR tb_users.id_ekstra_2='$idekstra'");
+    $totalusers = mysqli_num_rows($hitungusers);
+
 ?>
 
 
@@ -53,15 +64,15 @@ $totalusers = mysqli_num_rows($hitungusers);
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">
             <?php if (($a >= 6) && ($a <= 10)) {
-                echo "<b>Selamat Pagi !!</b>";
-            } else if (($a > 10) && ($a <= 15)) {
-                echo "Selamat Siang !!";
-            } else if (($a > 15) && ($a <= 18)) {
-                echo "Selamat Sore !!";
-            } else {
-                echo "<b> Selamat Malam </b>";
-            } ?>
-            <strong>ADMIN nama ekstra</strong>
+                    echo "<b>Selamat Pagi !!</b>";
+                } else if (($a > 10) && ($a <= 15)) {
+                    echo "Selamat Siang !!";
+                } else if (($a > 15) && ($a <= 18)) {
+                    echo "Selamat Sore !!";
+                } else {
+                    echo "<b> Selamat Malam </b>";
+                } ?>
+            <strong>ADMIN-<?php echo $data['id_ekskul'] . "-" . $data['ekstrakurikuler'] ?></strong>
         </h1>
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="<?php echo $url_admin ?>">Home</a></li>
@@ -76,7 +87,7 @@ $totalusers = mysqli_num_rows($hitungusers);
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Guru</div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Pembina</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalteacher ?></div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
@@ -97,8 +108,9 @@ $totalusers = mysqli_num_rows($hitungusers);
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Users</div>
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totalusers ?></div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Jumlah Anggota</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                <?php echo $totalusers ?></div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
                                     20.4%</span>
@@ -143,8 +155,8 @@ $totalusers = mysqli_num_rows($hitungusers);
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <?php
-                                $hitunghasilmasukbulanan = array_sum($arraymasukbulanan);
-                                echo "Rp " . number_format($hitunghasilmasukbulanan, 2, ',', '.'); ?>
+                                    $hitunghasilmasukbulanan = array_sum($arraymasukbulanan);
+                                    echo "Rp " . number_format($hitunghasilmasukbulanan, 2, ',', '.'); ?>
                             </div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>
@@ -167,10 +179,10 @@ $totalusers = mysqli_num_rows($hitungusers);
                             <div class="text-xs font-weight-bold text-uppercase mb-1">Pengeluaran (Bulanan)</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <?php
-                                $hitunghasilkeluarbulanan = array_sum($arraykeluarbulanan);
+                                    $hitunghasilkeluarbulanan = array_sum($arraykeluarbulanan);
 
-                                echo "Rp " . number_format($hitunghasilkeluarbulanan, 2, ',', '.');
-                                ?></div>
+                                    echo "Rp " . number_format($hitunghasilkeluarbulanan, 2, ',', '.');
+                                    ?></div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
                                     12%</span>
@@ -192,9 +204,9 @@ $totalusers = mysqli_num_rows($hitungusers);
                             <div class="text-xs font-weight-bold text-uppercase mb-1">Total Pemasukan (Tahunan)</div>
                             <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
                                 <?php
-                                $hitunghasilmasuktahun = array_sum($arraymasuktahun);
-                                echo "Rp " . number_format($hitunghasilmasuktahun, 2, ',', '.');
-                                ?>
+                                    $hitunghasilmasuktahun = array_sum($arraymasuktahun);
+                                    echo "Rp " . number_format($hitunghasilmasuktahun, 2, ',', '.');
+                                    ?>
                             </div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
@@ -218,9 +230,9 @@ $totalusers = mysqli_num_rows($hitungusers);
                             </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                 <?php
-                                $hitunghasilkeluartahun = array_sum($arraykeluartahun);
-                                echo "Rp " . number_format($hitunghasilkeluartahun, 2, ',', '.');
-                                ?>
+                                    $hitunghasilkeluartahun = array_sum($arraykeluartahun);
+                                    echo "Rp " . number_format($hitunghasilkeluartahun, 2, ',', '.');
+                                    ?>
                             </div>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i>
@@ -451,5 +463,6 @@ $totalusers = mysqli_num_rows($hitungusers);
     <!--Row-->
 
     <?php
-    require_once 'foot.php';
+}
+require_once 'foot.php';
     ?>

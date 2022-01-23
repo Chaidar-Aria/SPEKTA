@@ -44,7 +44,7 @@ require_once '../../config/koneksi.php';
                         <?php
 
                         $data = mysqli_query($conn, "SELECT * FROM tb_uang_masuk
-                                                    INNER JOIN tb_sumber_uang ON tb_uang_masuk.id_sumber = tb_sumber_uang.id_sumber");
+                                                    INNER JOIN tb_sumber_uang ON tb_uang_masuk.id_sumber = tb_sumber_uang.id_sumber WHERE tb_uang_masuk.id_ekstra = '$idekstra' ");
                         while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td><?php echo $d['kode_uang_masuk']; ?></td>
@@ -53,7 +53,7 @@ require_once '../../config/koneksi.php';
                             <td><?php echo $d['nama']; ?></td>
                             <td>
                                 <a class="btn btn-danger btn-sm"
-                                    href="<?php echo $url_config . 'del_moneyin.php?id_pemasukan=' . $d['id_pemasukan']; ?>">
+                                    href="<?php echo $url_config . 'del_moneyinekstra.php?id_pemasukan=' . $d['id_pemasukan']; ?>">
                                     DELETE
                                 </a>
                             </td>
@@ -68,6 +68,7 @@ require_once '../../config/koneksi.php';
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Tambah Data Pemasukan</h4>
+                <p style="color: red">Minimal Rp 100,00</p>
                 <form class="form-sample needs-validation text-start" novalidate onSubmit="return validasi(this);"
                     action="<?php echo $url_config ?>data_money.php" method="POST">
                     <div class="row">
@@ -75,8 +76,9 @@ require_once '../../config/koneksi.php';
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">Jumlah Uang</label>
                                 <div class="col-sm-9">
+                                    <input type="hidden" name="ekstra" id="ekstra" value="<?php echo $idekstra ?>">
                                     <input type="number" name="jumlahmasuk" id="jumlahmasuk" class="form-control"
-                                        autocomplete="off" required />
+                                        autocomplete="off" min="100" required />
                                 </div>
                             </div>
                         </div>
@@ -106,7 +108,6 @@ require_once '../../config/koneksi.php';
                                         while ($d = mysqli_fetch_array($data)) {
                                             echo '<option value="' . $no++ . '">' . $d["nama"] . '</option>';
                                         }
-
                                         ?>
                                     </select>
                                 </div>
@@ -115,7 +116,7 @@ require_once '../../config/koneksi.php';
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary mr-2" name="uangmasuk">Submit</button>
+                            <button type="submit" class="btn btn-primary mr-2" name="uangmasukekstra">Submit</button>
                             <button class="btn btn-light">Cancel</button>
                         </div>
                     </div>

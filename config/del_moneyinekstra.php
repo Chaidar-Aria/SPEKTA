@@ -5,7 +5,7 @@ $id_pemasukan = $_GET['id_pemasukan'];
 
 $sql = "DELETE FROM tb_uang_masuk WHERE id_pemasukan = '$id_pemasukan'";
 if ($conn->query($sql) === TRUE) {
-    header('location: ../pages/superadmin/pemasukan?mes=hapus');
+    header('location: ../pages/admin/pemasukan?mes=hapus');
 } else {
-    header('location: ../pages/superadmin/pemasukan?mes=error');
+    header('location: ../pages/admin/pemasukan?mes=error');
 }

@@ -48,7 +48,9 @@ require_once '../../config/koneksi.php';
                         <?php
 
                         $data = mysqli_query($conn, "SELECT * FROM tb_users
-                                                                    INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users WHERE tb_users_status.is_verval = '1'");
+                                            INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
+                                            INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users 
+                                            WHERE tb_users_status.is_verval = '1' AND tb_users.id_ekstra_1 ='$idekstra' OR tb_users.id_ekstra_2 ='$idekstra'");
                         while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td><?php echo strtoupper($d['name']); ?></td>

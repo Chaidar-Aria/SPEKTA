@@ -18,197 +18,224 @@ require_once '../../config/koneksi.php';
     <?php
     $id_users = $_GET['id_users'];
     $query = "SELECT * FROM tb_users
-                        INNER JOIN tb_users_address ON tb_users.id_users = tb_users_address.id_users WHERE tb_users.id_users = '$id_users'
+                        INNER JOIN tb_users_address ON tb_users.id_users = tb_users_address.id_users
+                        INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users
+                        INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
+                        INNER JOIN tb_religion ON tb_users.id_religion = tb_religion.id_religion
+                        INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
+                        WHERE tb_users.id_users = '$id_users'
             ";
     $r_sql = mysqli_query($conn, $query) or die(mysqli_error($conn));
     while ($d = mysqli_fetch_array($r_sql)) {
+        $ekskul1 = $d['id_ekstra_1'];
+        $ekskul2 = $d['id_ekstra_2'];
+        $sql = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_1 
+                                            WHERE tb_users.id_ekstra_1= '$ekskul1'");
+        while ($data1 = mysqli_fetch_array($sql)) {
+            $ekstra1 = $data1['ekstrakurikuler'];
+        }
+        $sql2 = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_2
+                                            WHERE tb_users.id_ekstra_2 = '$ekskul2'");
+        while ($data2 = mysqli_fetch_array($sql2)) {
+            $ekstra2 = $data2['ekstrakurikuler'];
+        }
     ?>
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Data Diri Anggota</h4>
-                <form class="form-sample">
-                    <p class="card-description">
-                        Biodata
-                    </p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Nama Lengkap</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['name']); ?>" disabled />
-                                </div>
+                <h5 class="card-title">Data Diri Anggota</h5>
+                <p class="card-description">
+                    Biodata
+                </p>
+                <div class="row mt-5">
+                    <div class="col-xl-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">ID SPEKTA</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php if ($d['id_spekta'] == NULL || "") {
+                                        ?>
+                                <form
+                                    action="<?php echo $url_config . "idspekta.php?ekskul1=$ekskul1&ekskul2=$ekskul2&id_user=$id_users" ?>"
+                                    method="post">
+                                    <button type="submit" name="buatidspekta" id="buatidspekta"
+                                        class="btn btn-success btn-sm">
+                                        BUAT ID SPEKTA</button>
+                                </form> <?php } else {
+                                            echo $d['id_spekta'];
+                                        } ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">ID SPEKTA</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="<?php echo $d['id_spekta']; ?>"
-                                        disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Nama Lengkap</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['name']) ?>
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Nomor Induk Siswa Nasional</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="<?php echo $d['nisn']; ?>"
-                                        disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Nomor Induk Siswa Nasional</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo $d['nisn']; ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Nomor Induk Siswa</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" value="<?php echo $d['nis']; ?>" disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Nomor Induk Siswa</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo $d['nis']; ?>
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Tempat Lahir</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['birth_place']); ?>" disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Jenis Kelamin</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php if ($d['gender'] == 'L') { ?>
+                                    LAKI-LAKI
+                                    <?php } else if ($d['gender'] == 'P') { ?>
+                                    PEREMPUAN
+                                    <?php } ?> </p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Tanggal Lahir</label>
-                                <div class="col-sm-9">
-                                    <input class="form-control" placeholder="dd/mm/yyyy"
-                                        value="<?php echo $d['birth_date']; ?>" disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Tempat
+                                Lahir</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo $d['birth_place']; ?>
+                                </p>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Kelas</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" disabled>
-                                        <option selected><?php echo strtoupper($d['class']); ?></option>
-                                        <option value="XAI">XA1</option>
-                                        <option value="XA2">XA2</option>
-                                        <option value="XA3">XA3</option>
-                                        <option value="XA4">XA4</option>
-                                        <option value="XA5">XA5</option>
-                                        <option value="XA6">XA6</option>
-                                        <option value="XSI">XS1</option>
-                                        <option value="XS2">XS2</option>
-                                        <option value="XS3">XS3</option>
-                                        <option value="XIA1">XIA1</option>
-                                        <option value="XIA2">XIA2</option>
-                                        <option value="XIA3">XIA3</option>
-                                        <option value="XIA4">XIA4</option>
-                                        <option value="XIA5">XIA5</option>
-                                        <option value="XIA6">XIA6</option>
-                                        <option value="XISI">XIS1</option>
-                                        <option value="XIS2">XIS2</option>
-                                        <option value="XIS3">XIS3</option>
-                                    </select>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Tanggal Lahir</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo tgl_indo($d['birth_date']); ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Agama</label>
-                                <div class="col-sm-9">
-                                    <select class="form-control" disabled>
-                                        <option selected><?php echo strtoupper($d['religion']); ?></option>
-                                        <option value="ISLAM">ISLAM</option>
-                                        <option value="KRISTEN">KRISTEN</option>
-                                        <option value="KATHOLIK">KATHOLIK</option>
-                                        <option value="HINDU">HINDU</option>
-                                        <option value="BUDDHA">BUDDHA</option>
-                                        <option value="KONGHUCU">KONGHUCU</option>
-                                    </select>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Kelas</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['class']) ?> </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Agama</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['religion']) ?> </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Ekstrakurikuler Pertama</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($ekstra1) ?> </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Ekstrakurikuler Kedua</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($ekstra2) ?> </p>
                             </div>
                         </div>
                     </div>
-                    <p class="card-description">
-                        Alamat
-                    </p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Jalan</label>
-                                <div class="col-sm-9">
-                                    <textarea rows="4" class="form-control"
-                                        disabled> <?php echo strtoupper($d['street']); ?> </textarea>
-                                </div>
+                    <div class="col-xl-6">
+                        <div class="image text-center">
+                            <?php if ($d['foto_users'] == NULL) { ?>
+                            <img src="<?php echo $actual_link . '/assets/img/logo SS.png' ?>" alt="img user"
+                                width="200">
+                            <?php } else { ?>
+                            <img src="<?php echo $actual_link . '/assets/img/user/' . $d['foto_users']; ?>"
+                                alt="img user" width="200">
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+                <p class="card-description">
+                    Alamat
+                </p>
+                <div class="row">
+                    <div class="col-xl-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Jalan</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['street']) ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">RT</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" value="<?php echo $d['rt']; ?>"
-                                        disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">RT</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo $d['rt']; ?>
+                                </p>
                             </div>
                         </div>
-                        <div class="col-md-3">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">RW</label>
-                                <div class="col-sm-9">
-                                    <input type="number" class="form-control" value="<?php echo $d['rw']; ?>"
-                                        disabled />
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">RW</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo $d['rw']; ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Desa/Kelurahan</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['village']) ?>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Kecamatan/Distrik</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['district']) ?> </p>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Kabupaten/Kota</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['regency']) ?>
+                                </p>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Provinsi</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['province']) ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">Kode Pos</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php echo strtoupper($d['poscode']) ?> </p>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Desa/Kelurahan</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['village']); ?>" disabled />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Kecamatan/Distrik</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['district']); ?>" disabled />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Kabupaten/Kota</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['regency']); ?>" disabled />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">Provinsi</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control"
-                                        value="<?php echo strtoupper($d['province']); ?>" disabled />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
