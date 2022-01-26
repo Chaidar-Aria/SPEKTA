@@ -6,7 +6,7 @@ SPEKTA SMANSA - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKTRAKURIKULER SMA NE
 
 **SPEKTA SMANSA** Adalah sebuah aplikasi berbasis web yang dikembangkan oleh SMA Negeri 1 Mejayan 
 
-![SPEKTA SMANSA Screenshot](https://i.ibb.co/rF22h7q/Screenshot-1771.png)
+![SPEKTA SMANSA Screenshot](https://i.ibb.co/FqqpbxF/Screenshot-1825.png)
 
 ## Fitur
 1. Login Multiauth
