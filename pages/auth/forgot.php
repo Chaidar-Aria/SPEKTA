@@ -90,7 +90,7 @@ include 'head.php';
 </section>
 <!-- End Hero -->
 <?php include 'foot.php';
-require_once '../../template/script.php'; ?>
+?>
 <?php
 if (isset($_GET['pesan'])) {
     if ($_GET['pesan'] == 'gagal') {

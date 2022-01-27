@@ -266,7 +266,7 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
                 </div>
                 <div class="card-body">
                     <div class="chart-area">
-                        <canvas id="myAreaChart"></canvas>
+                        <canvas id="userchart"></canvas>
                     </div>
                 </div>
             </div>

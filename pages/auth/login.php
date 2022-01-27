@@ -40,7 +40,7 @@ include 'head.php';
                             <a href="regis"
                                 class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                                 <span>Buat Akun</span>
-                                <i class="bi bi-arrow-right"></i>
+                                <i class="fas fa-arrow-right"></i>
                             </a>
                         </div>
                     </div>
@@ -96,8 +96,7 @@ include 'head.php';
 <!-- End Hero -->
 
 <?php
-require_once 'foot.php';
-require_once '../../template/script.php'; ?>
+require_once 'foot.php'; ?>
 <?php
 if (isset($_GET['pesan'])) {
     if ($_GET['pesan'] == 'gagal_login') {
@@ -219,6 +218,48 @@ Swal.fire({
     showConfirmButton: false,
     timer: 2000
 })
+</script>
+<?php
+    } elseif ($_GET['pesan'] == "pass_kosong") {
+    ?>
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Peringatan !',
+    text: "Password kosong",
+    showConfirmButton: false,
+    timer: 2000
+}).then((result) => {
+    window.location.href = "?";
+});
+</script>
+<?php
+    } elseif ($_GET['pesan'] == "email_kosong") {
+    ?>
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Peringatan !',
+    text: "Email kosong",
+    showConfirmButton: false,
+    timer: 2000
+}).then((result) => {
+    window.location.href = "?";
+});
+</script>
+<?php
+    } elseif ($_GET['pesan'] == "form_kosong") {
+    ?>
+<script>
+Swal.fire({
+    icon: 'warning',
+    title: 'Peringatan !',
+    text: "Form kosong",
+    showConfirmButton: false,
+    timer: 2000
+}).then((result) => {
+    window.location.href = "?";
+});
 </script>
 <?php
     } elseif ($_GET['pesan'] == "gagal") {

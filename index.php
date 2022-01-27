@@ -35,17 +35,18 @@ while ($row = $result->fetch_assoc()) {
         rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?php echo $url_vendors . 'bootstrap-icons/bootstrap-icons.css' ?>">
 
     <!-- Vendor CSS Files -->
-    <link href="<?php echo $url_assets ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/aos/aos.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/aos/aos.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css">
 
     <!-- Template Main CSS File -->
-    <link href="<?php echo $url_assets ?>css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>css/style.css">
 </head>
 
 <body>
@@ -76,7 +77,7 @@ while ($row = $result->fetch_assoc()) {
                     <li><a class="getstarted scrollto" href="<?php echo $url_login ?>">Dashboard</a></li>
                     <?php } ?>
                 </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                <i class="fas fa-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
 
         </div>
@@ -101,11 +102,10 @@ while ($row = $result->fetch_assoc()) {
                                 <a href="<?php echo $url_regis ?>"
                                     class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                                     <span>Buat Akun</span>
-                                    <i class="bi bi-arrow-right"></i>
+                                    <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
-
                     </div>
                     <br>
                     <div class="row">
@@ -117,7 +117,7 @@ while ($row = $result->fetch_assoc()) {
                                 <a href="#information"
                                     class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                                     <span>Cek Disini</span>
-                                    <i class="bi bi-arrow-right"></i>
+                                    <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -125,8 +125,8 @@ while ($row = $result->fetch_assoc()) {
                     </div>
 
                 </div>
-                <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="<?php echo $url_assets ?>svg/home.svg" class="img-fluid" alt="">
+                <div class="col-lg-6 hero-img mt-5" data-aos="zoom-out" data-aos-delay="200">
+                    <img src="<?php echo $url_assets ?>img/spekta_all.png" class="img-fluid" alt="logo all">
                 </div>
             </div>
         </div>
@@ -332,14 +332,14 @@ while ($row = $result->fetch_assoc()) {
                         <div class="row gy-4">
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-geo-alt"></i>
+                                    <i class="fas fa-map-marked-alt"></i>
                                     <h3>Alamat</h3>
                                     <p>Jl.P.Sudirman, No.82,<br>Mejayan, Kab.Madiun 63153</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-telephone"></i>
+                                    <i class="fas fa-phone"></i>
                                     <h3>Telepon</h3>
                                     <p>+62 0123 4567 890</p>
                                     <br>
@@ -347,14 +347,14 @@ while ($row = $result->fetch_assoc()) {
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-envelope"></i>
+                                    <i class="fas fa-envelope"></i>
                                     <h3>Email</h3>
                                     <p>info@example.com<br>contact@example.com</p>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="info-box">
-                                    <i class="bi bi-clock"></i>
+                                    <i class="fas fa-clock"></i>
                                     <h3>Jam Kerja</h3>
                                     <p>Senin - Jumat<br>7:00AM - 3:00PM</p>
                                 </div>
@@ -401,7 +401,7 @@ while ($row = $result->fetch_assoc()) {
     ?>
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+            class="fas fa-sm fa-arrow-up"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="<?php echo $url_assets ?>vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -410,7 +410,6 @@ while ($row = $result->fetch_assoc()) {
     <script src="<?php echo $url_assets ?>vendor/purecounter/purecounter.js"></script>
     <script src="<?php echo $url_assets ?>vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="<?php echo $url_assets ?>vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Template Main JS File -->
     <script src="<?php echo $url_assets ?>js/main.js"></script>

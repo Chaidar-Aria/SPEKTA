@@ -14,8 +14,8 @@ include_once '../../app/helper/base_url.php';
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="<?php echo $url_assets . 'img/Logo SS.png' ?>" rel="icon">
-    <link href="<?php echo $url_assets . 'img/Logo SS.png' ?>" rel="apple-touch-icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="icon">
+    <link href="<?php echo $url_assets ?>img/Logo SS.png " rel="apple-touch-icon">
 
     <!-- Google Fonts -->
     <link
@@ -23,17 +23,20 @@ include_once '../../app/helper/base_url.php';
         rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?php echo $url_vendors . 'bootstrap-icons/bootstrap-icons.css' ?>">
 
     <!-- Vendor CSS Files -->
-    <link href="<?php echo $url_assets . 'vendor/bootstrap/css/bootstrap.min.css' ?>" rel="stylesheet">
-    <link href="<?php echo $url_assets . 'vendor/aos/aos.css' ?>" rel="stylesheet">
-    <link href="<?php echo $url_assets . 'vendor/remixicon/remixicon.css' ?>" rel="stylesheet">
-    <link href="<?php echo $url_assets . 'vendor/swiper/swiper-bundle.min.css' ?>" rel="stylesheet">
-    <link href="<?php echo $url_assets . 'vendor/glightbox/css/glightbox.min.css' ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/aos/aos.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css">
+
+    <script src="<?php echo $url_vendors . 'sweetalert2/sweetalert2.all.min.js' ?>"></script>
 
     <!-- Template Main CSS File -->
-    <link href="<?php echo $url_assets . 'css/style.css' ?>" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>css/style.css">
 </head>
 
 <body>

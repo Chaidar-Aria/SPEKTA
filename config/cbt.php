@@ -36,7 +36,6 @@ if (isset($_POST['addcbt'])) {
         }
 
         // USERNAME
-        // TANGGAL LAPORAN
         $date = date("y");
         $username = $jumlah . '-' . $date . '-' . $ekstra1 . '-' . $ekstra2;
         //PASSWORD

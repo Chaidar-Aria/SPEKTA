@@ -36,17 +36,18 @@ while ($row = $result->fetch_assoc()) {
         rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="<?php echo $url_vendors . 'bootstrap-icons/bootstrap-icons.css' ?>">
 
     <!-- Vendor CSS Files -->
-    <link href="<?php echo $url_assets ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/aos/aos.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.css" />
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>fontawesome-free/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/aos/aos.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/remixicon/remixicon.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.css">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>vendor/glightbox/css/glightbox.min.css">
+
     <!-- Template Main CSS File -->
-    <link href="<?php echo $url_assets ?>css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $url_assets ?>css/style.css">
 </head>
 
 <body>
@@ -106,7 +107,7 @@ while ($row = $result->fetch_assoc()) {
                             <td><?php echo date("d-m-Y", strtotime($data['date_file'])); ?></td>
                             <td>
                                 <a href="<?php echo $url_assets . 'file/pengumuman/' . $data['file_berkas']; ?>"
-                                    download><span class="badge bg-success">Unduh</span></a>
+                                    target="blank"><span class="badge bg-success">Unduh</span></a>
                             </td>
                             <?php } ?>
                         </tr>
@@ -138,8 +139,8 @@ while ($row = $result->fetch_assoc()) {
     }
 } ?>
 
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+
 
     <!-- Vendor JS Files -->
     <script src="<?php echo $url_assets ?>vendor/bootstrap/js/bootstrap.bundle.js"></script>
@@ -148,10 +149,8 @@ while ($row = $result->fetch_assoc()) {
     <script src="<?php echo $url_assets ?>vendor/purecounter/purecounter.js"></script>
     <script src="<?php echo $url_assets ?>vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="<?php echo $url_assets ?>vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
-    </script>
+    <script src="<?php echo $url_vendors . 'sweetalert2/sweetalert2.all.min.js' ?>"></script>
+
     <!-- Template Main JS File -->
     <script src="<?php echo $url_assets ?>js/main.js"></script>
 </body>

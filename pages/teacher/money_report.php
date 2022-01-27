@@ -943,13 +943,13 @@ while ($data = mysqli_fetch_array($sql)) {
                         <h6><?php echo $pembina['name'] ?> <br> NIP: <?php echo $pembina['nip'] ?></h6>
                     </div>
                     <?php } ?>
-                    <!-- <div class="notices">
+                    <div class="notices">
                         <div>CATATAN:</div>
                         <div class="notice">Laporan Keuangan ini hanya berlaku selama 1 bulan kedepan. Jika
                             dalam
                             laporan ini terdapat kesalahan penulisan harap untuk segera mengganti
                         </div>
-                    </div> -->
+                    </div>
                 </main>
                 <footer>
                     Laporan ini dibuat oleh komputer <br> <strong><span>Sistem Pencatatan Keuangan dan Keanggotaaan

@@ -175,21 +175,25 @@ require_once '../../config/koneksi.php';
                                 <div class="mb-3">
                                     <label for="nofile" class="form-label">Nomor Berkas</label>
                                     <p style="color: red">dapat dikosongi jika tidak terdapat nomor berkas</p>
-                                    <input type="text" class="form-control" id="nofile" name="nofile">
+                                    <input type="text" class="form-control" id="nofile" name="nofile"
+                                        autocomplete="off">
                                 </div>
                                 <div class="mb-3">
                                     <label for="namefile" class="form-label">Nama Berkas *</label>
-                                    <input type="text" class="form-control" id="namefile" name="namefile" required>
+                                    <input type="text" class="form-control" id="namefile" name="namefile" required
+                                        autocomplete="off">
                                 </div>
                                 <div class="mb-3">
                                     <label for="datefile" class="form-label">Tanggal Berkas *</label>
-                                    <input type="date" class="form-control" id="datefile" name="datefile" required>
+                                    <input type="date" class="form-control" id="datefile" name="datefile" required
+                                        autocomplete="off">
                                 </div>
                                 <div class="mb-3">
                                     <label for="file" class="form-label">Unggah Berkas *</label>
                                     <p style="color: red">berkas yang diunggah harus berekstensi PDF, DOCX,
                                         DOC, XLSX, XLS</p>
-                                    <input type="file" class="form-control" id="file" name="file" required>
+                                    <input type="file" class="form-control" id="file" name="file" required
+                                        autocomplete="off">
                                 </div>
                                 <p style="color: red">* = wajib diisi
                                 </p>

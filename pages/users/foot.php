@@ -49,19 +49,13 @@
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fas fa-angle-up"></i>
                 </a>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.js"
-                    integrity="sha512-AsoAG+OFcSvtqlspW166UTUYg7F4GEu0yNhzTIRfOGysIQA8Dqk1WZwyoN4eX6mX4DaSk703Q1iM0M47rw25Kw=="
-                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                <script src="<?php echo $url_vendors ?>jquery/jquery.min.js"></script>
                 <script src="<?php echo $url_vendors ?>bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="<?php echo $url_vendors ?>jquery-easing/jquery.easing.min.js"></script>
                 <script src="<?php echo $url_js ?>ruang-admin.min.js"></script>
-                <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-                <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
-                </script>
-                <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
-                <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+                <script src="<?php echo $url_vendors ?>datatables/jquery.dataTables.min.js"></script>
+                <script src="<?php echo $url_vendors ?>datatables/dataTables.bootstrap4.min.js"></script>
+                <script src="<?php echo $url_vendors ?>dropzone/dropzone.min.js"></script>
                 <script src="<?php echo $url_js . 'spekta.js' ?>"></script>
                 <?php
                 if (isset($_GET['mes'])) {
@@ -156,32 +150,38 @@ Swal.fire({
     });
 })();
 
-// FORM VERVAL
-// $(document).on('click', '#addbiodata', function(e) {
-//     e.preventDefault();
-//     Swal.fire({
-//         title: 'KONFIRMASI',
-//         text: "Data yang telah tersimpan tidak dapat diubah",
-//         icon: 'warning',
-//         showCancelButton: true,
-//         confirmButtonText: 'Simpan',
-//         cancelButtonText: 'Batalkan',
-//         confirmButtonColor: 'green',
-//         cancelButtonColor: 'red',
-//     }).then((result) => {
-//         if (result.isConfirmed) {
-//             Swal.fire(
-//                 'Deleted!',
-//                 'Your file has been deleted.',
-//                 'success'
-//             ).then(function(result) {
-//                 $('#formverval').submit();
-//             });
-//         }
-//     })
-// });
+var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+    'November', 'Desember'
+];
+var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth();
+var thisDay = date.getDay(),
+    thisDay = myDays[thisDay];
+var yy = date.getYear();
+var year = (yy < 1000) ? yy + 1900 : yy;
+
+document.getElementById("tgl").innerHTML = thisDay + ', ' + day + ' ' + months[month] + ' ' + year;
+
+function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById("clock").innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    } // add zero in front of numbers < 10
+    return i;
+}
                 </script>
-                <!-- Page level custom scripts -->
                 </body>
 
                 </html>

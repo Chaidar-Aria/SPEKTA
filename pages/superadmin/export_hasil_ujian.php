@@ -190,7 +190,10 @@ window.location.href = "exam?mes=ujian_berlangsung";
             <br>
             <div class="d-flex justify-content-around mt-5 text-center">
                 <h6>____________________________</h6>
-                <h6>____________________________</h6>
+                <?php $sql2 = mysqli_query($conn, "SELECT * FROM tb_data_sekolah WHERE id_data_Sekolah = '1'");
+                                        while ($d2 = mysqli_fetch_array($sql2)) { ?>
+                <h6><?php echo $d2['waka_kesiswaan'] . "<br> NIP. " . $d2['nip_waka_kesiswaan'] ?></h6>
+                <?php } ?>
             </div>
             <br>
             <div class="d-flex justify-content-center text-center">
@@ -200,26 +203,32 @@ window.location.href = "exam?mes=ujian_berlangsung";
                 <h6>KEPALA SEKOLAH <br> SMA NEGERI 1 MEJAYAN</h6>
             </div>
             <br>
-            <div class="d-flex justify-content-center mt-5">
-                <h6>____________________________</h6>
-            </div>
-            <footer class="sticky-footer bg-white mt-3">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>copyright &copy; <script>
-                            document.write(new Date().getFullYear());
-                            </script> - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKSTRAKURIKULER
-                        </span>
-                    </div>
-                </div>
+            <div class="d-flex justify-content-center mt-5  text-center">
+                <?php $sql2 = mysqli_query($conn, "SELECT * FROM tb_data_sekolah WHERE id_data_Sekolah = '1'");
+                                        while ($d2 = mysqli_fetch_array($sql2)) { ?>
+                <h6><?php echo $d2['kepala_sekolah'] . "<br> NIP. " . $d2['nip_kepsek'] ?></h6>
+                <h6></h6>
 
-                <div class="container my-auto py-2">
-                    <div class="copyright text-center my-auto">
-                        <h6>SMA NEGERI 1 MEJAYAN</h6>
-                    </div>
-                </div>
-            </footer>
+                <?php } ?>
+            </div>
         </div>
+        <footer class="sticky-footer bg-white mt-3">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>copyright &copy; <script>
+                        document.write(new Date().getFullYear());
+                        </script> - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKSTRAKURIKULER
+                    </span>
+                </div>
+            </div>
+
+            <div class="container my-auto py-2">
+                <div class="copyright text-center my-auto">
+                    <h6>SMA NEGERI 1 MEJAYAN</h6>
+                </div>
+            </div>
+        </footer>
+    </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">

@@ -92,7 +92,7 @@ require_once '../../config/koneksi.php';
                                                     value="<?php echo $d['id_ekskul'] ?>" disabled>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="nofile" class="form-label">Nama Ekstrakurikuler</label>
+                                                <label for="nofile" class="form-label">Nama Ekstrakurikuler *</label>
                                                 <input type="hidden" name="idekstra" id="idekstra"
                                                     value="<?php echo $d['id_ekstra'] ?>">
                                                 <input type="text" class="form-control" id="ekstrakurikuler"

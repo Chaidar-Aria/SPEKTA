@@ -97,7 +97,7 @@ include 'head.php';
     <!-- End Hero -->
     <?php
     include 'foot.php';
-    include '../../template/script.php'; ?>
+    ?>
     <script>
     function validasi(form) {
 

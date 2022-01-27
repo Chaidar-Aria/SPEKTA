@@ -47,7 +47,7 @@ while ($row = $result->fetch_assoc()) {
                                 <a href="login"
                                     class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
                                     <span>Login</span>
-                                    <i class="bi bi-arrow-right"></i>
+                                    <i class="fas fa-arrow-right"></i>
                                 </a>
                             </div>
                         </div>
@@ -496,8 +496,31 @@ while ($row = $result->fetch_assoc()) {
     <?php }
         $date = $row['date_open_reg'];
         require 'foot.php';
-        require_once '../../template/script.php'; ?>
+        ?>
     <script>
+    (function() {
+        "use strict";
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll(".needs-validation");
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms).forEach(function(form) {
+            form.addEventListener(
+                "submit",
+                function(event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+
+                    form.classList.add("was-validated");
+                },
+                false
+            );
+        });
+    })
+
     var countDownDate = <?php
                                 $h = 00;
                                 $m = 00;
@@ -527,34 +550,6 @@ while ($row = $result->fetch_assoc()) {
         }
 
     }, 1000);
-    </script>
-    <script>
-    var check = function() {
-        if (
-            document.getElementById("password").value ==
-            document.getElementById("confirm_password").value
-        ) {
-            document.getElementById("message").style.backgroundColor = "green";
-            document.getElementById("message").textContent = 'SESUAI';
-        } else {
-            document.getElementById("message").style.backgroundColor = "red";
-            document.getElementById("message").textContent = "TIDAK SESUAI";
-        }
-    };
-
-    function validasi(form) {
-
-        if (form.password.value.length < 8) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'PERINGATAN !',
-                text: "Password harus terdiri dari angka, huruf besar, huruf kecil, dan minimal 8 karakter ",
-                showConfirmButton: false,
-                timer: 2000
-            });
-            return false;
-        }
-    }
 
     // timeout before a callback is called
 
@@ -621,7 +616,9 @@ while ($row = $result->fetch_assoc()) {
         text: "Saat ini sistem sedang sibuk atau sedang ada perbaikan, mohon untuk mengulangi dalam 5 menit",
         showConfirmButton: false,
         timer: 2000
-    })
+    }).then((result) => {
+        window.location.href = "?";
+    });
     </script>
     <?php
             } elseif ($_GET['pesan'] == "akun_ganda") {
@@ -633,7 +630,51 @@ while ($row = $result->fetch_assoc()) {
         text: "Ditemukan akun dengan email yang sama",
         showConfirmButton: false,
         timer: 2000
-    })
+    }).then((result) => {
+        window.location.href = "?";
+    });
+    </script>
+    <?php
+            } elseif ($_GET['pesan'] == "pass_kosong") {
+            ?>
+    <script>
+    Swal.fire({
+        icon: 'warning',
+        title: 'Peringatan !',
+        text: "Password kosong",
+        showConfirmButton: false,
+        timer: 2000
+    }).then((result) => {
+        window.location.href = "?";
+    });
+    </script>
+    <?php
+            } elseif ($_GET['pesan'] == "email_kosong") {
+            ?>
+    <script>
+    Swal.fire({
+        icon: 'warning',
+        title: 'Peringatan !',
+        text: "Email kosong",
+        showConfirmButton: false,
+        timer: 2000
+    }).then((result) => {
+        window.location.href = "?";
+    });
+    </script>
+    <?php
+            } elseif ($_GET['pesan'] == "form_kosong") {
+            ?>
+    <script>
+    Swal.fire({
+        icon: 'warning',
+        title: 'Peringatan !',
+        text: "Form kosong",
+        showConfirmButton: false,
+        timer: 2000
+    }).then((result) => {
+        window.location.href = "?";
+    });
     </script>
     <?php
             } elseif ($_GET['pesan'] == "berhasil") {
@@ -645,7 +686,9 @@ while ($row = $result->fetch_assoc()) {
         text: "silahkan cek email anda untuk aktivasi",
         showConfirmButton: false,
         timer: 2000
-    })
+    }).then((result) => {
+        window.location.href = "?";
+    });
     </script>
     <?php
             }

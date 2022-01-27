@@ -27,21 +27,41 @@ while ($row = $result->fetch_assoc()) {
 }
 ?>
 
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></a>
+
+
+<!-- Vendor JS Files -->
+<script src="<?php echo $url_assets ?>vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="<?php echo $url_assets ?>vendor/aos/aos.js"></script>
+<script src="<?php echo $url_assets ?>vendor/swiper/swiper-bundle.min.js"></script>
+<script src="<?php echo $url_assets ?>vendor/purecounter/purecounter.js"></script>
+<script src="<?php echo $url_assets ?>vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="<?php echo $url_assets ?>vendor/glightbox/js/glightbox.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="<?php echo $url_assets ?>js/main.js"></script>
 <script>
-function showPassword() {
-    var x = document.getElementById("password");
-    if (x.type === "password") {
-        x.type = "text";
-    } else {
-        x.type = "password";
-    }
-    var y = document.getElementById("confirm_password");
-    if (y.type === "password") {
-        y.type = "text";
-    } else {
-        y.type = "password";
-    }
-}
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+    "use strict";
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll(".needs-validation");
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms).forEach(function(form) {
+        form.addEventListener(
+            "submit",
+            function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+
+                form.classList.add("was-validated");
+            },
+            false
+        );
+    });
+})
 </script>

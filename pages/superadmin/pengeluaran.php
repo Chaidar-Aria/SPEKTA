@@ -98,7 +98,8 @@ require_once '../../config/koneksi.php';
                                 <label class="col-sm-3 col-form-label">Sumber Uang</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="sumberkeluar" id="sumberkeluar" required>
-
+                                        <option selected value="">PILIH SUMBER UANG
+                                        </option>
                                         <?php
                                         $data = mysqli_query($conn, "SELECT * FROM tb_sumber_uang LIMIT 7,13");
                                         $no = 8;
@@ -106,6 +107,25 @@ require_once '../../config/koneksi.php';
                                             echo '<option value="' . $no++ . '">' . $d["nama"] . '</option>';
                                         }
 
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">Ekstrakurikuler</label>
+                                <div class="col-sm-9">
+                                    <select class="form-control" name="ekstra" id="ekstra" autocomplete="off" required>
+                                        <option selected value="">PILIH EKSTRAKURIKULER
+                                        </option>
+                                        <?php
+                                        $data = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler");
+                                        while ($d = mysqli_fetch_array($data)) {
+                                            echo '<option value="' . $d['id_ekstra'] . '">' . $d['id_ekskul'] . '-' . strtoupper($d["ekstrakurikuler"]) . '</option>';
+                                        }
                                         ?>
                                     </select>
                                 </div>

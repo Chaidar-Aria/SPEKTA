@@ -53,19 +53,10 @@
                 <script src="<?php echo $url_vendors ?>bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="<?php echo $url_vendors ?>jquery-easing/jquery.easing.min.js"></script>
                 <script src="<?php echo $url_js ?>ruang-admin.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.6.2/chart.min.js"
-                    integrity="sha512-tMabqarPtykgDtdtSqCL3uLVM0gS1ZkUAVhRFu1vSEFgvB73niFQWJuvviDyBGBH22Lcau4rHB5p2K2T0Xvr6Q=="
-                    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-                <script src="<?php echo $url_js ?>demo/chart-area-demo.js"></script>
-                <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-                <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
-                </script>
-                <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
-                <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
-                    rel="stylesheet" />
-                <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-                <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js">
-                </script>
+                <script src="<?php echo $url_vendors ?>datatables/jquery.dataTables.min.js"></script>
+                <script src="<?php echo $url_vendors ?>datatables/dataTables.bootstrap4.min.js"></script>
+                <script src="<?php echo $url_vendors ?>select2/dist/js/select2.min.js"></script>
+                <script src="<?php echo $url_vendors ?>bootstrap-toogle/bootstrap4-toggle.min.js"></script>
                 <script
                     src="<?php echo $url_vendors . 'bootstrap-duallistbox-4/dist/jquery.bootstrap-duallistbox.min.js' ?>">
                 </script>
@@ -264,10 +255,33 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
-                <?php } ?>
-                <?php
-                }
-                ?>
+                <?php } else if ($_GET['mes'] == 'datasekolah_edit') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data sekolah berhasil diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'datasekolah_buat') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data sekolah berhasil dibuat',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } ?> <?php
+                            }
+                                ?>
 
                 <script>
 $(document).ready(function() {
@@ -303,6 +317,38 @@ $(document).ready(function() {
         );
     });
 })();
+
+var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+    'November', 'Desember'
+];
+var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth();
+var thisDay = date.getDay(),
+    thisDay = myDays[thisDay];
+var yy = date.getYear();
+var year = (yy < 1000) ? yy + 1900 : yy;
+
+document.getElementById("tgl").innerHTML = thisDay + ', ' + day + ' ' + months[month] + ' ' + year;
+
+function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById("clock").innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    } // add zero in front of numbers < 10
+    return i;
+}
                 </script>
                 <!-- Page level custom scripts -->
                 </body>

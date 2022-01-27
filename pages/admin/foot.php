@@ -53,13 +53,10 @@
                 <script src="<?php echo $url_vendors ?>jquery/jquery.min.js"></script>
                 <script src="<?php echo $url_vendors ?>bootstrap/js/bootstrap.bundle.min.js"></script>
                 <script src="<?php echo $url_vendors ?>jquery-easing/jquery.easing.min.js"></script>
-                <script src="<?php echo $url_js ?>ruang-admin.min.js"></script>
                 <script src="<?php echo $url_vendors ?>chart.<?php echo $url_js ?>Chart.min.js"></script>
-                <script src="<?php echo $url_js ?>demo/chart-area-demo.js"></script>
-                <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-                <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/datatables.min.js">
-                </script>
-                <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+                <script src="<?php echo $url_vendors ?>datatables/jquery.dataTables.min.js"></script>
+                <script src="<?php echo $url_vendors ?>datatables/dataTables.bootstrap4.min.js"></script>
+                <script src="<?php echo $url_js ?>ruang-admin.min.js"></script>
                 <!-- Page level custom scripts -->
                 <?php
                 if (isset($_GET['mes'])) {
@@ -290,6 +287,38 @@ $(document).ready(function() {
             }, false)
         })
 })()
+
+var months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+    'November', 'Desember'
+];
+var myDays = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum&#39;at', 'Sabtu'];
+var date = new Date();
+var day = date.getDate();
+var month = date.getMonth();
+var thisDay = date.getDay(),
+    thisDay = myDays[thisDay];
+var yy = date.getYear();
+var year = (yy < 1000) ? yy + 1900 : yy;
+
+document.getElementById("tgl").innerHTML = thisDay + ', ' + day + ' ' + months[month] + ' ' + year;
+
+function startTime() {
+    const today = new Date();
+    let h = today.getHours();
+    let m = today.getMinutes();
+    let s = today.getSeconds();
+    m = checkTime(m);
+    s = checkTime(s);
+    document.getElementById("clock").innerHTML = h + ":" + m + ":" + s;
+    setTimeout(startTime, 1000);
+}
+
+function checkTime(i) {
+    if (i < 10) {
+        i = "0" + i;
+    } // add zero in front of numbers < 10
+    return i;
+}
                 </script>
                 </body>
 

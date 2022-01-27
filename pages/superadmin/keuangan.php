@@ -29,6 +29,40 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
     $arraykeluartahun[] = $hasilkeluartahunan['jumlah'];
 }
 
+$bulanseb = date('m', strtotime(date('Y-m') . " -1 month")); //BULAN SEBELUMNYA
+
+// PERSENTASE PEMASUKAN PERBULAN
+
+$masukbulananseb = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE MONTH(tgl_pemasukan) = '$bulanseb'");
+while ($hasilmasukbulananseb = mysqli_fetch_array($masukbulananseb)) {
+    $arraymasukbulananseb[] = $hasilmasukbulananseb['jumlah'];
+}
+$hitunghasilmasukbulananseb = array_sum($arraymasukbulananseb);
+
+// PERSENTASE PENGELUARAN BULANAN
+$keluarbulananseb = mysqli_query($conn, "SELECT * from tb_uang_keluar WHERE MONTH(tgl_pengeluaran) = '$bulanseb'");
+while ($hasilkeluarbulananseb = mysqli_fetch_array($keluarbulananseb)) {
+    $arraykeluarbulananseb[] = $hasilkeluarbulananseb['jumlah'];
+}
+$hitunghasilkeluarbulananseb = array_sum($arraykeluarbulananseb);
+
+
+$tahunseb = date('Y', strtotime(date('Y-m') . " -1 years")); //TAHUN SEBELUMNYA
+
+// PERSENTASE PEMASUKAN TAHUNAN
+$masuktahunseb = mysqli_query($conn, "SELECT jumlah from tb_uang_masuk WHERE YEAR(tgl_pemasukan) = '$tahunseb'");
+while ($hasilmasuktahunanseb = mysqli_fetch_array($masuktahunseb)) {
+    $arraymasuktahunseb[] = $hasilmasuktahunanseb['jumlah'];
+}
+$hitunghasilmasuktahunseb = array_sum($arraymasuktahunseb);
+
+
+// PERSENTASE PENGELUARAN TAHUNAN
+$keluartahunseb = mysqli_query($conn, "SELECT jumlah from tb_uang_keluar WHERE YEAR(tgl_pengeluaran) = '$tahunseb'");
+while ($hasilkeluartahunanseb = mysqli_fetch_array($keluartahunseb)) {
+    $arraykeluartahunseb[] = $hasilkeluartahunanseb['jumlah'];
+}
+$hitunghasilkeluartahunseb = array_sum($arraykeluartahunseb);
 
 
 ?>
@@ -57,11 +91,23 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 $hitunghasilmasukbulanan = array_sum($arraymasukbulanan);
                                 echo "Rp " . number_format($hitunghasilmasukbulanan, 2, ',', '.'); ?>
                             </div>
+                            <?php if ($hitunghasilmasukbulananseb > $hitunghasilmasukbulanan) { ?>
                             <div class="mt-2 mb-0 text-muted text-xs">
-                                <span class="text-success mr-2"><i class="fa fa-arrow-up"></i>
-                                    3.48%</span>
-                                <span>Since last month</span>
+                                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i>
+                                </span>
+                                <span>Terjadi Penurunan</span>
                             </div>
+                            <?php } else if ($hitunghasilmasukbulananseb < $hitunghasilmasukbulanan) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
+                                </span>
+                                <span>Terjadi Kenaikan</span>
+                            </div>
+                            <?php } else if ($hitunghasilmasukbulananseb == $hitunghasilmasukbulanan) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span>Nilai Sama</span>
+                            </div>
+                            <?php }  ?>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-bill fa-2x text-primary"></i>
@@ -82,11 +128,23 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
 
                                 echo "Rp " . number_format($hitunghasilkeluarbulanan, 2, ',', '.');
                                 ?></div>
+                            <?php if ($hitunghasilkeluarbulananseb > $hitunghasilkeluarbulanan) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i>
+                                </span>
+                                <span>Terjadi Penurunan</span>
+                            </div>
+                            <?php } else if ($hitunghasilkeluarbulananseb < $hitunghasilkeluarbulanan) { ?>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
-                                    12%</span>
-                                <span>Since last years</span>
+                                </span>
+                                <span>Terjadi Kenaikan</span>
                             </div>
+                            <?php } else if ($hitunghasilkeluarbulananseb == $hitunghasilkeluarbulanan) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span>Nilai Sama</span>
+                            </div>
+                            <?php }  ?>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-bill-alt fa-2x text-danger"></i>
@@ -107,11 +165,23 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 echo "Rp " . number_format($hitunghasilmasuktahun, 2, ',', '.');
                                 ?>
                             </div>
+                            <?php if ($hitunghasilmasuktahunseb > $hitunghasilmasuktahun) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i>
+                                </span>
+                                <span>Terjadi Penurunan</span>
+                            </div>
+                            <?php } else if ($hitunghasilmasuktahunseb < $hitunghasilmasuktahun) { ?>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
-                                    20.4%</span>
-                                <span>Since last month</span>
+                                </span>
+                                <span>Terjadi Kenaikan</span>
                             </div>
+                            <?php } else if ($hitunghasilmasuktahunseb == $hitunghasilmasuktahun) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span>Nilai Sama</span>
+                            </div>
+                            <?php }  ?>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-check fa-2x text-info"></i>
@@ -133,11 +203,23 @@ while ($hasilkeluartahunan = mysqli_fetch_array($keluartahun)) {
                                 echo "Rp " . number_format($hitunghasilkeluartahun, 2, ',', '.');
                                 ?>
                             </div>
+                            <?php if ($hitunghasilkeluartahunseb > $hitunghasilkeluartahun) { ?>
                             <div class="mt-2 mb-0 text-muted text-xs">
                                 <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i>
-                                    1.10%</span>
-                                <span>Since yesterday</span>
+                                </span>
+                                <span>Terjadi Penurunan</span>
                             </div>
+                            <?php } else if ($hitunghasilkeluartahunseb < $hitunghasilkeluartahun) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span class="text-success mr-2"><i class="fas fa-arrow-up"></i>
+                                </span>
+                                <span>Terjadi Kenaikan</span>
+                            </div>
+                            <?php } else if ($hitunghasilkeluartahunseb == $hitunghasilkeluartahun) { ?>
+                            <div class="mt-2 mb-0 text-muted text-xs">
+                                <span>Nilai Sama</span>
+                            </div>
+                            <?php }  ?>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-money-check-alt fa-2x text-warning"></i>

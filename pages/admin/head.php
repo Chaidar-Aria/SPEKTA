@@ -25,20 +25,24 @@ $idekstra = $_SESSION['ekstra'];
     <meta name="author" content="">
     <link href="<?php echo $url_assets ?>img/Logo SS.png" rel=" icon">
     <title>Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler Smansa | SMA Negeri 1 Mejayan</title>
-    <link href="<?php echo $url_vendors ?>fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="<?php echo $url_vendors ?>bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.datatables.net/v/bs4/dt-1.11.3/date-1.1.1/r-2.2.9/sc-2.0.5/sb-1.3.0/sp-1.4.0/datatables.min.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
-    <link href="<?php echo $url_css ?>ruang-admin.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.3.0/dist/sweetalert2.all.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+    <!-- css -->
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>fontawesome-free /css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>bootstrap/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>datatables/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>bootstrap-duallistbox-4/src/bootstrap-duallistbox.css">
+    <link rel="stylesheet" href="<?php echo $url_vendors ?>bootstrap-toogle/bootstrap4-toggle.min.css">
+    <link rel="stylesheet" href="<?php echo $url_css ?>ruang-admin.min.css">
+    <!-- end css -->
+
+    <!-- script -->
+    <script src="<?php echo $url_vendors . 'sweetalert2/sweetalert2.all.min.js' ?>"></script>
+    <script src="<?php echo $url_vendors . 'ckeditor/ckeditor.js' ?>"></script>
+    <script src="<?php echo $url_vendors . 'chart.js/Chart.min.js' ?>"></script>
+    <!-- end script -->
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="startTime()">
     <?php
     require_once '../../config/koneksi.php';
     $query = "SELECT * FROM tb_auth_settings";
@@ -61,6 +65,11 @@ $idekstra = $_SESSION['ekstra'];
                 </div>
                 <div class="sidebar-brand-text mx-3">SPEKTA SMANSA</div>
             </a>
+            <hr class="sidebar-divider my-0">
+            <div class="text-center">
+                <p class="mt-2" id="tgl"></p>
+                <p style="margin-top:-10px" id="clock"></p>
+            </div>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
                 <a class="nav-link" href="<?php echo $url_admin ?>">
