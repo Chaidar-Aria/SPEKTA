@@ -114,13 +114,6 @@ $idekstra = $data['id_ekstra'];
                 </a>
             </li>
             <hr class="sidebar-divider">
-            <li class="nav-item">
-                <a class="nav-link" href="profile">
-                    <i class="fas fa-fw fa-users"></i>
-                    <span>Data Diri</span>
-                </a>
-            </li>
-            <hr class="sidebar-divider">
 
         </ul>
         <!-- Sidebar -->

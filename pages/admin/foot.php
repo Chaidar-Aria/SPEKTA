@@ -227,6 +227,18 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'prof_sukses') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Admin berhasil diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } else if ($_GET['mes'] == 'berhasil_editpembina') { ?>
                 <script>
 Swal.fire({

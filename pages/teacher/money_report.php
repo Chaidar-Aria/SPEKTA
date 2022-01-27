@@ -466,13 +466,13 @@ while ($data = mysqli_fetch_array($sql)) {
     }
 
     @page {
-        size: auto;
+        size: legal;
         margin: 5px 0px 0px 0px;
 
     }
 
     #blah {
-        width: 25%;
+        width: 10rem;
 
     }
     </style>
@@ -506,8 +506,6 @@ while ($data = mysqli_fetch_array($sql)) {
                             </h2>
                             <div>SISTEM PENCATATAN KEUANGAN EKSTRAKURIKULER</div>
                             <div>SMA NEGERI 1 MEJAYAN</div>
-                            <div>JL. PANGLIMA SUDIRMAN NO.82</div>
-                            <div>MEJAYAN, MADIUN, JAWA TIMUR</div>
                             <br>
                             <div class="date">
                                 <?php
@@ -518,10 +516,11 @@ while ($data = mysqli_fetch_array($sql)) {
                                     $kode_awal = "LAPKEU";
                                     $kode_akhir = $date->format("Ymd");
 
-                                    $kode_laporan = $kode_awal . "-" . $data['id_ekskul'] . "-" . $kode_akhir;
+                                    $kode_laporan = $kode_awal . -$kode_akhir;
+
                                     ?>
-                                Kode Laporan: <?php echo $kode_laporan ?></div>
-                            <div class="date">Tanggal Laporan: <?php echo $date->format("Y-m-d"); ?></div>
+                                Kode Laporan: <?php echo $kode_laporan ?> <br> Tanggal Laporan:
+                                <?php echo $date->format("Y-m-d"); ?></div>
                         </div>
                     </div>
                 </header>
@@ -553,9 +552,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $danasekolahsebelumnya ?></td>
                                 <td class="qty"><?php echo $danasekolahsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($danasekolahsebelumnya > $danasekolahsekarang) { ?>
+                                    <?php if ($hitungarray_danasekolah_prev > $hitungarray_danasekolah) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($danasekolahsebelumnya == $danasekolahsekarang) { ?>
+                                    <?php } elseif ($hitungarray_danasekolah_prev == $hitungarray_danasekolah) { ?>
                                     NILAI TETEAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -570,9 +569,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $danakassebelumnya ?></td>
                                 <td class="qty"><?php echo $danakassekarang ?></td>
                                 <td class="total">
-                                    <?php if ($danakassebelumnya > $danakassekarang) { ?>
+                                    <?php if ($hitungarray_danakas_prev > $hitungarray_danakas) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($danakassebelumnya == $danakassekarang) { ?>
+                                    <?php } elseif ($hitungarray_danakas_prev == $hitungarray_danakas) { ?>
                                     NILAI TETEAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -587,9 +586,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $uangsisasebelumnya ?></td>
                                 <td class="qty"><?php echo $uangsisasekarang ?></td>
                                 <td class="total">
-                                    <?php if ($uangsisasebelumnya > $uangsisasekarang) { ?>
+                                    <?php if ($hitungarray_uangsisa_prev > $hitungarray_uangsisa) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($uangsisasebelumnya === $uangsisasekarang) { ?>
+                                    <?php } elseif ($hitungarray_uangsisa_prev === $hitungarray_uangsisa) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -604,9 +603,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $uangusahasebelumnya ?></td>
                                 <td class="qty"><?php echo $uangusahasekarang ?></td>
                                 <td class="total">
-                                    <?php if ($uangusahasebelumnya > $uangusahasekarang) { ?>
+                                    <?php if ($hitungarray_uangusaha_prev > $hitungarray_uangusaha) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($uangusahasebelumnya == $uangusahasekarang) { ?>
+                                    <?php } elseif ($hitungarray_uangusaha_prev == $hitungarray_uangusaha) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -621,9 +620,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $danahibahsebelumnya ?></td>
                                 <td class="qty"><?php echo $danahibahsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($danahibahsebelumnya > $danahibahsekarang) { ?>
+                                    <?php if ($hitungarray_uanghibah_prev > $hitungarray_uanghibah) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($danahibahsebelumnya == $danahibahsekarang) { ?>
+                                    <?php } elseif ($hitungarray_uanghibah_prev == $hitungarray_uanghibah) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -638,9 +637,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $danatakterdugasebelumnya ?></td>
                                 <td class="qty"><?php echo $danatakterdugasekarang ?></td>
                                 <td class="total">
-                                    <?php if ($danatakterdugasebelumnya > $danatakterdugasekarang) { ?>
+                                    <?php if ($hitungarray_uangtakterduga_prev > $hitungarray_uangtakterduga) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($danatakterdugasebelumnya == $danatakterdugasekarang) { ?>
+                                    <?php } elseif ($hitungarray_uangtakterduga_prev == $hitungarray_uangtakterduga) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -655,9 +654,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $danalainsebelumnya ?></td>
                                 <td class="qty"><?php echo $danalainsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($danalainsebelumnya > $danalainsekarang) { ?>
+                                    <?php if ($hitungarray_uanglain_prev > $hitungarray_uanglain) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($danalainsebelumnya == $danalainsekarang) { ?>
+                                    <?php } elseif ($hitungarray_uanglain_prev == $hitungarray_uanglain) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -684,7 +683,7 @@ while ($data = mysqli_fetch_array($sql)) {
                         </tfoot>
                     </table>
 
-                    <div class="row contacts mt-5">
+                    <div class="row contacts">
                         <div class="col invoice-details">
                             <h1 class="invoice-id">PENGELUARAN BULAN
                                 <?php echo strtoupper(date('F', strtotime(date('Y-m') . " -1 month"))); ?>
@@ -712,9 +711,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatantahunansebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatantahunansekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatantahunansebelumnya > $kegiatantahunansekarang) { ?>
+                                    <?php if ($hitungarray_kegiatantahunan_prev > $hitungarray_kegiatantahunan) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatantahunansebelumnya == $kegiatantahunansekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatantahunan_prev == $hitungarray_kegiatantahunan) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -729,9 +728,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatanbesarsebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatanbesarsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatanbesarsebelumnya > $kegiatanbesarsekarang) { ?>
+                                    <?php if ($hitungarray_kegiatanbesar_prev > $hitungarray_kegiatanbesar) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatanbesarsebelumnya == $kegiatanbesarsekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatanbesar_prev == $hitungarray_kegiatanbesar) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -746,9 +745,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatanrutinsebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatanrutinsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatanrutinsebelumnya > $kegiatanrutinsekarang) { ?>
+                                    <?php if ($hitungarray_kegiatanrutin_prev > $hitungarray_kegiatanrutin) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatanrutinsebelumnya == $kegiatanrutinsekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatanrutin_prev == $hitungarray_kegiatanrutin) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -763,9 +762,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatanlombasebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatanlombasekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatanlombasebelumnya > $kegiatanlombasekarang) { ?>
+                                    <?php if ($hitungarray_kegiatanlomba_prev > $hitungarray_kegiatanlomba) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatanlombasebelumnya == $kegiatanlombasekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatanlomba_prev == $hitungarray_kegiatanlomba) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -780,9 +779,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatankhusussebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatankhusussekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatankhusussebelumnya > $kegiatankhusussekarang) { ?>
+                                    <?php if ($hitungarray_kegiatankhusus_prev > $hitungarray_kegiatankhusus) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatankhusussebelumnya == $kegiatankhusussekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatankhusus_prev == $hitungarray_kegiatankhusus) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -797,9 +796,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $kegiatanlainsebelumnya ?></td>
                                 <td class="qty"><?php echo $kegiatanlainsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($kegiatanlainsebelumnya > $kegiatanlainsekarang) { ?>
+                                    <?php if ($hitungarray_kegiatanlain_prev > $hitungarray_kegiatanlain) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($kegiatanlainsebelumnya == $kegiatanlainsekarang) { ?>
+                                    <?php } elseif ($hitungarray_kegiatanlain_prev == $hitungarray_kegiatanlain) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -852,9 +851,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $totalmasuksebelumnya ?></td>
                                 <td class="qty"><?php echo $totalmasuksekarang ?></td>
                                 <td class="total">
-                                    <?php if ($totalmasuksebelumnya > $totalmasuksekarang) { ?>
+                                    <?php if ($hitung_total_masuk_prev > $hitung_total_masuk_now) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($totalmasuksebelumnya == $totalmasuksekarang) { ?>
+                                    <?php } elseif ($hitung_total_masuk_prev == $hitung_total_masuk_now) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -869,9 +868,9 @@ while ($data = mysqli_fetch_array($sql)) {
                                 <td class="unit"><?php echo $totalkeluarsebelumnya ?></td>
                                 <td class="qty"><?php echo $totalkeluarsekarang ?></td>
                                 <td class="total">
-                                    <?php if ($totalkeluarsebelumnya > $totalkeluarsekarang) { ?>
+                                    <?php if ($hitung_total_keluar_prev > $hitung_total_keluar_now) { ?>
                                     TERJADI PENURUNAN
-                                    <?php } elseif ($totalkeluarsebelumnya == $totalkeluarsekarang) { ?>
+                                    <?php } elseif ($hitung_total_keluar_prev == $hitung_total_keluar_now) { ?>
                                     NILAI TETAP
                                     <?php } else { ?>
                                     TERJADI KENAIKAN
@@ -945,9 +944,10 @@ while ($data = mysqli_fetch_array($sql)) {
                     <?php } ?>
                     <div class="notices">
                         <div>CATATAN:</div>
-                        <div class="notice">Laporan Keuangan ini hanya berlaku selama 1 bulan kedepan. Jika
-                            dalam
-                            laporan ini terdapat kesalahan penulisan harap untuk segera mengganti
+                        <div class="notice">Laporan Keuangan ini hanya berlaku selama 1 bulan kedepan. <br> Jumlah total
+                            uang
+                            adalah total dari pemasukan maupun pengeluaran ekstrakurikuler <br> Bila terjadi kesalahan
+                            penulisan, harap untuk segera mengganti
                         </div>
                     </div>
                 </main>

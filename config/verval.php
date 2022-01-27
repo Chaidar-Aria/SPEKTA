@@ -243,4 +243,14 @@ if (isset($_POST['setujuverval'])) {
     } else {
         header('location:../pages/teacher/profile?mes=error');
     }
+} else if (isset($_POST['editadmin'])) {
+    $id = $_GET['id_admin'];
+    $name = $_POST['name'];
+
+    $sql = "UPDATE tb_admin SET name = '$name', updated_at = current_timestamp() WHERE id_admin = '$id'";
+    if ($conn->query($sql) === TRUE) {
+        header('location:../pages/admin/profile?mes=prof_sukses');
+    } else {
+        header('location:../pages/admin/profile?mes=error');
+    }
 }
