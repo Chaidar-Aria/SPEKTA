@@ -35,6 +35,39 @@ if (isset($_POST['addpembina'])) {
             header('location: ../pages/superadmin/pembina?mes=error');
         }
     }
+} else if (isset($_POST['addadmin'])) {
+    $name = $_POST['name'];
+    $acc = $_POST['acc'];
+    $ekstra = $_POST['ekstra'];
+    $cek = "SELECT * FROM tb_admin WHERE id_acc = '$acc' OR name='$name'";
+    $r = mysqli_query($conn, $cek);
+    if (mysqli_num_rows($r) > 0) {
+        header('location: ../pages/superadmin/admin_ekstra?mes=dataganda');
+    } else {
+        $sql = "INSERT INTO tb_admin (id_acc, id_ekstra ,name) VALUES ('$acc','$ekstra','$name')";
+        if ($conn->query($sql) === TRUE) {
+            header('location: ../pages/superadmin/admin_ekstra?mes=berhasil_addadmin');
+        } else {
+            header('location: ../pages/superadmin/admin_ekstra?mes=error');
+        }
+    }
+} else if (isset($_POST['editadmin'])) {
+    $idadmin = $_GET['idadmin'];
+    $name = $_POST['name'];
+    $ekstra = $_POST['ekstra'];
+    $acc = $_POST['acc'];
+    $cek = "SELECT * FROM tb_admin WHERE id_acc = '$acc' OR name='$name'";
+    $r = mysqli_query($conn, $cek);
+    if (mysqli_num_rows($r) > 0) {
+        header('location: ../pages/superadmin/admin_ekstra?mes=dataganda');
+    } else {
+        $sql = "UPDATE tb_admin SET name='$name', id_ekstra='$ekstra', id_acc='$acc' WHERE id_admin = '$idadmin'";
+        if ($conn->query($sql) === TRUE) {
+            header('location: ../pages/superadmin/admin_ekstra?mes=berhasil_editadmin');
+        } else {
+            header('location: ../pages/superadmin/admin_ekstra?mes=error');
+        }
+    }
 } else if (isset($_POST['addbinaekstra'])) {
     $idpembina = $_POST['acc'];
     $ekstra = $_POST['ekstra'];

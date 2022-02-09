@@ -10,7 +10,7 @@ if (isset($_POST['addacc'])) {
     $sql_check = mysqli_query($conn, "SELECT * FROM tb_account WHERE email='$email'");
     $r_check = mysqli_num_rows($sql_check);
     if ($r_check > 0) {
-        header('location: ../pages/superadmin/account?pesan=akun_ganda');
+        header('location: ../pages/superadmin/account?mes=akun_ganda');
     } else {
         $regis = "INSERT INTO tb_account (id_acc, email, password) VALUES (NULL, '$email','$password')";
         if ($conn->query($regis) === TRUE) {
@@ -19,15 +19,15 @@ if (isset($_POST['addacc'])) {
                 $idacc = $d['id_acc'];
                 $lv = "INSERT INTO tb_level (id_acc, id_level_name) VALUES ('$idacc','$level');";
                 if ($conn->query($lv) === TRUE) {
-                    header('location: ../pages/superadmin/account?pesan=berhasil');
+                    header('location: ../pages/superadmin/account?mes=berhasil_cracc');
                 } else {
-                    header('location: ../pages/superadmin/account?pesan=gagal');
+                    header('location: ../pages/superadmin/account?mes=gagal');
                     // echo 'errro1' . $conn->connect_error;
                 }
             }
         } else {
             // echo 'errro2' . $conn->connect_error;
-            header('location: ../pages/superadmin/account?pesan=gagal');
+            header('location: ../pages/superadmin/account?mes=gagal');
         }
     }
 }

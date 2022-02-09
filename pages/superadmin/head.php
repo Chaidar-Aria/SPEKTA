@@ -124,6 +124,7 @@ if ($_SESSION['level'] == "") {
                         <h6 class="collapse-header">Ekstrakurikuler</h6>
                         <a class="collapse-item" href="ekstrakurikuler">Data Ekstrakurikuler</a>
                         <a class="collapse-item" href="pembina">Data Pembina</a>
+                        <a class="collapse-item" href="admin_ekstra">Data Admin Ekstra</a>
                     </div>
                 </div>
             </li>

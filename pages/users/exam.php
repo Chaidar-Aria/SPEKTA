@@ -43,12 +43,22 @@ while ($r = mysqli_fetch_array($r_email)) {
                 <h6>ANDA TIDAK DAPAT MELAKUKAN PENDAFTARAN EKSTRAKURIKULER JIKA DATA ANDA DITOLAK PANITIA SELEKSI</h6>
             </div>
         </div>
+        <?php } else if (empty($d['id_spekta'])) { ?>
+        <div class="card">
+            <div class="card-body text-center">
+                <img class="mb-3 img" src="<?php echo $url_assets . 'img/fingerprint.svg' ?>" alt="pending verval"
+                    width="250">
+                <h5>ID SPEKTA ANDA BELUM DIBUAT</h5>
+                <h6>ANDA TIDAK DAPAT MELAKUKAN PENDAFTARAN EKSTRAKURIKULER JIKA ID SPEKTA BELUM DIBUAT OLEH
+                    PANITIA SELEKSI</h6>
+                <p>Silahkan Hubungi Panitia Seleksi Untuk Konfirmasi Pembuatan ID SPEKTA</p>
+            </div>
+        </div>
         <?php } else if ($d['is_verval'] == '1') { ?>
         <div class="alert alert-success" role="alert">
             <h5>DATA ANDA TELAH TERVERIFIKASI</h5>
             <h6>SILAHKAN MELAKUKAN PENDAFTARAN CBT SPEKTA DAN MEMILIH EKSTRAKURIKULER</h6>
         </div>
-
         <div class="row">
             <div class="col-lg-6">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#modalekstra">
@@ -221,6 +231,10 @@ while ($r = mysqli_fetch_array($r_email)) {
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <a href="kartu_ekstra" type="button" class="btn btn-primary text-white" target="_BLANK">KARTU
+                            EKSTRAKURIKULER</a>
+                    </div>
                 </div>
             </div>
             <?php } ?>
@@ -296,7 +310,8 @@ while ($r = mysqli_fetch_array($r_email)) {
                     $sql = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
                         INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
                         INNER JOIN tb_test ON tb_users_cbt.test_id = tb_test.test_id
-                        WHERE tb_users_cbt.id_users = '$id_users'");
+                        INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
+                        WHERE tb_users_cbt.id_users = '$id_users' AND tb_test.cbt_status = '1'");
                     while ($d = mysqli_fetch_array($sql)) {
 
                     ?>

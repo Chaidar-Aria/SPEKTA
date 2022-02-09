@@ -51,7 +51,7 @@ $email = $_SESSION['email'];
                                     <input type="text" class="form-control" name="id_users" id="id_users"
                                         value="<?php echo $id_users ?>" hidden />
                                     <input type="text" class="form-control" name="name" id="name" required
-                                        autocomplete="off" />
+                                        autocomplete="false" />
                                 </div>
                             </div>
                         </div>
@@ -232,63 +232,6 @@ $email = $_SESSION['email'];
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row">
-                        <div class="col-xl-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Jalan</label>
-                                <div class="col-sm-8">
-                                    <textarea rows="4" class="form-control" name="street" id="street" required
-                                        autocomplete="off"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">RT</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="rt" id="rt" required />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">RW</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="rw" id="rw" required />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Desa/Kelurahan</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="village" id="village" required />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Kecamatan/Distrik</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="district" id="district" required />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Kabupaten/Kota</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="regency" id="regency" required
-                                        autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Provinsi</label>
-                                <div class="col-sm-8">
-                                    <input type="text" class="form-control" name="province" id="province" required
-                                        autocomplete="off" />
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="col-sm-4 col-form-label text-md-right">Kode Pos</label>
-                                <div class="col-sm-8">
-                                    <input type="number" class="form-control" name="poscode" id="poscode" required />
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
                 <div class="card-body">
                     <div class="row">

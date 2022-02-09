@@ -455,7 +455,7 @@ while ($row = $result->fetch_assoc()) {
 
     </section>
     <!-- End Hero -->
-    <?php } else if (date("Y-m-d", strtotime($row['date_open_reg'] . "-2 month"))) { ?>
+    <?php } else if (date("Y-m-d") > date("Y-m-d", strtotime($row['date_open_reg'] . "-1 month")) && date("Y-m-d") < $row['date_open_reg']) { ?>
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="hero d-flex align-items-center">
 
@@ -464,7 +464,7 @@ while ($row = $result->fetch_assoc()) {
                 <div class="col-lg-12 d-flex flex-column justify-content-center text-center">
                     <h1 data-aos="fade-up">PENDAFTARAN ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN
                         <?php echo date("Y") ?></h1>
-                    <h2 data-aos="fade-up" data-aos-delay="400">DIBUKA DALAM
+                    <h2 data-aos="fade-up" data-aos-delay="400" id="text-open">DIBUKA DALAM
                     </h2><br>
                     <h3 data-aos="fade-up" data-aos-delay="600" id="timer">
                     </h3>
@@ -480,7 +480,7 @@ while ($row = $result->fetch_assoc()) {
 
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 d-flex flex-column justify-content-center">
+                <div class="col-lg-12 d-flex flex-column justify-content-center text-center">
                     <h1 data-aos="fade-up">PENDAFTARAN DITUTUP</h1>
                     <h2 data-aos="fade-up" data-aos-delay="400">Terima kasih
                     </h2><br>
@@ -544,7 +544,8 @@ while ($row = $result->fetch_assoc()) {
         // If the count down is over, write some text 
         if (distance < 0) {
             clearInterval(x);
-            document.getElementById("timer").innerHTML = "WAKTU HABIS";
+            document.getElementById("text-open").style.display = "none";
+            document.getElementById("timer").innerHTML = "DITUTUP";
             window.location.reload(true);
 
         }

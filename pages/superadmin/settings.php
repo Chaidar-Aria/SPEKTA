@@ -100,7 +100,6 @@ while ($row = $result->fetch_assoc()) {
                                         SPEKTA</label>
                                     <div class="col-sm-9">
                                         <input type="date" class="form-control" name="dateoprec" id="dateoprec"
-                                            min="<?php echo date("Y-m-d") ?>"
                                             value="<?php echo $row['date_open_reg'] ?>" required autocomplete="off" />
                                     </div>
                                 </div>
@@ -111,7 +110,6 @@ while ($row = $result->fetch_assoc()) {
                                         SPEKTA</label>
                                     <div class="col-sm-9">
                                         <input type="date" class="form-control" name="datecloserec" id="datecloserec"
-                                            min="<?php echo date("Y-m-d") ?>"
                                             value="<?php echo $row['date_close_reg'] ?>" required autocomplete="off" />
                                     </div>
                                 </div>

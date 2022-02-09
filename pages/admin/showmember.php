@@ -55,12 +55,12 @@ require_once '../../config/koneksi.php';
                             <label class="col-sm-4 col-form-label text-md-right">ID SPEKTA</label>
                             <div class="col-sm-8">
                                 <p class="mt-2 tx-medium">
-                                    <?php if ($d['id_spekta'] == NULL || "") {
+                                    <?php if (empty($d['id_spekta'])) {
                                         ?>
                                 <form
                                     action="<?php echo $url_config . "idspekta.php?ekskul1=$ekskul1&ekskul2=$ekskul2&id_user=$id_users" ?>"
                                     method="post">
-                                    <button type="submit" name="buatidspekta" id="buatidspekta"
+                                    <button type="submit" name="buatidspektaadmin" id="buatidspektaadmin"
                                         class="btn btn-success btn-sm">
                                         BUAT ID SPEKTA</button>
                                 </form> <?php } else {

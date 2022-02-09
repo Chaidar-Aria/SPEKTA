@@ -98,15 +98,15 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
-                <?php } else if ($_GET['mes'] == 'reg_open') { ?>
+                <?php } else if ($_GET['mes'] == 'successidspekta') { ?>
                 <script>
 Swal.fire({
     icon: 'success',
-    title: 'PERUBAHAN BERHASIL',
-    text: 'Penerimaan Calon Anggota Ekstrakurikuler Akan Dimulai Pada Waktu Yang Telah Ditentukan',
+    title: 'BERHASIL',
+    text: 'ID SPEKTA berhasil dibuat',
     timer: 5000,
 }).then((result) => {
-    window.location.href = "?";
+    window.location.href = "<?php echo "?id_users=" . $_GET['id_users'] ?>";
 });
                 </script>
                 <?php } else if ($_GET['mes'] == 'berhasil_app') { ?>

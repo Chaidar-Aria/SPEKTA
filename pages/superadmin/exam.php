@@ -71,6 +71,11 @@ require_once '../../config/koneksi.php';
                         <?php } ?>
                     </tbody>
                 </table>
+                <div class="d-block text-center card-footer">
+                    <a href="<?php echo 'http://cbt.test/config/sso.php?logsso&username=admin&password=admin12345' ?>"
+                        type="button" class="btn btn-primary text-white" name="logsso" id="logsso" target="_BLANK">LOGIN
+                        CBT</a>
+                </div>
             </div>
         </div>
     </div>

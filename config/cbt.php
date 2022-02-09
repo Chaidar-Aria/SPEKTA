@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 require_once 'koneksi.php';
 
 if (isset($_POST['addcbt'])) {
@@ -38,18 +42,14 @@ if (isset($_POST['addcbt'])) {
         // USERNAME
         $date = date("y");
         $username = $jumlah . '-' . $date . '-' . $ekstra1 . '-' . $ekstra2;
+
         //PASSWORD
         $char = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $password = substr(str_shuffle($char), 0, 8);
 
         $sql = "UPDATE tb_users_cbt 
-        INNER JOIN tb_users_status ON tb_users_cbt.id_users = tb_users_status.id_users
         SET 
         test_id = '$test_id',
-        users_cbt_date = '$cbtdate',
-        exam_status = 'TERDAFTAR',
-        work_status ='0',
-        pilih_jadwal_cbt = '1',
         username = '$username',
         password = '$password'
         WHERE tb_users_cbt.id_users = '$id_users'
@@ -65,7 +65,20 @@ if (isset($_POST['addcbt'])) {
                 $id_acc = $d['id_acc'];
                 $sql3 = "UPDATE tb_level SET id_users_cbt = '$iduserscbt' WHERE id_acc = '$id_acc'";
                 if ($conn->query($sql3) === TRUE) {
-                    header('location: ../pages/users/exam?mes=berhasil_cbt');
+                    $sql4 = "INSERT INTO tb_users_cbt_date (id_users_cbt, test_id, users_cbt_date) VALUES ('$iduserscbt','$test_id','$cbtdate')";
+                    if ($conn->query($sql4) === TRUE) {
+                        $sql5 = "INSERT INTO tb_users_cbt_status (id_users_cbt, test_id, work_status, exam_status)
+                    VALUES ('$iduserscbt','$test_id','0', 'TERDAFTAR')";
+                        if ($conn->query($sql5) === TRUE) {
+                            $sql6 = "INSERT INTO tb_users_cbt_choice (id_users_cbt, test_id) VALUES ('$iduserscbt','$test_id')";
+                            if ($conn->query($sql6) == TRUE) {
+                                $sql7 = "UPDATE tb_users_status SET pilih_jadwal_cbt ='1' WHERE tb_users_status.id_users='$id_users'";
+                                if ($conn->query($sql7)) {
+                                    header('location: ../pages/users/exam?mes=berhasil_cbt');
+                                }
+                            }
+                        }
+                    }
                 }
             }
         } else {

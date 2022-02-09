@@ -28,6 +28,20 @@ $sql = "SELECT * FROM tb_users
         ";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 while ($d = mysqli_fetch_array($result)) {
+    $ekskul1 = $d['id_ekstra_1'];
+    $ekskul2 = $d['id_ekstra_2'];
+    $sql = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_1 
+                                            WHERE tb_users.id_ekstra_1= '$ekskul1'");
+    while ($data1 = mysqli_fetch_array($sql)) {
+        $ekstra1 = $data1['ekstrakurikuler'];
+    }
+    $sql2 = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_2
+                                            WHERE tb_users.id_ekstra_2 = '$ekskul2'");
+    while ($data2 = mysqli_fetch_array($sql2)) {
+        $ekstra2 = $data2['ekstrakurikuler'];
+    }
     if ($d['pilih_jadwal_cbt'] == "0" | $d['pilih_ekstra'] == "0") { ?>
 <script>
 window.location.href = "exam?mes=ekstra_cbt_null";
@@ -48,7 +62,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>KARTU UJIAN CBT SPEKTA | Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler SMA Negeri 1 Mejayan
+    <title>KARTU EKSTRAKURIKULER | Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler SMA Negeri 1 Mejayan
     </title>
 
     <style>
@@ -77,6 +91,10 @@ window.location.href = "exam?mes=ekstra_cbt_null";
     .BoxA h5,
     .BoxA p {
         margin: 0;
+    }
+
+    h5 {
+        text-transform: uppercase;
     }
 
     table img {
@@ -140,16 +158,8 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <img src="../../assets/img/logo_smansa.png" width="100px;" />
                         </div>
                         <div class="col-sm-4">
-                            <h5>CBT SPEKTA | SPEKTA SMANSA</h5>
-                            <p>KARTU UJIAN</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="BoxC border- padding mar-bot">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h5>USERNAME CBT: <?php echo $d['username'] ?></h5>
-                            <h5>PASSWORD CBT: <?php echo $d['password'] ?></h5>
+                            <h5>SPEKTA SMANSA</h5>
+                            <p>KARTU EKSTRAKURIKULER</p>
                         </div>
                     </div>
                 </div>
@@ -159,11 +169,10 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <td><b>Nomor Peserta : <?php echo $d['username'] ?></b></td>
-                                        <td><b>Nama Ujian: </b> <?php echo $d['test_name'] ?></td>
+                                        <td colspan="2"><b>ID SPEKTA : <?php echo $d['id_spekta'] ?></b></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Nama Peserta: </b><?php echo $d['name'] ?></td>
+                                        <td><b>Nama: </b><?php echo $d['name'] ?></td>
                                         <td><b>Jenis Kelamin:
                                             </b><?php if ($d['gender'] == "L") {
                                                         echo "LAKI-LAKI";
@@ -172,10 +181,12 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                                                     } ?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Ruang Ujian: </b>dd-mm-yyy <br><b>Kursi Ujian: </b>HH-MM~HH-MM</td>
-                                        <td><b>Tanggal Ujian: </b><?php echo tgl_indo($d['users_cbt_date']) ?> <br>
-                                            <b>Jam Ujian:
-                                            </b><?php echo date("h:i", strtotime($d['cbt_time_start'])) . "~" . date("h:i", strtotime($d['cbt_time_end'])) ?>
+                                        <td><b>Tempat Lahir: </b><?php echo $d['birth_place'] ?> <br><b>Tanggal Lahir:
+                                            </b><?php echo tgl_indo($d['birth_date']) ?></td>
+                                        <td><b>Ekstrakurikuler Pertama: </b><?php echo $ekstra1 ?>
+                                            <br>
+                                            <b>Ekstrakurikuler Kedua:
+                                            </b><?php echo $ekstra2 ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -209,31 +220,6 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="BoxE border- padding mar-bot">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h5>Peserta Wajib:</h5>
-                            <p>
-                                1. Melihat/cek lokasi 1 (satu) hari sebelum hari pelaksanaan CBT UM UGM; <br>
-                                2. Hadir di lokasi ujian 60 menit sebelum ujian dimulai; <br>
-                                3. Membawa hasil tes PCR/Swab Antigen/GNose dengan hasil negatif yang masih berlaku pada
-                                saat pelaksanaan CBT UM UGM; <br>
-                                4. Membawa Kartu Ujian CBT UM UGM; <br>
-                                5. Membawa Kartu Identitas Diri (KTP atau KK bagi yg belum memiliki KTP atau SIM atau
-                                Passpor);<br>
-                                6. Membawa: <br>
-                                a.Ijazah (untuk lulusan Tahun 2020 dan 2019); atau <br>
-                                b.Surat Keterangan Lulus (SKL)/Surat Keterangan Kelas 12 asli yang memuat identitas dan
-                                <br>
-                                foto atau fotokopi yang sudah dilegalisir dengan cap basah sekolah (untuk lulusan Tahun
-                                2021) <br>
-                                7. Turun di area drop zone dan tidak diperbolehkan untuk ditunggui di lokasi tes untuk
-                                menghindari kerumunan.
-
-                            </p>
                         </div>
                     </div>
                 </div>

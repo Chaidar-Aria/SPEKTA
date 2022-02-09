@@ -219,6 +219,30 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_addadmin') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Admin Berhasil Ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_editadmin') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data Admin Berhasil Diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } else if ($_GET['mes'] == 'berhasil_addpembina') { ?>
                 <script>
 Swal.fire({
@@ -273,6 +297,54 @@ Swal.fire({
     icon: 'success',
     title: 'BERHASIL',
     text: 'Data sekolah berhasil dibuat',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'berhasil_cracc') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Akun Berhasil Dibuat',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'aktif') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Akun Berhasil Diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'nonaktif') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'PERINGATAN',
+    text: 'Akun dinonaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'hapus') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Akun Dihapus',
     showConfirmButton: false,
     timer: 5000,
 }).then((result) => {

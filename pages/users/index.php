@@ -49,8 +49,9 @@ window.location.href = "pending";
             <h5>STATUS VERVAL ANDA TELAH DITERIMA OLEH PANITIA SELEKSI</h5>
             <p>Waktu simpan: <?php echo $d['permanent_at'] ?></p>
             <p>Waktu verval: <?php echo $d['verval_at'] ?></p>
+            <p>Silahkan Unduh Bukti Verval <a href="kartu_verval" style="color:blue" target="_blank">Disini</a></p>
         </div> <?php } else if ($d['is_verval'] == '0') { ?>
-        <div class="alert alert-warning" role="alert">
+        <div class=" alert alert-warning" role="alert">
             <h5>STATUS VERVAL ANDA SEDANG DITINJAU OLEH PANITIA SELEKSI</h5>
             <p>Waktu simpan: <?php echo $d['permanent_at'] ?></p>
         </div>
@@ -63,6 +64,17 @@ window.location.href = "pending";
                 </p>
                 <div class="row mt-5">
                     <div class="col-xl-6">
+                        <div class="form-group row">
+                            <label class="col-sm-4 col-form-label text-md-right">ID SPEKTA</label>
+                            <div class="col-sm-8">
+                                <p class="mt-2 tx-medium">
+                                    <?php if (empty($d['id_spekta'])) {
+                                            echo "ID SPEKTA BELUM DIBUAT";
+                                        } else {
+                                            echo $d['id_spekta'];
+                                        } ?> </p>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label text-md-right">Nama Lengkap</label>
                             <div class="col-sm-8">
