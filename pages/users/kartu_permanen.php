@@ -21,17 +21,13 @@ $sql = "SELECT * FROM tb_users
         INNER JOIN tb_religion ON tb_users.id_religion = tb_religion.id_religion
         INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
         INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-        INNER JOIN tb_users_cbt ON tb_users.id_users = tb_users_cbt.id_users
-        INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
-        INNER JOIN tb_users_cbt_choice ON tb_users_cbt.id_users_cbt = tb_users_cbt_choice.id_users_cbt
-        INNER JOIN tb_test ON tb_users_cbt_choice.test_id = tb_test.test_id
         WHERE tb_account.id_acc = '$id_acc'
         ";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
 while ($d = mysqli_fetch_array($result)) {
-    if ($d['pilih_jadwal_cbt'] == "0" | $d['pilih_ekstra'] == "0") { ?>
+    if ($d['is_permanent'] == '0') { ?>
 <script>
-window.location.href = "exam?mes=ekstra_cbt_null";
+window.location.href = "index?mes=data_null";
 </script>
 <?php
     }
@@ -49,7 +45,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <title>KARTU UJIAN CBT SPEKTA | Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler SMA Negeri 1 Mejayan
+    <title>KARTU PERMOHONAN VERVAL | Sistem Pencatatan Keuangan dan Keanggotaaan Ekstrakurikuler SMA Negeri 1 Mejayan
     </title>
 
     <style>
@@ -80,6 +76,10 @@ window.location.href = "exam?mes=ekstra_cbt_null";
         margin: 0;
     }
 
+    h5 {
+        text-transform: uppercase;
+    }
+
     table img {
         width: 100%;
         margin: 0 auto;
@@ -89,12 +89,6 @@ window.location.href = "exam?mes=ekstra_cbt_null";
     .table-bordered th,
     .table thead th {
         border: 1px solid #000000 !important;
-    }
-
-    @page {
-        size: auto;
-        margin: 5px 0px 0px 0px;
-
     }
 
     @page {
@@ -116,6 +110,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
         body {
             margin: 0mm;
         }
+
     }
     </style>
 
@@ -127,7 +122,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
         <div class="container">
             <div class="tombol-aksi text-center">
                 <button onclick="window.print()" class="btn btn-info"><i class="fa fa-print"></i> Print</button>
-                <a href="exam"><button class="btn btn-info"><i class="fa fa-arrow-left"></i>
+                <a href="./"><button class="btn btn-info"><i class="fa fa-arrow-left"></i>
                         Kembali</button></a>
             </div>
             <div class="admit-card">
@@ -141,16 +136,8 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <img src="../../assets/img/logo_smansa.png" width="100px;" />
                         </div>
                         <div class="col-sm-4">
-                            <h5>CBT SPEKTA | SPEKTA SMANSA</h5>
-                            <p>KARTU UJIAN</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="BoxC border- padding mar-bot">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h5>USERNAME CBT: <?php echo $d['username'] ?></h5>
-                            <h5>PASSWORD CBT: <?php echo $d['password'] ?></h5>
+                            <h5>SPEKTA SMANSA</h5>
+                            <p>KARTU PERMOHONAN VERVAL SPEKTA</p>
                         </div>
                     </div>
                 </div>
@@ -160,11 +147,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
-                                        <td><b>Nomor Peserta : <?php echo $d['username'] ?></b></td>
-                                        <td><b>Nama Ujian: </b> <?php echo $d['test_name'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td><b>Nama Peserta: </b><?php echo $d['name'] ?></td>
+                                        <td><b>Nama: </b><?php echo $d['name'] ?></td>
                                         <td><b>Jenis Kelamin:
                                             </b><?php if ($d['gender'] == "L") {
                                                         echo "LAKI-LAKI";
@@ -173,16 +156,19 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                                                     } ?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Ruang Ujian: </b>dd-mm-yyy <br><b>Kursi Ujian: </b>HH-MM~HH-MM</td>
-                                        <td><b>Tanggal Ujian: </b><?php echo tgl_indo($d['users_cbt_date']) ?> <br>
-                                            <b>Jam Ujian:
-                                            </b><?php echo date("h:i", strtotime($d['cbt_time_start'])) . "~" . date("h:i", strtotime($d['cbt_time_end'])) ?>
+                                        <td><b>Tempat Lahir: </b><?php echo $d['birth_place'] ?> <br><b>Tanggal Lahir:
+                                            </b><?php echo tgl_indo($d['birth_date']) ?></td>
+                                        <td><b>Waktu simpan:</b> <?php echo $d['permanent_at'] ?>
+                                            <br>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="    height: 125px;">Saya menyatakan bahwa seluruh
-                                            informasi/data yang saya isikan dalam
-                                            aplikasi pendaftaran adalah benar. <br><br><br>
+                                        <td colspan="2" style="    height: 125px;">Bahwa saya telah dengan sadar
+                                            mengisikan data diri saya pada aplikasi pendaftaran SPEKTA SMANSA dan saya
+                                            menyatakan bahwa data yang saya
+                                            isikan adalah benar. Jika dikemudian hari terdapat kekeliruan atau kesalahan
+                                            data
+                                            saya siap dikenakan sanksi sesuai aturan yang berlaku. <br><br><br>
                                             <b>
                                                 <p style="text-align: right;"> Mejayan,
                                                     <?php echo tgl_indo(date("Y-m-d")) ?>
@@ -218,30 +204,20 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                 <div class="BoxE border- padding mar-bot">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h5>Peserta Wajib:</h5>
+                            <h5>CATATAN:</h5>
                             <ol>
-                                <li>Melihat/cek lokasi 1 (satu) hari sebelum hari pelaksanaan CBT UM UGM;</li>
-                                <li>Hadir di lokasi ujian 60 menit sebelum ujian dimulai;</li>
-                                <li> Membawa hasil tes PCR/Swab Antigen/GNose dengan hasil negatif yang masih berlaku
-                                    pada
-                                    saat pelaksanaan CBT UM UGM;</li>
-                                <li>Membawa Kartu Ujian CBT UM UGM; </li>
-                                <li>Membawa Kartu Identitas Diri (KTP atau KK bagi yg belum memiliki KTP atau SIM atau
-                                    Passpor);</li>
-                                <li>Membawa:
+                                <li>Kartu ini dibawa pada saat pengumpulan berkas;</li>
+                                <li>Berkas yang dibawa antara lain:
                                     <ol>
-                                        <li>Ijazah (untuk lulusan Tahun 2020 dan 2019); atau</li>
-                                        <li>Surat Keterangan Lulus (SKL)/Surat Keterangan Kelas 12 asli yang memuat
-                                            identitas dan
-                                            foto atau fotokopi yang sudah dilegalisir dengan cap basah sekolah (untuk
-                                            lulusan Tahun
-                                            2021)
-                                        </li>
+                                        <li>Fotokopi Akta Kelahiran atau Kartu Keluarga atau surat keterangan yang
+                                            memuat data diri anda;</li>
+                                        <li>Surat perijinan orang tua/wali murid ditandatangani;</li>
+                                        <li>Surat pernyataan tempat tinggal ditandatangani;</li>
                                     </ol>
                                 </li>
-                                <li>Turun di area drop zone dan tidak diperbolehkan untuk ditunggui di lokasi tes untuk
-                                    menghindari kerumunan.
-                                </li>
+                                <li>Calon anggota wajib menaati aturan yang berlaku pada saat pengumpulan berkas;</li>
+                                <li>Apabila calon anggota tidak membawa salah satu dari pernyataan nomor 2. Maka data
+                                    verval akan ditolak oleh Panitia Seleksi</li>
                             </ol>
                         </div>
                     </div>

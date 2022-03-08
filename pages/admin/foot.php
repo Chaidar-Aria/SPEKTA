@@ -155,6 +155,18 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'keg_end') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Kegiatan anda telah selesai',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } else if ($_GET['mes'] == 'verval') { ?>
                 <script>
 Swal.fire({

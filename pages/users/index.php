@@ -49,10 +49,19 @@ window.location.href = "pending";
             <h5>STATUS VERVAL ANDA TELAH DITERIMA OLEH PANITIA SELEKSI</h5>
             <p>Waktu simpan: <?php echo $d['permanent_at'] ?></p>
             <p>Waktu verval: <?php echo $d['verval_at'] ?></p>
+            <h6>Silahkan Unduh Kartu Permohonan Verval <a href="kartu_permanen" style="color:blue"
+                    target="_blank">Disini</a></h6>
             <p>Silahkan Unduh Bukti Verval <a href="kartu_verval" style="color:blue" target="_blank">Disini</a></p>
         </div> <?php } else if ($d['is_verval'] == '0') { ?>
         <div class=" alert alert-warning" role="alert">
             <h5>STATUS VERVAL ANDA SEDANG DITINJAU OLEH PANITIA SELEKSI</h5>
+            <?php if (empty($d['foto_users'])) { ?>
+            <h6 class="blink">Anda belum mengunggah foto. Silahkan mengunggah foto anda pada menu administrasi berkas
+            </h6>
+            <?php } else { ?>
+            <h6>Silahkan Unduh Kartu Permohonan Verval <a href="kartu_permanen" style="color:blue"
+                    target="_blank">Disini</a></h6>
+            <?php } ?>
             <p>Waktu simpan: <?php echo $d['permanent_at'] ?></p>
         </div>
         <?php } ?>

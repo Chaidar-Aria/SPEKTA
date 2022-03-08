@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 09 Feb 2022 pada 02.31
+-- Waktu pembuatan: 08 Mar 2022 pada 17.26
 -- Versi server: 5.7.33
 -- Versi PHP: 7.4.19
 
@@ -79,7 +79,8 @@ INSERT INTO `tb_account` (`id_acc`, `email`, `password`, `is_active`, `code`, `a
 (6, 'chaidar@spekta.com', 'Chaidar_813', 1, '6ad4257dd56fb57b280acc6769f24a94386ce69b3908a8046466b38c64192cbf', '2022-01-15 04:19:48', '2022-01-15 03:37:14', '2022-01-15 03:37:14'),
 (7, 'guru@spekta.com', 'guru12345', 1, NULL, NULL, '2022-01-18 02:29:02', '2022-01-18 02:29:02'),
 (8, 'pmr@spekta.com', 'pmr12345', 1, NULL, NULL, '2022-01-19 14:25:49', '2022-01-19 14:25:49'),
-(10, 'rohis@spekta.com', 'Rohis_12345', 1, NULL, NULL, '2022-02-02 13:30:42', '2022-02-02 13:30:42');
+(10, 'rohis@spekta.com', 'Rohis_12345', 1, NULL, NULL, '2022-02-02 13:30:42', '2022-02-02 13:30:42'),
+(11, 'aria@spekta.com', 'aria_12345', 1, NULL, '2022-02-11 02:09:10', '2022-02-11 02:06:55', '2022-02-11 02:06:55');
 
 -- --------------------------------------------------------
 
@@ -125,7 +126,7 @@ CREATE TABLE `tb_app_settings` (
 --
 
 INSERT INTO `tb_app_settings` (`id_app_settings`, `about_app`, `app_version`, `release_date`, `created_at`, `updated_at`) VALUES
-(1, '<p><big>PENDAFTARAN<var> </var>ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN ANGGARAN 2022 DITUTUP</big></p>\r\n\r\n<p><big>TERIMA KASIH ATAS PASTISIPASI SAUDARA SEMUA</big></p>\r\n\r\n<p><big>SEHAT SELALU</big></p>\r\n', '1.0.1', '2022-01-10', '2021-11-23 15:15:35', '2022-02-09 02:28:27');
+(1, '<p><big>PENDAFTARAN<var> </var>ANGGOTA BARU EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN TAHUN ANGGARAN 2022 DITUTUP</big></p>\r\n\r\n<p><big>TERIMA KASIH ATAS PASTISIPASI SAUDARA SEMUA</big></p>\r\n\r\n<p><big>SEHAT SELALU</big></p>\r\n', '1.0.1', '2022-01-10', '2021-11-23 15:15:35', '2022-02-21 15:15:10');
 
 -- --------------------------------------------------------
 
@@ -147,7 +148,7 @@ CREATE TABLE `tb_auth_settings` (
 --
 
 INSERT INTO `tb_auth_settings` (`id_auth_setting`, `date_open_reg`, `date_close_reg`, `is_regis`, `created_at`, `updated_at`) VALUES
-(1, '2022-01-01', '2022-01-31', 0, '2021-11-23 14:38:54', '2022-02-09 02:28:27');
+(1, '2022-01-02', '2022-02-20', 0, '2021-11-23 14:38:54', '2022-02-21 15:15:10');
 
 -- --------------------------------------------------------
 
@@ -360,8 +361,9 @@ CREATE TABLE `tb_kegiatan_ekstra` (
 --
 
 INSERT INTO `tb_kegiatan_ekstra` (`id_kegiatan`, `id_ekstra`, `kode_kegiatan`, `nama_kegiatan`, `tanggal_mulai_kegiatan`, `tanggal_selesai_kegiatan`, `penyelenggara_kegiatan`, `peserta_kegiatan`, `status_kegiatan`, `setuju_pembina`, `alasan_tolak`, `surat_tugas`, `bukti_kegiatan`, `created_at`, `updated_at`) VALUES
-(1, 14, '111-210122-keg-1', 'kegiatan 1', '2022-01-20', '2022-01-22', NULL, 1, 0, 1, NULL, 'Laju reaksi.pdf', NULL, '2022-01-20 11:49:40', '2022-01-20 11:49:40'),
-(3, 13, '110-230122-keg-3', 'REKAP', '2022-01-23', '2022-01-23', 'SPEKTA', 1, 0, 1, NULL, 'SURAT TUGAS REKAP - Sun, 23 Jan 2022 11_08_32 +0700.pdf', 'Leaflet Unesa 2022 rev.pdf', '2022-01-23 02:40:33', '2022-01-23 02:40:33');
+(1, 14, '111-210122-keg-1', 'kegiatan 1', '2022-01-20', '2022-01-22', NULL, 1, 1, 1, NULL, 'Laju reaksi.pdf', NULL, '2022-01-20 11:49:40', '2022-01-20 11:49:40'),
+(3, 13, '110-230122-keg-3', 'REKAP', '2022-01-23', '2022-01-23', 'SPEKTA', 1, 0, 1, NULL, 'SURAT TUGAS REKAP - Sun, 23 Jan 2022 11_08_32 +0700.pdf', 'Leaflet Unesa 2022 rev.pdf', '2022-01-23 02:40:33', '2022-01-23 02:40:33'),
+(4, 14, '111-100222-keg-3', 'Kegiatan dua', '2022-02-20', '2022-02-26', 'penyelenggara kegiatan dua', 1, 0, 0, NULL, NULL, 'DAFTAR NAMA DOSEN MPK NAS-INSTITUSIONAL - NEW 07-02-2022-E.pdf', '2022-02-10 00:33:26', '2022-02-10 00:33:26');
 
 -- --------------------------------------------------------
 
@@ -386,11 +388,12 @@ INSERT INTO `tb_level` (`id_level`, `id_level_name`, `id_acc`, `id_users_cbt`, `
 (1, 1, 1, 3, '2021-12-26 15:06:03', '2021-12-26 15:06:03'),
 (3, 2, 3, NULL, '2021-12-27 04:05:27', '2021-12-27 04:05:27'),
 (4, 3, 4, NULL, '2021-12-27 04:18:58', '2021-12-27 04:18:58'),
-(6, 4, 7, NULL, '2022-01-18 02:29:02', '2022-01-18 02:29:02'),
+(6, 3, 7, NULL, '2022-01-18 02:29:02', '2022-01-18 02:29:02'),
 (7, 2, 8, NULL, '2022-01-19 14:31:31', '2022-01-19 14:31:31'),
 (9, 2, 10, NULL, '2022-02-02 13:30:42', '2022-02-02 13:30:42'),
 (10, 4, 2, 7, '2022-02-09 01:27:52', '2022-02-09 01:27:52'),
-(11, 4, 6, 6, '2022-02-09 02:27:00', '2022-02-09 02:27:00');
+(11, 4, 6, 6, '2022-02-09 02:27:00', '2022-02-09 02:27:00'),
+(12, 4, 11, 8, '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -591,7 +594,8 @@ INSERT INTO `tb_uang_keluar` (`id_pengeluaran`, `kode_uang_keluar`, `tgl_pengelu
 (15, '111-keluar-220120', '2022-01-19', 50000, 8, 14, '2022-01-20 08:07:22', '2022-01-20 08:07:22'),
 (16, '111-keluar-220120-1642666415', '2021-12-31', 95000, 8, 14, '2022-01-20 08:13:35', '2022-01-20 08:13:35'),
 (17, '115-keluar-220126-4929550188', '2022-01-26', 50000, 11, 18, '2022-01-26 07:49:56', '2022-01-26 07:49:56'),
-(18, '110-keluar-220127-8216281965', '2022-01-28', 50000, 12, 13, '2022-01-27 04:06:33', '2022-01-27 04:06:33');
+(18, '110-keluar-220127-8216281965', '2022-01-28', 50000, 12, 13, '2022-01-27 04:06:33', '2022-01-27 04:06:33'),
+(19, '111-keluar-220210-1644454339', '2022-02-10', 1500000, 11, 14, '2022-02-10 00:52:19', '2022-02-10 00:52:19');
 
 -- --------------------------------------------------------
 
@@ -693,7 +697,8 @@ CREATE TABLE `tb_users` (
 
 INSERT INTO `tb_users` (`id_users`, `id_acc`, `id_ekstra_1`, `id_ekstra_2`, `nisn`, `nis`, `name`, `gender`, `birth_place`, `birth_date`, `id_class`, `id_religion`, `created_at`, `updated_at`) VALUES
 (1, 2, 13, 14, 1234567890, 12345, 'USER', 'L', 'A', '2000-01-01', 18, 1, '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
-(2, 6, 13, 15, 1234567890, 98765, 'CHAIDAR ARIA BAYU PRATAMA', 'L', 'MADIUN', '2003-01-08', 19, 1, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
+(2, 6, 13, 15, 1234567890, 98765, 'CHAIDAR ARIA BAYU PRATAMA', 'L', 'MADIUN', '2003-01-08', 19, 1, '2022-01-15 04:19:48', '2022-01-15 04:19:48'),
+(3, 11, 15, 26, 5463728190, 19283, 'ARIA', 'L', 'JAKARTA', '2001-01-01', 1, 7, '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -722,7 +727,8 @@ CREATE TABLE `tb_users_address` (
 
 INSERT INTO `tb_users_address` (`id_address`, `id_users`, `street`, `rt`, `rw`, `village`, `district`, `regency`, `province`, `poscode`, `created_at`, `updated_at`) VALUES
 (1, 1, 'A           ', '1', '1', 'KENONGOREJO', 'PILANGKENCENG', 'MADIUN', 'JAWA TIMUR', 123456, '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
-(2, 2, 'SIDOLUHUR  ', '4', '1', 'KENONGOREJO', 'PILANGKENCENG', 'KAB. MADIUN', 'JAWA TIMUR', 63154, '2022-01-15 04:19:48', '2022-01-15 04:19:48');
+(2, 2, 'SIDOLUHUR  ', '4', '1', 'KENONGOREJO', 'PILANGKENCENG', 'KAB. MADIUN', 'JAWA TIMUR', 63154, '2022-01-15 04:19:48', '2022-01-15 04:19:48'),
+(3, 3, 'JALAN JALAN ', '1', '1', 'LURAH1', 'CENGKARENG', 'JAKARTA BARAT', 'JAKARTA', 1111, '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -748,7 +754,8 @@ CREATE TABLE `tb_users_cbt` (
 INSERT INTO `tb_users_cbt` (`id_users_cbt`, `id_users`, `test_id`, `no_regis_admin`, `username`, `password`, `created_at`, `updated_at`) VALUES
 (3, NULL, NULL, 'ADMIN-011-010101', 'admin', 'admin12345', '2021-12-26 15:07:39', '2021-12-26 15:07:39'),
 (6, 2, 1, NULL, '1-22-110-112', 'WDPcQlHZ', '2022-02-08 14:12:31', '2022-02-08 14:12:31'),
-(7, 1, 1, NULL, '1-22-110-111', 'lVfYnzCN', '2022-02-08 23:57:38', '2022-02-08 23:57:38');
+(7, 1, 1, NULL, '1-22-110-111', 'lVfYnzCN', '2022-02-08 23:57:38', '2022-02-08 23:57:38'),
+(8, 3, 1, NULL, '1-22-112-123', '5mewCOSb', '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -770,7 +777,8 @@ CREATE TABLE `tb_users_cbt_choice` (
 
 INSERT INTO `tb_users_cbt_choice` (`id_cbt_choice`, `id_users_cbt`, `test_id`, `created_at`, `updated_at`) VALUES
 (2, 6, 1, '2022-02-08 15:55:24', '2022-02-08 15:55:24'),
-(3, 7, 1, '2022-02-08 23:58:38', '2022-02-08 23:58:38');
+(3, 7, 1, '2022-02-08 23:58:38', '2022-02-08 23:58:38'),
+(4, 8, 1, '2022-02-11 10:05:32', '2022-02-11 10:05:32');
 
 -- --------------------------------------------------------
 
@@ -793,7 +801,8 @@ CREATE TABLE `tb_users_cbt_date` (
 
 INSERT INTO `tb_users_cbt_date` (`id_cbt_date`, `test_id`, `id_users_cbt`, `users_cbt_date`, `created_at`, `updated_at`) VALUES
 (7, 1, 6, '2022-02-08', '2022-02-08 14:44:21', '2022-02-08 14:44:21'),
-(8, 1, 7, '2022-02-10', '2022-02-08 23:58:38', '2022-02-08 23:58:38');
+(8, 1, 7, '2022-02-10', '2022-02-08 23:58:38', '2022-02-08 23:58:38'),
+(9, 1, 8, '2022-02-14', '2022-02-11 10:05:32', '2022-02-11 10:05:32');
 
 -- --------------------------------------------------------
 
@@ -839,7 +848,8 @@ CREATE TABLE `tb_users_cbt_status` (
 
 INSERT INTO `tb_users_cbt_status` (`id_status_cbt`, `id_users_cbt`, `test_id`, `exam_status`, `work_status`, `created_at`, `updated_at`) VALUES
 (3, 6, 1, 'FINISH', 1, '2022-02-08 14:44:21', '2022-02-08 14:44:21'),
-(5, 7, 1, 'TERDAFTAR', 0, '2022-02-08 23:58:38', '2022-02-08 23:58:38');
+(5, 7, 1, 'TERDAFTAR', 0, '2022-02-08 23:58:38', '2022-02-08 23:58:38'),
+(6, 8, 1, 'TERDAFTAR', 0, '2022-02-11 10:05:32', '2022-02-11 10:05:32');
 
 -- --------------------------------------------------------
 
@@ -871,7 +881,8 @@ CREATE TABLE `tb_users_status` (
 
 INSERT INTO `tb_users_status` (`id_status`, `id_users`, `isi_verval`, `isi_foto`, `is_permanent`, `is_verval`, `is_reset`, `pilih_ekstra`, `pilih_jadwal_cbt`, `is_tolak`, `permanent_at`, `verval_at`, `alasan_tolak`, `created_at`, `updated_at`) VALUES
 (1, 1, 1, 0, 1, 1, 0, 1, 1, 0, '2022-01-12 13:37:33', '2022-01-23 13:02:11', '', '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
-(2, 2, 1, 0, 1, 1, 0, 1, 1, 0, '2022-02-03 03:45:20', '2022-02-03 03:45:27', '', '2022-01-15 04:19:48', '2022-01-15 04:19:48');
+(2, 2, 1, 0, 1, 1, 0, 1, 1, 0, '2022-02-03 03:45:20', '2022-02-03 03:45:27', '', '2022-01-15 04:19:48', '2022-01-15 04:19:48'),
+(3, 3, 1, 1, 1, 1, 0, 1, 1, 0, '2022-02-11 02:11:57', '2022-02-11 02:32:37', '', '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -894,7 +905,8 @@ CREATE TABLE `tb_users_utility` (
 
 INSERT INTO `tb_users_utility` (`id_utility`, `id_users`, `id_spekta`, `foto_users`, `created_at`, `updated_at`) VALUES
 (1, 1, '110-111-00-01', '12-01-2022-128221176_1317352301949132_1053601950648797114_n.jpg', '2021-12-27 12:41:20', '2021-12-27 12:41:20'),
-(2, 2, '110-112-03-02', '03-02-2022-graviti.jpg', '2022-01-15 04:19:48', '2022-01-15 04:19:48');
+(2, 2, '110-112-03-02', '03-02-2022-graviti.jpg', '2022-01-15 04:19:48', '2022-01-15 04:19:48'),
+(3, 3, NULL, '11-02-2022-unnamed.jpg', '2022-02-11 02:09:10', '2022-02-11 02:09:10');
 
 -- --------------------------------------------------------
 
@@ -1169,7 +1181,7 @@ ALTER TABLE `tb_absensi_ekstra`
 -- AUTO_INCREMENT untuk tabel `tb_account`
 --
 ALTER TABLE `tb_account`
-  MODIFY `id_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_acc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_admin`
@@ -1229,13 +1241,13 @@ ALTER TABLE `tb_files`
 -- AUTO_INCREMENT untuk tabel `tb_kegiatan_ekstra`
 --
 ALTER TABLE `tb_kegiatan_ekstra`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_level`
 --
 ALTER TABLE `tb_level`
-  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_level` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_level_name`
@@ -1277,7 +1289,7 @@ ALTER TABLE `tb_test`
 -- AUTO_INCREMENT untuk tabel `tb_uang_keluar`
 --
 ALTER TABLE `tb_uang_keluar`
-  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pengeluaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_uang_masuk`
@@ -1295,31 +1307,31 @@ ALTER TABLE `tb_useranswer`
 -- AUTO_INCREMENT untuk tabel `tb_users`
 --
 ALTER TABLE `tb_users`
-  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_users` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_address`
 --
 ALTER TABLE `tb_users_address`
-  MODIFY `id_address` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_address` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt`
 --
 ALTER TABLE `tb_users_cbt`
-  MODIFY `id_users_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_users_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt_choice`
 --
 ALTER TABLE `tb_users_cbt_choice`
-  MODIFY `id_cbt_choice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_cbt_choice` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt_date`
 --
 ALTER TABLE `tb_users_cbt_date`
-  MODIFY `id_cbt_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cbt_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt_grade`
@@ -1331,19 +1343,19 @@ ALTER TABLE `tb_users_cbt_grade`
 -- AUTO_INCREMENT untuk tabel `tb_users_cbt_status`
 --
 ALTER TABLE `tb_users_cbt_status`
-  MODIFY `id_status_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_status_cbt` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_status`
 --
 ALTER TABLE `tb_users_status`
-  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_users_utility`
 --
 ALTER TABLE `tb_users_utility`
-  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_utility` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tb_web_settings`

@@ -95,6 +95,41 @@ while ($d = mysqli_fetch_array($r_email)) {
         font-size: 14px;
         text-align: center;
     }
+
+    .blink {
+        -webkit-animation: 2s linear infinite kedip;
+        /* for Safari 4.0 - 8.0 */
+        animation: 2s linear infinite kedip;
+    }
+
+    /* for Safari 4.0 - 8.0 */
+    @-webkit-keyframes kedip {
+        0% {
+            visibility: hidden;
+        }
+
+        50% {
+            visibility: hidden;
+        }
+
+        100% {
+            visibility: visible;
+        }
+    }
+
+    @keyframes kedip {
+        0% {
+            visibility: hidden;
+        }
+
+        50% {
+            visibility: hidden;
+        }
+
+        100% {
+            visibility: visible;
+        }
+    }
     </style>
 </head>
 

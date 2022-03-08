@@ -202,6 +202,9 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
         WHERE tb_level_name.level_name = 'USER' AND tb_users.id_ekstra_1='$idekstra' OR tb_users.id_ekstra_2='$idekstra'");
     $totalusers = mysqli_num_rows($hitungusers);
 
+    //HITUNG KEGIATAN
+    $totalkeg = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM tb_kegiatan_ekstra WHERE id_ekstra = '$idekstra'"));
+
 ?>
 
 
@@ -227,7 +230,7 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
     </div>
 
     <div class="row mb-3">
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -243,7 +246,7 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -260,7 +263,7 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
                 </div>
             </div>
         </div>
-        <div class="col-xl-4 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4">
             <div class="card h-100">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -273,6 +276,25 @@ while ($data = mysqli_fetch_array($sqlpembina)) {
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-info"></i>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Total Kegiatan
+                            </div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalkeg ?></div>
+
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-chart-line fa-2x text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="mt-2 mb-0 text-muted text-xs">
                     </div>
                 </div>
             </div>

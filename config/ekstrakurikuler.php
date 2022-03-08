@@ -125,7 +125,7 @@ if (isset($_POST['addpembina'])) {
     $ekstra2 = $_POST['ekstra2'];
 
     if ($ekstra1 == $ekstra2) {
-        header('location: ../pages/users/exam?pesan=ganda');
+        header('location: ../pages/users/exam?mes=ekstraganda');
     } else {
         $sql = "UPDATE tb_users 
             INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
@@ -136,10 +136,10 @@ if (isset($_POST['addpembina'])) {
             WHERE tb_users.id_users = '$id_users'
             ";
         if ($conn->query($sql) === TRUE) {
-            header('location: ../pages/users/exam?pesan=berhasil');
+            header('location: ../pages/users/exam?mes=ekstraberhasil');
         } else {
             // echo $conn->connect_error;
-            header('location: ../pages/users/exam?pesan=gagal');
+            header('location: ../pages/users/exam?mes=gagal');
         }
     }
 }

@@ -199,6 +199,9 @@ while ($data = mysqli_fetch_array($sqlekstra)) {
         WHERE tb_level_name.level_name = 'USER' AND tb_users.id_ekstra_1='$idekstra' OR tb_users.id_ekstra_2='$idekstra'");
     $totalusers = mysqli_num_rows($hitungusers);
 
+    //HITUNG KEGIATAN
+    $totalkeg = mysqli_num_rows(mysqli_query($conn, "SELECT * FROM tb_kegiatan_ekstra WHERE id_ekstra = '$idekstra'"));
+
 ?>
 
 
@@ -235,7 +238,7 @@ while ($data = mysqli_fetch_array($sqlekstra)) {
 
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-shopping-cart fa-2x text-success"></i>
+                            <i class="fas fa-user-graduate fa-2x text-success"></i>
                         </div>
                     </div>
                 </div>
@@ -265,14 +268,16 @@ while ($data = mysqli_fetch_array($sqlekstra)) {
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-uppercase mb-1">Pending Requests
+                            <div class="text-xs font-weight-bold text-uppercase mb-1">Total Kegiatan
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $totalkeg ?></div>
 
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-comments fa-2x text-warning"></i>
+                            <i class="fas fa-chart-line fa-2x text-warning"></i>
                         </div>
+                    </div>
+                    <div class="mt-2 mb-0 text-muted text-xs">
                     </div>
                 </div>
             </div>

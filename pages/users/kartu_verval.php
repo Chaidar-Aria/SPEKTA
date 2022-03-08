@@ -21,9 +21,6 @@ $sql = "SELECT * FROM tb_users
         INNER JOIN tb_religion ON tb_users.id_religion = tb_religion.id_religion
         INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
         INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-        INNER JOIN tb_users_cbt ON tb_users.id_users = tb_users_cbt.id_users
-        INNER JOIN tb_test ON tb_users_cbt.test_id = tb_test.test_id
-        INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
         WHERE tb_account.id_acc = '$id_acc'
         ";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -167,12 +164,16 @@ window.location.href = "index?mes=data_null";
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" style="    height: 125px;">Saya menyatakan bahwa data yang saya
+                                        <td colspan="2" style="    height: 125px;">Bahwa saya telah dengan sadar
+                                            mengisikan data diri saya pada aplikasi pendaftaran SPEKTA SMANSA dan saya
+                                            menyatakan bahwa data yang saya
                                             isikan adalah benar. Jika dikemudian hari terdapat kekeliruan atau kesalahan
                                             data
                                             saya siap dikenakan sanksi sesuai aturan yang berlaku. <br><br><br>
                                             <b>
-                                                <p style="text-align: right;"> Yang membuat pernyataan
+                                                <p style="text-align: right;"> Mejayan,
+                                                    <?php echo tgl_indo(date("Y-m-d")) ?>
+                                                <p style="text-align: right; margin-top:-15px;"> Yang membuat pernyataan
                                                     <br><br><br>
                                                     <?php echo $d['name'] ?>
                                                 </p>

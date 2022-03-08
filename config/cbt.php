@@ -67,8 +67,7 @@ if (isset($_POST['addcbt'])) {
                 if ($conn->query($sql3) === TRUE) {
                     $sql4 = "INSERT INTO tb_users_cbt_date (id_users_cbt, test_id, users_cbt_date) VALUES ('$iduserscbt','$test_id','$cbtdate')";
                     if ($conn->query($sql4) === TRUE) {
-                        $sql5 = "INSERT INTO tb_users_cbt_status (id_users_cbt, test_id, work_status, exam_status)
-                    VALUES ('$iduserscbt','$test_id','0', 'TERDAFTAR')";
+                        $sql5 = "INSERT INTO tb_users_cbt_status (id_users_cbt, test_id, work_status, exam_status) VALUES ('$iduserscbt','$test_id','0', 'TERDAFTAR')";
                         if ($conn->query($sql5) === TRUE) {
                             $sql6 = "INSERT INTO tb_users_cbt_choice (id_users_cbt, test_id) VALUES ('$iduserscbt','$test_id')";
                             if ($conn->query($sql6) == TRUE) {

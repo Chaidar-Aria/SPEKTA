@@ -68,8 +68,32 @@ require_once '../../config/koneksi.php';
                                 </small>
                                 <?php } ?>
                             </td>
-                            <td><a href="<?php echo $url_superadmin . 'showverval?id_users=' . $d['id_users']; ?>"
-                                    class="badge badge-primary">Edit</a></td>
+                            <td>
+                                <?php
+                                    $query = "SELECT * FROM tb_auth_settings";
+                                    $result = $conn->query($query);
+                                    while ($row = $result->fetch_assoc()) {
+                                        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
+                                    ?>
+                                <a href="<?php echo $url_superadmin . 'showverval?id_users=' . $d['id_users']; ?>"
+                                    class="badge badge-primary">Edit</a>
+
+                                <?php } else { ?>
+                                <a href="javascript:void(0);" onclick="vervalTutup()"
+                                    class="badge badge-primary">Edit</a>
+                                <script>
+                                function vervalTutup() {
+                                    swal.fire({
+                                        icon: 'warning',
+                                        title: 'PERHATIAN',
+                                        text: 'Jadwal verifikasi dan validasi sudah terlewat. Halaman ini ditutup'
+                                    })
+
+                                }
+                                </script>
+                                <?php }
+                                    } ?>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>
@@ -128,8 +152,32 @@ require_once '../../config/koneksi.php';
                                 <?php } ?>
                             </td>
                             <td><?php echo $d['alasan_tolak']; ?></td>
-                            <td><a href="<?php echo $url_superadmin . 'showverval?id_users=' . $d['id_users']; ?>"
-                                    class="badge badge-primary">Edit</a></td>
+                            <td>
+                                <?php
+                                    $query = "SELECT * FROM tb_auth_settings";
+                                    $result = $conn->query($query);
+                                    while ($row = $result->fetch_assoc()) {
+                                        if (date("Y-m-d") >= $row['date_open_reg'] && date("Y-m-d") <= $row['date_close_reg']) {
+                                    ?>
+                                <a href="<?php echo $url_superadmin . 'showverval?id_users=' . $d['id_users']; ?>"
+                                    class="badge badge-primary">Edit</a>
+
+                                <?php } else { ?>
+                                <a href="javascript:void(0);" onclick="vervalTutup()"
+                                    class="badge badge-primary">Edit</a>
+                                <script>
+                                function vervalTutup() {
+                                    swal.fire({
+                                        icon: 'warning',
+                                        title: 'PERHATIAN',
+                                        text: 'Jadwal verifikasi dan validasi sudah terlewat. Halaman ini ditutup'
+                                    })
+
+                                }
+                                </script>
+                                <?php }
+                                    } ?>
+                            </td>
                         </tr>
                         <?php } ?>
                     </tbody>

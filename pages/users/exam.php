@@ -43,17 +43,6 @@ while ($r = mysqli_fetch_array($r_email)) {
                 <h6>ANDA TIDAK DAPAT MELAKUKAN PENDAFTARAN EKSTRAKURIKULER JIKA DATA ANDA DITOLAK PANITIA SELEKSI</h6>
             </div>
         </div>
-        <?php } else if (empty($d['id_spekta'])) { ?>
-        <div class="card">
-            <div class="card-body text-center">
-                <img class="mb-3 img" src="<?php echo $url_assets . 'img/fingerprint.svg' ?>" alt="pending verval"
-                    width="250">
-                <h5>ID SPEKTA ANDA BELUM DIBUAT</h5>
-                <h6>ANDA TIDAK DAPAT MELAKUKAN PENDAFTARAN EKSTRAKURIKULER JIKA ID SPEKTA BELUM DIBUAT OLEH
-                    PANITIA SELEKSI</h6>
-                <p>Silahkan Hubungi Panitia Seleksi Untuk Konfirmasi Pembuatan ID SPEKTA</p>
-            </div>
-        </div>
         <?php } else if ($d['is_verval'] == '1') { ?>
         <div class="alert alert-success" role="alert">
             <h5>DATA ANDA TELAH TERVERIFIKASI</h5>
@@ -73,6 +62,20 @@ while ($r = mysqli_fetch_array($r_email)) {
                 </a>
 
             </div>
+            <?php if ($d['pilih_ekstra'] == '0') { ?>
+            <div class="col-lg-6">
+                <a href="javascript:void(0);" onclick="belumPilihEkstra()">
+                    <div class="card mb-4">
+                        <div class="card-body text-center">
+                            <img class="mb-3 img" src="<?php echo $url_assets . 'img/exam.svg' ?>" alt="daftar ujian"
+                                width="250">
+                            <h5>DAFTAR CBT SPEKTA</h5>
+                            <h6>silahkan mendaftar CBT SPEKTA</h6>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <?php } else { ?>
             <div class="col-lg-6">
                 <a href="javascript:void(0);" data-toggle="modal" data-target="#modalcbt">
                     <div class="card mb-4">
@@ -85,6 +88,7 @@ while ($r = mysqli_fetch_array($r_email)) {
                     </div>
                 </a>
             </div>
+            <?php } ?>
         </div>
         <?php } else if ($d['is_verval'] == '0') { ?>
         <div class="card">
@@ -98,8 +102,7 @@ while ($r = mysqli_fetch_array($r_email)) {
         </div>
         <?php } ?>
         <!-- Modal ekstra -->
-        <div class="modal fade" id="modalekstra" data-backdrop="static" data-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modalekstra" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?php if ($d['pilih_ekstra'] == '0') { ?>
             <form class="form-sample needs-validation text-start" novalidate onSubmit="return validasi(this);"
                 action="<?php echo $url_config . 'ekstrakurikuler.php?id_users=' . $d['id_users']; ?>" method="POST">
@@ -241,8 +244,7 @@ while ($r = mysqli_fetch_array($r_email)) {
         </div>
 
         <!-- Modal cbt -->
-        <div class="modal fade" id="modalcbt" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade" id="modalcbt" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <?php if ($d['pilih_jadwal_cbt'] == '0') { ?>
             <form class="form-sample needs-validation text-start" novalidate onSubmit="return validasi(this);"
                 action="<?php echo $url_config . 'cbt.php?id_users=' . $d['id_users']; ?>" method="POST">
@@ -309,8 +311,9 @@ while ($r = mysqli_fetch_array($r_email)) {
                     $id_users = $d['id_users'];
                     $sql = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
                         INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
-                        INNER JOIN tb_test ON tb_users_cbt.test_id = tb_test.test_id
                         INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
+                        INNER JOIN tb_users_cbt_choice ON tb_users_cbt.id_users_cbt = tb_users_cbt_choice.id_users_cbt
+                        INNER JOIN tb_test ON tb_users_cbt_choice.test_id = tb_test.test_id
                         WHERE tb_users_cbt.id_users = '$id_users' AND tb_test.cbt_status = '1'");
                     while ($d = mysqli_fetch_array($sql)) {
 

@@ -121,6 +121,30 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'ekstraganda') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'PERINGATAN',
+    text: 'Data ekstrakurikuler anda ganda atau anda belum memilih ekstrakurikuler',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'ekstraberhasil') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Anda telah memilih ekstrakurikuler. Silahkan memilih jadwal CBT anda',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } ?>
                 <?php
                 }
@@ -180,6 +204,14 @@ function checkTime(i) {
         i = "0" + i;
     } // add zero in front of numbers < 10
     return i;
+}
+
+function belumPilihEkstra() {
+    Swal.fire({
+        icon: 'warning',
+        title: 'PERINGATAN',
+        text: 'Silahkan memilih ekstrakurikuler sebelum memilih jadwal CBT!'
+    })
 }
                 </script>
                 </body>
