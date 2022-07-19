@@ -121,12 +121,83 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'keged_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data kegiatan sudah berhasil diubah',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'kegadd_success') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Data kegiatan sudah berhasil ditambahkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } else if ($_GET['mes'] == 'ekstraganda') { ?>
                 <script>
 Swal.fire({
     icon: 'warning',
     title: 'PERINGATAN',
     text: 'Data ekstrakurikuler anda ganda atau anda belum memilih ekstrakurikuler',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'gagal_kegeukuran') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'UKURAN BERKAS YANG DIUNGGAH TERLALU BESAR',
+    text: 'Silahkan unggah berkas dengan ukuran kurang dari 10 MB',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'gagal_kegekstensi') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'EKSTENSI BERKAS TIDAK DIPERBOLEHKAN',
+    text: 'Silahkan unggah berkas dengan ekstensi PDF',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'keg_hapus') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'DATA KEGIATAN BERHASIL DIHAPUS',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'keg_end') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Kegiatan anda telah selesai',
     showConfirmButton: false,
     timer: 5000,
 }).then((result) => {

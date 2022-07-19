@@ -191,6 +191,11 @@ while ($d = mysqli_fetch_array($r_email)) {
                 </div>
             </li>
             <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link" href="<?php echo $url_users . "kegiatan" ?>">
+                    <i class="fas fa-fw fa-chart-line"></i>
+                    <span>Kegiatan</span></a>
+            </li>
         </ul>
         <!-- Sidebar -->
         <div id="content-wrapper" class="d-flex flex-column">

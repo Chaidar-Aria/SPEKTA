@@ -7,6 +7,8 @@ $(document).ready(function () {
   $("#tabeluangkeluar").DataTable();
   $("#tabelekskul").DataTable();
   $("#tabelpembina").DataTable();
+  $("#tabelkegiatan").DataTable();
+
 });
 
 // Example starter JavaScript for disabling form submissions if there are invalid fields

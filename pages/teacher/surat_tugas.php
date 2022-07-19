@@ -14,7 +14,7 @@ $sql1 = mysqli_query($conn, "SELECT * FROM tb_kegiatan_ekstra
         INNER JOIN tb_ekstrakurikuler ON tb_kegiatan_ekstra.id_ekstra = tb_ekstrakurikuler.id_ekstra
         INNER JOIN tb_bina_ekstra ON tb_bina_ekstra.id_ekstra = tb_ekstrakurikuler.id_ekstra
         INNER JOIN tb_pembina ON tb_pembina.id_pembina = tb_bina_ekstra.id_pembina
-        INNER JOIN tb_users ON tb_kegiatan_ekstra.peserta_kegiatan = tb_users.id_users
+        INNER JOIN tb_users ON tb_kegiatan_ekstra.id_users = tb_users.id_users
         INNER JOIN tb_users_address ON tb_users.id_users = tb_users_address.id_users
         INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
         WHERE tb_kegiatan_ekstra.id_kegiatan = '$idkeg'
@@ -39,7 +39,7 @@ while ($d1 = mysqli_fetch_array($sql1)) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURAT TUGAS <?php echo $d1['nama_kegiatan'] . " - " . date("r") ?></title>
+    <title>SURAT TUGAS <?php echo $d1['nama_kegiatan'] . " - " . $d1['name'] ?></title>
 </head>
 
 <body>

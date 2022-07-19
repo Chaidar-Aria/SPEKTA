@@ -28,9 +28,8 @@ $a = date("H");
                         <tr>
                             <th>Kode Kegiatan</th>
                             <th>Nama Kegiatan</th>
-                            <th>Tanggal Mulai Kegiatan</th>
-                            <th>Tanggal Selesai Kegiatan</th>
-                            <th>Peserta Kegiatan</th>
+                            <th>Peserta</th>
+                            <th>Tanggal Kegiatan</th>
                             <th>Status Kegiatan</th>
                             <th>Persetujuan Pembina</th>
                             <th>Aksi</th>
@@ -40,9 +39,8 @@ $a = date("H");
                         <tr>
                             <th>Kode Kegiatan</th>
                             <th>Nama Kegiatan</th>
-                            <th>Tanggal Mulai Kegiatan</th>
-                            <th>Tanggal Selesai Kegiatan</th>
-                            <th>Peserta Kegiatan</th>
+                            <th>Peserta</th>
+                            <th>Tanggal Kegiatan</th>
                             <th>Status Kegiatan</th>
                             <th>Persetujuan Pembina</th>
                             <th>Aksi</th>
@@ -51,19 +49,20 @@ $a = date("H");
                     <tbody>
                         <?php
                         $data = mysqli_query($conn, "SELECT * FROM tb_kegiatan_ekstra
+                            INNER JOIN tb_users ON tb_kegiatan_ekstra.id_users = tb_users.id_users 
+                        INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users 
                         INNER JOIN tb_ekstrakurikuler ON tb_kegiatan_ekstra.id_ekstra = tb_ekstrakurikuler.id_ekstra
-                        WHERE tb_kegiatan_ekstra.id_ekstra = '$idekstra'");
+                        WHERE tb_kegiatan_ekstra.tinjau_admin = '1' AND tb_kegiatan_ekstra.id_ekstra = '$idekstra'");
                         while ($d = mysqli_fetch_array($data)) { ?>
                         <tr>
                             <td><?php echo $d['kode_kegiatan']; ?></td>
                             <td><?php echo strtoupper($d['nama_kegiatan']); ?></td>
                             <td>
-                                <?php echo tgl_indo($d['tanggal_mulai_kegiatan']) ?>
+                                <?php echo  $d['name'] ?>
                             </td>
                             <td>
-                                <?php echo tgl_indo($d['tanggal_selesai_kegiatan']) ?>
+                                <?php echo tgl_indo($d['tanggal_mulai_kegiatan']) . '~' . tgl_indo($d['tanggal_selesai_kegiatan']) ?>
                             </td>
-                            <td><?php echo $d['peserta_kegiatan'] ?></td>
                             <td> <?php
                                         if (empty($d['alasan_tolak'])) {
                                             if ($d['setuju_pembina'] == '1') {
@@ -116,6 +115,24 @@ $a = date("H");
                                             <div class="row">
                                                 <div class="col-xl-6">
                                                     <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label text-md-right">ID
+                                                            SPEKTA</label>
+                                                        <div class="col-sm-8">
+                                                            <p class="mt-2 tx-medium">
+                                                                <?php echo $d['id_spekta'] ?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-4 col-form-label text-md-right">Nama
+                                                            Peserta</label>
+                                                        <div class="col-sm-8">
+                                                            <p class="mt-2 tx-medium">
+                                                                <?php echo strtoupper($d['name']) ?>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
                                                         <label class="col-sm-4 col-form-label text-md-right">Nama
                                                             Kegiatan</label>
                                                         <div class="col-sm-8">
@@ -141,16 +158,6 @@ $a = date("H");
                                                             <p class="mt-2 tx-medium">
                                                                 <?php echo tgl_indo($d['tanggal_mulai_kegiatan']) . " - " . tgl_indo($d['tanggal_selesai_kegiatan']); ?>
                                                             </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-4 col-form-label text-md-right">Peserta
-                                                            Kegiatan</label>
-                                                        <div class="col-sm-8">
-                                                            <p class="mt-2 tx-medium">
-                                                                <?php $d3 = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM tb_users WHERE id_users = '" . $d['peserta_kegiatan'] . "'"));
-                                                                    echo $d3['name'];
-                                                                    ?> </p>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">

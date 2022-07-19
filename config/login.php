@@ -47,12 +47,12 @@ if (empty($email)) {
                 $_SESSION['level'] = 'USER';
                 header("location: ../pages/users/");
             } else {
-                // echo "error 1 $conn->error";
-                header("location: ../pages/auth/login?pesan=gagal_login");
+                echo "error 1 $conn->error";
+                // header("location: ../pages/auth/login?pesan=gagal_login");
             }
         }
     } else {
-        // echo "error 2 $conn->error";
-        header("location: ../pages/auth/login?pesan=gagal_login");
+        echo "error 2 $conn->error";
+        // header("location: ../pages/auth/login?pesan=gagal_login");
     }
 }
