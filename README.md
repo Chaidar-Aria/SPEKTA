@@ -17,7 +17,7 @@ SPEKTA SMANSA - SISTEM PENCATATAN KEUANGAN DAN KEANGGOTAAN EKTRAKURIKULER SMA NE
 6. Halaman User
 7. Laporan keuangan tiap bulan
 8. Sistem verifikasi dan Validasi data anggota
-9. Terintegrasi dengan CBT SPEKTA
+9. Terintegrasi dengan CBT SPEKTA (Dalam tahap pengembangan)
 10. Export data PDF
 11. Data ekstrakurikuler + data pembina yang selalu tersinkronasi
 12. Laporan kegiatan + surat tugas kegiatan
