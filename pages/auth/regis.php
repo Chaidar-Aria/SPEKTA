@@ -1,4 +1,6 @@
 <?php
+include '../../config/koneksi.php';
+
 session_start();
 if ($_SESSION) {
     if ($_SESSION['level'] == "SUPERADMIN") {
@@ -14,7 +16,6 @@ if ($_SESSION) {
         header("Location: ../users/");
     }
 }
-include '../../config/koneksi.php';
 $query = "SELECT * FROM tb_auth_settings";
 $result = $conn->query($query);
 while ($row = $result->fetch_assoc()) {
@@ -92,13 +93,13 @@ while ($row = $result->fetch_assoc()) {
                                     Masukkan Password
                                 </div>
                                 <span id='message' class="mt-2 badge displayConfirm"></span>
-                                <div class="form-check mt-3">
+                                <!-- <div class="form-check mt-3">
                                     <input class="form-check-input" type="checkbox" value="Show Password"
                                         id="flexCheckDefault" onclick="showPassword()">
                                     <label class="form-check-label" for="flexCheckDefault">
                                         Show Password
                                     </label>
-                                </div>
+                                </div> -->
                                 <div class="form-check mt-2">
                                     <input class="form-check-input" type="checkbox" id="checksk" required>
                                     <label class="form-check-label" for="checksk">

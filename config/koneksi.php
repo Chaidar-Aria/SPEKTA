@@ -9,7 +9,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $servername = "localhost";
 $user = "root";
 $pass = "";
-$dbname1 = "db_spekta_2";
+$dbname1 = "db_spekta_3";
 
 $conn = new mysqli($servername, $user, $pass, $dbname1);
 

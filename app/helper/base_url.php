@@ -1,6 +1,6 @@
 <?php
 
-$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://localhost/ui_spekta";
+$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://localhost:8080/ui_spekta";
 
 // BASE URL
 
