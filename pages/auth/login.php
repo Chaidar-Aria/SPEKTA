@@ -14,8 +14,10 @@ if ($_SESSION) {
         header("Location: ../users/");
     }
 }
+include '../../vendor/recaptcha/recaptchalib.php';
 include 'head.php';
 ?>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdyPWQhAAAAAAQ7nAyDZ3fydXpZ_3sJW4SzSrcS"></script>
 
 
 <!-- ======= Hero Section ======= -->
@@ -53,9 +55,10 @@ include 'head.php';
                         <img src="<?php echo $url_assets . 'img/logo_spekta_baru.png' ?>" style="width: 50%;" alt="">
                     </div>
                     <form action="<?php echo $url_config . 'login.php' ?>" method="POST"
-                        class="needs-validation text-start" novalidate>
+                        class="needs-validation text-start" id="form-login" novalidate>
                         <div class="form-group">
                             <label for="Email">Email</label>
+                            <input type="hidden" name="g-token" id="g-token">
                             <input type="email" class="form-control mt-2" name="email" id="email" placeholder="Email"
                                 data-msg="Masukkan Email" required autocomplete="off" autofocus />
                             <div class="invalid-feedback">
@@ -71,13 +74,13 @@ include 'head.php';
                                 Masukkan Password
                             </div>
                         </div>
-                        <div class="form-check mt-3">
+                        <!-- <div class="form-check mt-3">
                             <input class="form-check-input" type="checkbox" value="Show Password" id="flexCheckDefault"
                                 onclick="showPassword()">
                             <label class="form-check-label" for="flexCheckDefault">
                                 Show Password
                             </label>
-                        </div>
+                        </div> -->
                         <p class="mt-2">
                             <a href="forgot">Lupa Password?</a>
                         </p>
@@ -97,6 +100,17 @@ include 'head.php';
 
 <?php
 require_once 'foot.php'; ?>
+<script>
+grecaptcha.ready(function() {
+    grecaptcha.execute('6LdyPWQhAAAAAAQ7nAyDZ3fydXpZ_3sJW4SzSrcS', {
+        action: 'submit'
+    }).then(function(token) {
+        var response = document.getElementById('g-token');
+        response.value = token;
+    });
+});
+</script>
+
 <?php
 if (isset($_GET['pesan'])) {
     if ($_GET['pesan'] == 'gagal_login') {

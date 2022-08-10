@@ -21,6 +21,7 @@ $result = $conn->query($query);
 while ($row = $result->fetch_assoc()) {
     include 'head.php';
 ?>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdyPWQhAAAAAAQ7nAyDZ3fydXpZ_3sJW4SzSrcS"></script>
 
 <body>
     <?php
@@ -64,6 +65,7 @@ while ($row = $result->fetch_assoc()) {
                             class="needs-validation text-start" novalidate onSubmit="return validasi(this);">
                             <div class="form-group">
                                 <label for="Email">Email</label>
+                                <input type="hidden" name="g-token" id="g-token">
                                 <input type="email" class="form-control mt-2" name="email" id="email"
                                     placeholder="Email" data-msg="Masukkan Email" required autocomplete="off"
                                     autofocus />
@@ -499,6 +501,15 @@ while ($row = $result->fetch_assoc()) {
         require 'foot.php';
         ?>
     <script>
+    grecaptcha.ready(function() {
+        grecaptcha.execute('6LdyPWQhAAAAAAQ7nAyDZ3fydXpZ_3sJW4SzSrcS', {
+            action: 'submit'
+        }).then(function(token) {
+            var response = document.getElementById('g-token');
+            response.value = token;
+        });
+    });
+
     (function() {
         "use strict";
 
