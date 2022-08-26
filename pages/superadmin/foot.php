@@ -351,6 +351,114 @@ Swal.fire({
     window.location.href = "?";
 });
                 </script>
+                <?php } else if ($_GET['mes'] == 'keamanan_on') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'KEAMANAN AUTENTIKASI DIAKTIFKAN',
+    text: 'Silakan mengaktifkan fitur keamanan autentikasi',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'keamanan_off') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'PERINGATAN',
+    text: 'Sistem keamanan autentikasi dinonaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'otp_on') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'OTP Diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'otp_off') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'OTP Dinonaktifkan, Login Dengan Email Diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == '2auth_on') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Login 2 Langkah Diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == '2auth_off') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Login 2 Langkah Dinonaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'maillog_on') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Login Dengan Email Diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'maillog_off') { ?>
+                <script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL',
+    text: 'Login Dengan Email Dinonaktifkan, OTP diaktifkan',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
+                <?php } else if ($_GET['mes'] == 'only_one') { ?>
+                <script>
+Swal.fire({
+    icon: 'warning',
+    title: 'PERINGATAN',
+    text: 'Hanya diperbolehkan mengaktifkan satu fitur keamanan autentikasi',
+    showConfirmButton: false,
+    timer: 5000,
+}).then((result) => {
+    window.location.href = "?";
+});
+                </script>
                 <?php } ?> <?php
                             }
                                 ?>

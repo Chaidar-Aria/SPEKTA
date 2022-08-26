@@ -271,7 +271,7 @@ while ($r = mysqli_fetch_array($r_email)) {
                                                 <label class="col-sm-3 col-form-label">Nama CBT</label>
                                                 <div class="col-sm-9">
                                                     <?php
-                                                            $data = mysqli_query($conn, "SELECT * FROM tb_test WHERE cbt_status = '1'");
+                                                            $data = mysqli_query($conn2, "SELECT * FROM tb_test WHERE cbt_status = '1'");
                                                             while ($d = mysqli_fetch_array($data)) {
                                                                 $testname = $d['test_name'];
                                                                 $test_id = $d['test_id'];
@@ -309,12 +309,12 @@ while ($r = mysqli_fetch_array($r_email)) {
             </form>
             <?php } else if ($d['pilih_jadwal_cbt'] == '1') {
                     $id_users = $d['id_users'];
-                    $sql = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
-                        INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
-                        INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
-                        INNER JOIN tb_users_cbt_choice ON tb_users_cbt.id_users_cbt = tb_users_cbt_choice.id_users_cbt
-                        INNER JOIN tb_test ON tb_users_cbt_choice.test_id = tb_test.test_id
-                        WHERE tb_users_cbt.id_users = '$id_users' AND tb_test.cbt_status = '1'");
+                    $sql = mysqli_query($conn, "SELECT * FROM db_cbt_spekta.tb_users_cbt 
+                        INNER JOIN db_spekta_3.tb_users ON db_spekta_3.tb_users.id_users = db_cbt_spekta.tb_users_cbt.id_users
+                        INNER JOIN db_cbt_spekta.tb_users_cbt_date ON db_cbt_spekta.tb_users_cbt.id_users_cbt = db_cbt_spekta.tb_users_cbt_date.id_users_cbt
+                        INNER JOIN db_cbt_spekta.tb_users_cbt_choice ON db_cbt_spekta.tb_users_cbt.id_users_cbt = db_cbt_spekta.tb_users_cbt_choice.id_users_cbt
+                        INNER JOIN db_cbt_spekta.tb_test ON db_cbt_spekta.tb_users_cbt_choice.test_id = db_cbt_spekta.tb_test.test_id
+                        WHERE db_cbt_spekta.tb_users_cbt.id_users = '$id_users' AND db_cbt_spekta.tb_test.cbt_status = '1'");
                     while ($d = mysqli_fetch_array($sql)) {
 
                     ?>
@@ -356,7 +356,7 @@ while ($r = mysqli_fetch_array($r_email)) {
                                             <div class="col-sm-9">
                                                 <p class="mt-2"><?php echo tgl_indo($d['users_cbt_date']); ?></p>
                                                 <P class="mt-2">
-                                                    <?php echo $d['cbt_time_start'] . ' ~ ' . $d['cbt_time_end'] ?>
+                                                    <?php echo $d['cbt_start_time'] . ' ~ ' . $d['cbt_end_time'] ?>
                                                 </P>
                                             </div>
                                         </div>
@@ -398,9 +398,6 @@ while ($r = mysqli_fetch_array($r_email)) {
                     <div class="modal-footer">
                         <a href="kartu_ujian" type="button" class="btn btn-primary text-white" target="_BLANK">KARTU
                             UJIAN CBT</a>
-                        <a href="<?php echo 'http://cbt.test/config/sso.php?logsso&username=' . $d['username'] . '&password=' . $d['password'] ?>"
-                            type="button" class="btn btn-primary text-white" name="logsso" id="logsso"
-                            target="_BLANK">LOGIN CBT</a>
                     </div>
                 </div>
             </div>

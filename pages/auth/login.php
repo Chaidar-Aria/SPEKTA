@@ -290,6 +290,20 @@ Swal.fire({
 });
 </script>
 <?php
+    } elseif ($_GET['pesan'] == "email_log") {
+    ?>
+<script>
+Swal.fire({
+    icon: 'success',
+    title: 'BERHASIL LOGIN!',
+    text: "Silakan buka email anda untuk login",
+    showConfirmButton: false,
+    timer: 2000,
+}).then((result) => {
+    window.location.href = "?";
+});
+</script>
+<?php
     }
 }
 ?>

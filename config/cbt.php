@@ -55,29 +55,34 @@ if (isset($_POST['addcbt'])) {
         WHERE tb_users_cbt.id_users = '$id_users'
         ";
 
-        if ($conn->query($sql) === TRUE) {
-            $sql2 = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
-                                        INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
-                                        INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-                                        WHERE tb_users_cbt.id_users = '$id_users'");
+        if ($conn2->query($sql) === TRUE) {
+            $sql2 = mysqli_query($conn, "SELECT * FROM db_cbt_spekta.tb_users_cbt 
+                                        INNER JOIN db_spekta_3.tb_users ON db_spekta_3.tb_users.id_users = db_cbt_spekta.tb_users_cbt.id_users
+                                        INNER JOIN db_spekta_3.tb_account ON db_spekta_3.tb_users.id_acc = db_spekta_3.tb_account.id_acc
+                                        WHERE db_cbt_spekta.tb_users_cbt.id_users = '$id_users'");
             while ($d = mysqli_fetch_array($sql2)) {
                 $iduserscbt = $d['id_users_cbt'];
                 $id_acc = $d['id_acc'];
-                $sql3 = "UPDATE tb_level SET id_users_cbt = '$iduserscbt' WHERE id_acc = '$id_acc'";
-                if ($conn->query($sql3) === TRUE) {
-                    $sql4 = "INSERT INTO tb_users_cbt_date (id_users_cbt, test_id, users_cbt_date) VALUES ('$iduserscbt','$test_id','$cbtdate')";
-                    if ($conn->query($sql4) === TRUE) {
-                        $sql5 = "INSERT INTO tb_users_cbt_status (id_users_cbt, test_id, work_status, exam_status) VALUES ('$iduserscbt','$test_id','0', 'TERDAFTAR')";
-                        if ($conn->query($sql5) === TRUE) {
-                            $sql6 = "INSERT INTO tb_users_cbt_choice (id_users_cbt, test_id) VALUES ('$iduserscbt','$test_id')";
-                            if ($conn->query($sql6) == TRUE) {
-                                $sql7 = "UPDATE tb_users_status SET pilih_jadwal_cbt ='1' WHERE tb_users_status.id_users='$id_users'";
-                                if ($conn->query($sql7)) {
-                                    header('location: ../pages/users/exam?mes=berhasil_cbt');
-                                }
+                $sql4 = "INSERT INTO tb_users_cbt_date (id_users_cbt, test_id, users_cbt_date) VALUES ('$iduserscbt','$test_id','$cbtdate')";
+                if ($conn2->query($sql4) === TRUE) {
+                    $sql5 = "INSERT INTO tb_users_cbt_status (id_users_cbt, test_id, is_reg) VALUES ('$iduserscbt','$test_id','1')";
+                    if ($conn2->query($sql5) === TRUE) {
+                        $sql6 = "INSERT INTO tb_users_cbt_choice (id_users_cbt, test_id) VALUES ('$iduserscbt','$test_id')";
+                        if ($conn2->query($sql6) == TRUE) {
+                            $sql7 = "UPDATE tb_users_status SET pilih_jadwal_cbt ='1' WHERE tb_users_status.id_users='$id_users'";
+                            if ($conn->query($sql7)) {
+                                header('location: ../pages/users/exam?mes=berhasil_cbt');
+                            } else {
+                                header('location: ../pages/users/exam?mes=gagal');
                             }
+                        } else {
+                            header('location: ../pages/users/exam?mes=gagal');
                         }
+                    } else {
+                        header('location: ../pages/users/exam?mes=gagal');
                     }
+                } else {
+                    header('location: ../pages/users/exam?mes=gagal');
                 }
             }
         } else {

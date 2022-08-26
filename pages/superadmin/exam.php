@@ -43,13 +43,13 @@ require_once '../../config/koneksi.php';
                     </tfoot>
                     <tbody>
                         <?php
-                        $query2 = "SELECT * FROM tb_test INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id";
-                        $result2 = $conn->query($query2);
+                        $query2 = "SELECT * FROM tb_test";
+                        $result2 = $conn2->query($query2);
                         while ($row2 = $result2->fetch_assoc()) { ?>
                         <tr>
                             <td><?php echo strtoupper($row2['test_name']) ?></td>
                             <td><?php echo tgl_indo(date("Y-m-d", strtotime($row2['cbt_date_start']))) . ' ~ ' . tgl_indo(date("Y-m-d", strtotime($row2['cbt_date_end']))); ?>
-                            <td><?php echo date("h:i", strtotime($row2['cbt_time_start'])) . "~" . date("h:i", strtotime($row2['cbt_time_end'])) ?>
+                            <td><?php echo $row2['cbt_start_time'] . "~" . $row2['cbt_end_time'] ?>
                             </td>
                             <td><?php echo $row2['cbt_timer'] . ' menit'; ?></td>
                             <td>
@@ -71,11 +71,6 @@ require_once '../../config/koneksi.php';
                         <?php } ?>
                     </tbody>
                 </table>
-                <div class="d-block text-center card-footer">
-                    <a href="<?php echo 'http://cbt.test/config/sso.php?logsso&username=admin&password=admin12345' ?>"
-                        type="button" class="btn btn-primary text-white" name="logsso" id="logsso" target="_BLANK">LOGIN
-                        CBT</a>
-                </div>
             </div>
         </div>
     </div>

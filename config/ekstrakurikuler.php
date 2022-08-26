@@ -1,4 +1,12 @@
 <?php
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+require '../app/vendor/autoload.php';
 
 require_once 'koneksi.php';
 
@@ -136,6 +144,56 @@ if (isset($_POST['addpembina'])) {
             WHERE tb_users.id_users = '$id_users'
             ";
         if ($conn->query($sql) === TRUE) {
+            $sql = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_1 
+                                            WHERE tb_users.id_ekstra_1= '$ekstra1'");
+            while ($data1 = mysqli_fetch_array($sql)) {
+                $ekskul1 = $data1['ekstrakurikuler'];
+            }
+            $sql2 = mysqli_query($conn, "SELECT * FROM tb_ekstrakurikuler 
+                                            INNER JOIN tb_users ON tb_ekstrakurikuler.id_ekstra = tb_users.id_ekstra_2
+                                            WHERE tb_users.id_ekstra_2 = '$ekstra2'");
+            while ($data2 = mysqli_fetch_array($sql2)) {
+                $ekskul2 = $data2['ekstrakurikuler'];
+            }
+            $sql = mysqli_query($conn, "SELECT * FROM tb_users INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc WHERE tb_users.id_users = '$id_users'");
+            while ($data3 = mysqli_fetch_array($sql)) {
+                $nameuser = $data3['name'];
+                $email = $data3['email'];
+            }
+            $mail = new PHPMailer(true);
+            $email_template = 'welcome_ekstra.html';
+            try {
+                //server settings
+                // $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                $mail->SMTPDebug    = false;
+                $mail->isSMTP();
+                $mail->Host         = 'smtp.mailtrap.io';
+                $mail->SMTPAuth     = true;
+                $mail->Username     = '2aa79927c9f834';
+                $mail->Password     = 'ea69ba662e15ba';
+                $mail->SMTPSecure   = "TLS";
+                $mail->Port = 2525;
+
+                //Recipients
+                $mail->setFrom('noreply.spektasmansa@sman1mejayan.sch.id', 'SPEKTA SMANSA');
+                $mail->addAddress($email);
+                $mail->addReplyTo('noreply.spektasmansa@sman1mejayan.sch.id', 'SPEKTA SMANSA');
+
+                //Content
+                $mail->isHTML(true);
+                $mail->Subject = 'SELAMAT DATANG DI EKSTRAKURIKULER SMA NEGERI 1 MEJAYAN';
+                $message = file_get_contents($email_template);
+                $message = str_replace('%namauser%', $nameuser, $message);
+                $message = str_replace('%ekstra1%', $ekskul1, $message);
+                $message = str_replace('%ekstra2%', $ekskul2, $message);
+
+                $mail->msgHTML($message);
+                $mail->send();
+                echo 'message has been sent';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer error: {$mail->ErrorInfo}";
+            }
             header('location: ../pages/users/exam?mes=ekstraberhasil');
         } else {
             // echo $conn->connect_error;

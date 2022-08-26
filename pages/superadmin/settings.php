@@ -13,6 +13,9 @@ while ($row = $result->fetch_assoc()) {
             $query4 = "SELECT * FROM tb_data_sekolah";
             $result4 = $conn->query($query4);
             while ($row4 = $result4->fetch_assoc()) {
+                $query5 = "SELECT * FROM tb_security";
+                $result5 = $conn->query($query5);
+                while ($row5 = $result5->fetch_assoc()) {
 ?>
 <!-- Container Fluid-->
 <div class="container-fluid" id="container-wrapper">
@@ -332,6 +335,78 @@ while ($row = $result->fetch_assoc()) {
             </div>
         </div>
     </div>
+    <div class="row mb-3 mt-3">
+        <div class="col-xl-12 col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h4 class="card-title">Keamanan</h4>
+                    <p>Diperbarui terakhir pada <?php echo $row5['updated_at'] ?></p>
+                    <p>Default: Fitur Keamanan OTP</p>
+                    <form class="form-sample needs-validation text-start" novalidate onSubmit="return validasi(this);"
+                        action="<?php echo $url_config . 'settings.php' ?>" method="POST">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Status</label>
+                                    <div class="col-sm-9">
+                                        <?php if ($row5['is_on'] == '0') { ?>
+                                        <button type="submit" name="sec_on" class="btn btn-danger">Mati</button>
+                                        <?php } else { ?>
+                                        <button type="submit" name="sec_off" class="btn btn-success">Hidup</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php if ($row5['is_on'] == '1') { ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Autentikasi OTP</label>
+                                    <div class="col-sm-9">
+                                        <?php if ($row5['is_otp'] == '0') { ?>
+                                        <button type="submit" name="otp_on" class="btn btn-danger">Mati</button>
+                                        <?php } else { ?>
+                                        <button type="submit" name="otp_off" class="btn btn-success">Hidup</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Autentikasi dua faktor</label>
+                                    <div class="col-sm-9">
+                                        <?php if ($row5['is_2auth'] == '0') { ?>
+                                        <button type="submit" name="2auth_on" class="btn btn-danger">Mati</button>
+                                        <?php } else { ?>
+                                        <button type="submit" name="2auth_off" class="btn btn-success">Hidup</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Login dengan email</label>
+                                    <div class="col-sm-9">
+                                        <?php if ($row5['is_maillogin'] == '0') { ?>
+                                        <button type="submit" name="maillog_on" class="btn btn-danger">Mati</button>
+                                        <?php } else { ?>
+                                        <button type="submit" name="maillog_off" class="btn btn-success">Hidup</button>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php } ?>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!--Row-->
     <script>
     CKEDITOR.replace('aboutapp');
@@ -340,7 +415,8 @@ while ($row = $result->fetch_assoc()) {
 
 
     <?php
-                require_once 'foot.php';
+                    require_once 'foot.php';
+                }
             }
         }
     }

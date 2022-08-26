@@ -85,4 +85,76 @@ if (isset($_POST['authsettings'])) {
             header("location:../pages/superadmin/settings?mes=error");
         }
     }
+} else if (isset($_POST['sec_on'])) {
+    $query = "UPDATE tb_security SET is_on = '1', is_otp = '1', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=keamanan_on");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
+} else if (isset($_POST['sec_off'])) {
+    $query = "UPDATE tb_security SET is_on = '0',is_otp = '0',is_2auth = '0',is_maillogin = '0', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=keamanan_off");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
+} else if (isset($_POST['otp_on'])) {
+    $query = "SELECT * FROM tb_security";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if ($row['is_maillogin'] == '1') {
+            header("location:../pages/superadmin/settings?mes=only_one");
+        } else {
+            $query = "UPDATE tb_security SET is_otp = '1', `updated_at` = current_timestamp()";
+            if ($conn->query($query)) {
+                header("location:../pages/superadmin/settings?mes=otp_on");
+            } else {
+                header("location:../pages/superadmin/settings?mes=error");
+            }
+        }
+    }
+} else if (isset($_POST['otp_off'])) {
+    $query = "UPDATE tb_security SET is_otp = '0',is_maillogin='1', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=otp_off");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
+} else if (isset($_POST['2auth_on'])) {
+    $query = "UPDATE tb_security SET is_2auth = '1', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=2auth_on");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
+} else if (isset($_POST['2auth_off'])) {
+    $query = "UPDATE tb_security SET is_2auth = '0', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=2auth_off");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
+} else if (isset($_POST['maillog_on'])) {
+    $query = "SELECT * FROM tb_security";
+    $result = $conn->query($query);
+    while ($row = $result->fetch_assoc()) {
+        if ($row['is_otp'] == '1') {
+            header("location:../pages/superadmin/settings?mes=only_one");
+        } else {
+            $query = "UPDATE tb_security SET is_maillogin = '1', `updated_at` = current_timestamp()";
+            if ($conn->query($query)) {
+                header("location:../pages/superadmin/settings?mes=maillog_on");
+            } else {
+                header("location:../pages/superadmin/settings?mes=error");
+            }
+        }
+    }
+} else if (isset($_POST['maillog_off'])) {
+    $query = "UPDATE tb_security SET is_maillogin = '0', is_otp = '1', `updated_at` = current_timestamp()";
+    if ($conn->query($query)) {
+        header("location:../pages/superadmin/settings?mes=maillog_off");
+    } else {
+        header("location:../pages/superadmin/settings?mes=error");
+    }
 }

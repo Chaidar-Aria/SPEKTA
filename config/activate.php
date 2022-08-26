@@ -29,8 +29,8 @@ if ($r_check == 0) {
                             if ($conn->query($sql2) === TRUE) {
                                 $sql3 = "INSERT INTO tb_users_status (id_users) SELECT id_users FROM tb_users WHERE id_users = '$idusers';";
                                 if ($conn->query($sql3) === TRUE) {
-                                    $sql4 = "INSERT INTO tb_users_cbt (id_users) SELECT id_users FROM tb_users WHERE id_users = '$idusers';";
-                                    if ($conn->query($sql4) === TRUE) {
+                                    $sql4 = "INSERT INTO tb_users_cbt (id_users) SELECT db_spekta_3.tb_users.id_users FROM db_spekta_3.tb_users WHERE db_spekta_3.tb_users.id_users = '$idusers';";
+                                    if ($conn2->query($sql4) === TRUE) {
                                         $sql5 = "INSERT INTO tb_level (id_acc) SELECT id_acc FROM tb_account WHERE id_acc = '$idacc';";
                                         if ($conn->query($sql5) === TRUE) {
                                             header('location: ../pages/auth/login?pesan=berhasil_aktif');
@@ -41,10 +41,13 @@ if ($r_check == 0) {
                         }
                     }
                 } else {
-                    header('location: ../pages/auth/login?pesan=gagal1');
+                    echo "error2 $conn->error";
+                    // header('location: ../pages/auth/login?pesan=gagal1');
                 }
             } else {
-                header('location: ../pages/auth/regis?pesan=gagal2');
+                echo "error 3 $conn->error";
+
+                // header('location: ../pages/auth/regis?pesan=gagal2');
             }
         } else {
             header('location: ../pages/auth/login?pesan=sudah_aktif');

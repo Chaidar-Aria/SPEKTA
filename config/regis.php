@@ -76,10 +76,14 @@ if (empty($email)) {
                 }
                 header('location: ../pages/auth/regis?pesan=berhasil');
             } else {
-                header('location: ../pages/auth/regis?pesan=gagal');
+                echo "error 2 $conn->error";
+
+                // header('location: ../pages/auth/regis?pesan=gagal');
             }
         } else {
-            header('location: ../pages/auth/regis?pesan=gagal');
+            echo "error 3 $conn->error";
+
+            // header('location: ../pages/auth/regis?pesan=gagal');
         }
     }
 }

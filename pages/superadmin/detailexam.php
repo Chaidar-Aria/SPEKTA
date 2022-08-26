@@ -3,7 +3,7 @@ require_once 'head.php';
 require_once '../../config/koneksi.php';
 $tes_id = $_GET['test_id'];
 $query2 = "SELECT * FROM tb_test WHERE test_id = $tes_id";
-$result2 = $conn->query($query2);
+$result2 = $conn2->query($query2);
 while ($row2 = $result2->fetch_assoc()) {
     if (date("Y-m-d") >= $row2['cbt_date_start'] && date("Y-m-d") <= $row2['cbt_date_end']) { ?>
 <script>
@@ -36,26 +36,22 @@ window.location.href = "exam?mes=ujian_berlangsung";
                     <thead>
                         <?php
                         // hitung total peserta cbt
-                        $cbtUser = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
-                                INNER JOIN tb_level ON tb_level.id_users_cbt = tb_users_cbt.id_users_cbt
-                                INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
-                                INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt.test_id
-                                WHERE tb_level_name.level_name = 'USER' AND tb_test.test_id='$tes_id'");
+                        $cbtUser = mysqli_query($conn2, "SELECT * FROM tb_users_cbt 
+                                INNER JOIN tb_users_cbt_choice ON tb_users_cbt_choice.id_users_cbt = tb_users_cbt.id_users_cbt
+                                INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt_choice.test_id
+                                WHERE tb_users_cbt.role = 'USER' AND tb_test.test_id='$tes_id'");
                         $totalCbtUser = mysqli_num_rows($cbtUser);
 
                         // hitung selesai cbt
-                        $cbtEnd = mysqli_query($conn, "SELECT * FROM tb_users_cbt 
-                                INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
-                                INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
-                                INNER JOIN tb_level ON tb_level.id_users_cbt = tb_users_cbt.id_users_cbt
-                                INNER JOIN tb_level_name ON tb_level.id_level_name = tb_level_name.id_level_name
-                                INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt.test_id
-                                INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
-                                WHERE tb_level_name.level_name = 'USER' AND tb_users_cbt_status.work_status = '1' AND tb_test.test_id='$tes_id'");
+                        $cbtEnd = mysqli_query($conn2, "SELECT * FROM tb_users_cbt 
+                        INNER JOIN tb_users_cbt_choice ON tb_users_cbt_choice.id_users_cbt = tb_users_cbt.id_users_cbt
+                        INNER JOIN tb_test ON tb_test.test_id = tb_users_cbt_choice.test_id
+                        INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
+                        WHERE tb_users_cbt_status.work_status = '1' AND tb_users_cbt.role = 'USER' AND tb_test.test_id='$tes_id'");
                         $totalEnd = mysqli_num_rows($cbtEnd);
 
-                        $query2 = "SELECT * FROM tb_test INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id WHERE tb_test.test_id = $tes_id";
-                        $result2 = $conn->query($query2);
+                        $query2 = "SELECT * FROM tb_test  WHERE test_id = $tes_id";
+                        $result2 = $conn2->query($query2);
                         while ($row2 = $result2->fetch_assoc()) { ?>
                         <tr>
                             <th>Nama Ujian</th>
@@ -105,17 +101,14 @@ window.location.href = "exam?mes=ujian_berlangsung";
                         </tfoot>
                         <tbody>
                             <?php
-                            $query = "SELECT * FROM tb_test 
-                            INNER JOIN tb_cbt_time ON tb_test.test_id = tb_cbt_time.test_id
-                            INNER JOIN tb_users_cbt ON tb_test.test_id = tb_users_cbt.test_id
-                            INNER JOIN tb_users ON tb_users.id_users = tb_users_cbt.id_users
-                            INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
-                            INNER JOIN tb_users_cbt_grade ON tb_users_cbt.id_users_cbt = tb_users_cbt_grade.id_users_cbt
-                            INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
-                            INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
-                            WHERE tb_users_cbt.test_id = $tes_id
-                                ";
-                            $result = $conn->query($query);
+                            $query = "SELECT * FROM tb_users_cbt
+            INNER JOIN tb_users_cbt_status ON tb_users_cbt.id_users_cbt = tb_users_cbt_status.id_users_cbt
+            INNER JOIN tb_test ON tb_users_cbt_status.test_id = tb_test.test_id
+            INNER JOIN tb_users_cbt_grade ON tb_users_cbt.id_users_cbt = tb_users_cbt_grade.id_users_cbt
+            INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
+            INNER JOIN db_spekta_3.tb_users ON  tb_users_cbt.id_users = tb_users.id_users
+            WHERE tb_test.test_id = '$tes_id' ORDER BY tb_users_cbt_grade.grade DESC";
+                            $result = $conn2->query($query);
                             $jumlahdata = mysqli_num_rows($result);
                             while ($row = $result->fetch_assoc()) {
                                 $no = 1;
@@ -133,7 +126,7 @@ window.location.href = "exam?mes=ujian_berlangsung";
                                 </td>
                                 <td>
                                     <?php
-                                        if ($row['exam_status'] == 'TERDAFTAR') {
+                                        if ($row['is_reg'] == '1') {
                                             echo "--";
                                         } elseif ($row['grade'] <= $row['test_min_grade']) { ?>
                                     <h4 class="mt-2 tx-medium text-danger ">

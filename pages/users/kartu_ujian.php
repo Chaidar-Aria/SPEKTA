@@ -3,6 +3,7 @@ session_start();
 require_once '../../app/helper/base_url.php';
 require_once '../../app/helper/tgl_indo.php';
 require_once '../../config/koneksi.php';
+require '../../vendor/autoload.php';
 $email = $_SESSION['email'];
 $c_email = "SELECT * FROM tb_account WHERE email = '$email'";
 $r_email = mysqli_query($conn, $c_email) or die(mysqli_error($conn));
@@ -14,17 +15,17 @@ window.location.href = "pending";
 </script>
 <?php }
 }
-$sql = "SELECT * FROM tb_users
-        INNER JOIN tb_users_address ON tb_users.id_users = tb_users_address.id_users
-        INNER JOIN tb_users_utility ON tb_users.id_users = tb_users_utility.id_users
-        INNER JOIN tb_users_status ON tb_users.id_users = tb_users_status.id_users
-        INNER JOIN tb_religion ON tb_users.id_religion = tb_religion.id_religion
-        INNER JOIN tb_class ON tb_users.id_class = tb_class.id_class
-        INNER JOIN tb_account ON tb_users.id_acc = tb_account.id_acc
-        INNER JOIN tb_users_cbt ON tb_users.id_users = tb_users_cbt.id_users
-        INNER JOIN tb_users_cbt_date ON tb_users_cbt.id_users_cbt = tb_users_cbt_date.id_users_cbt
-        INNER JOIN tb_users_cbt_choice ON tb_users_cbt.id_users_cbt = tb_users_cbt_choice.id_users_cbt
-        INNER JOIN tb_test ON tb_users_cbt_choice.test_id = tb_test.test_id
+$sql = "SELECT * FROM db_spekta_3.tb_users
+        INNER JOIN db_spekta_3.tb_users_address ON db_spekta_3.tb_users.id_users = db_spekta_3.tb_users_address.id_users
+        INNER JOIN db_spekta_3.tb_users_utility ON db_spekta_3.tb_users.id_users = db_spekta_3.tb_users_utility.id_users
+        INNER JOIN db_spekta_3.tb_users_status ON db_spekta_3.tb_users.id_users = db_spekta_3.tb_users_status.id_users
+        INNER JOIN db_spekta_3.tb_religion ON db_spekta_3.tb_users.id_religion = db_spekta_3.tb_religion.id_religion
+        INNER JOIN db_spekta_3.tb_class ON db_spekta_3.tb_users.id_class = db_spekta_3.tb_class.id_class
+        INNER JOIN db_spekta_3.tb_account ON db_spekta_3.tb_users.id_acc = db_spekta_3.tb_account.id_acc
+        INNER JOIN db_cbt_spekta.tb_users_cbt ON db_spekta_3.tb_users.id_users = db_cbt_spekta.tb_users_cbt.id_users
+        INNER JOIN db_cbt_spekta.tb_users_cbt_date ON db_cbt_spekta.tb_users_cbt.id_users_cbt = db_cbt_spekta.tb_users_cbt_date.id_users_cbt
+        INNER JOIN db_cbt_spekta.tb_users_cbt_choice ON db_cbt_spekta.tb_users_cbt.id_users_cbt = db_cbt_spekta.tb_users_cbt_choice.id_users_cbt
+        INNER JOIN db_cbt_spekta.tb_test ON db_cbt_spekta.tb_users_cbt_choice.test_id = db_cbt_spekta.tb_test.test_id
         WHERE tb_account.id_acc = '$id_acc'
         ";
 $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
@@ -152,6 +153,7 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <h5>USERNAME CBT: <?php echo $d['username'] ?></h5>
                             <h5>PASSWORD CBT: <?php echo $d['password'] ?></h5>
                         </div>
+
                     </div>
                 </div>
                 <div class="BoxD border- padding mar-bot">
@@ -173,10 +175,10 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                                                     } ?></td>
                                     </tr>
                                     <tr>
-                                        <td><b>Ruang Ujian: </b>dd-mm-yyy <br><b>Kursi Ujian: </b>HH-MM~HH-MM</td>
-                                        <td><b>Tanggal Ujian: </b><?php echo tgl_indo($d['users_cbt_date']) ?> <br>
+                                        <td><b>Tanggal Ujian: </b><?php echo tgl_indo($d['users_cbt_date']) ?> </td>
+                                        <td>
                                             <b>Jam Ujian:
-                                            </b><?php echo date("h:i", strtotime($d['cbt_time_start'])) . "~" . date("h:i", strtotime($d['cbt_time_end'])) ?>
+                                            </b><?php echo date("h:i", strtotime($d['cbt_start_time'])) . "~" . date("h:i", strtotime($d['cbt_end_time'])) ?>
                                         </td>
                                     </tr>
                                     <tr>
@@ -200,18 +202,27 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                             <table class="table table-bordered">
                                 <tbody>
                                     <tr>
+
                                         <th scope="row txt-center">
                                             <?php if ($d['foto_users'] == NULL) { ?>
                                             <img src="<?php echo $actual_link . '/assets/img/Logo SS.png' ?>"
                                                 alt="img user" width="150px">
                                             <?php } else { ?>
                                             <img src="<?php echo $actual_link . '/assets/img/user/' . $d['foto_users']; ?>"
-                                                alt="img user" wwidth="150px">
+                                                alt="img user" width="150px">
                                             <?php } ?>
                                         </th>
+
                                     </tr>
                                 </tbody>
                             </table>
+                            <!-- <div class="d-flex justify-content-center">
+                                <?php
+                                // This will output the barcode as HTML output to display in the browser
+                                $generator = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                echo $generator->getBarcode($d['username'], $generator::TYPE_CODE_128, 1, 50);
+                                ?>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -220,27 +231,19 @@ window.location.href = "exam?mes=ekstra_cbt_null";
                         <div class="col-sm-12">
                             <h5>Peserta Wajib:</h5>
                             <ol>
-                                <li>Melihat/cek lokasi 1 (satu) hari sebelum hari pelaksanaan CBT UM UGM;</li>
+                                <li>Mengikuti jadwal ujian sesuai dengan jadwal;</li>
                                 <li>Hadir di lokasi ujian 60 menit sebelum ujian dimulai;</li>
-                                <li> Membawa hasil tes PCR/Swab Antigen/GNose dengan hasil negatif yang masih berlaku
-                                    pada
-                                    saat pelaksanaan CBT UM UGM;</li>
-                                <li>Membawa Kartu Ujian CBT UM UGM; </li>
+                                <li>Membawa Kartu Ujian CBT SPEKTA; </li>
                                 <li>Membawa Kartu Identitas Diri (KTP atau KK bagi yg belum memiliki KTP atau SIM atau
                                     Passpor);</li>
                                 <li>Membawa:
                                     <ol>
-                                        <li>Ijazah (untuk lulusan Tahun 2020 dan 2019); atau</li>
-                                        <li>Surat Keterangan Lulus (SKL)/Surat Keterangan Kelas 12 asli yang memuat
-                                            identitas dan
-                                            foto atau fotokopi yang sudah dilegalisir dengan cap basah sekolah (untuk
-                                            lulusan Tahun
-                                            2021)
+                                        <li>Kartu Verifikasi dan Validasi (verval) SPEKTA;</li>
+                                        <li>Kartu Ekstrakurikuler
                                         </li>
                                     </ol>
                                 </li>
-                                <li>Turun di area drop zone dan tidak diperbolehkan untuk ditunggui di lokasi tes untuk
-                                    menghindari kerumunan.
+                                <li>Menaati segala aturan selama pelaksaan CBT SPEKTA
                                 </li>
                             </ol>
                         </div>
